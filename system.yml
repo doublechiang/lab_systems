@@ -1,0 +1,41 @@
+---
+1: !ruby/object:System
+  model: S5B
+  comments: CY's sandbox
+  bmc_mac: a8:1e:84:73:b9:bd
+  id: 1
+2: !ruby/object:System
+  model: S5B
+  comments: ''
+  bmc_mac: a8:1e:84:a2:29:d2
+  id: 2
+3: !ruby/object:System
+  model: S5BQ
+  comments: ''
+  bmc_mac: a8:1e:84:96:8a:de
+  id: 3
+4: !ruby/object:System
+  model: S5D
+  comments: ''
+  bmc_mac: a8:1e:84:7e:2b:f1
+  id: 4
+5: !ruby/object:System
+  model: S5S
+  comments: ''
+  bmc_mac: a8:1e:84:a2:cc:fb
+  id: 5
+6: !ruby/object:System
+  model: S5T
+  comments: SFC
+  bmc_mac: a8:1e:84:fa:a0:47
+  id: 6
+7: !ruby/object:System
+  model: S5T
+  comments: SFC
+  bmc_mac: a8:1e:84:fa:a0:47
+  id: 7
+8: !ruby/object:System
+  model: S2BP
+  comments: ''
+  bmc_mac: 2c:60:0c:52:24:5b
+  id: 8

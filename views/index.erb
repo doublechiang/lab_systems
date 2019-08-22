@@ -3,6 +3,12 @@
   <head>
     <meta charset='UTF-8' />
     <title>Lab Systems</title>
+    <style>
+	table, th, td {
+	  border: 1px solid black;
+	  border-collapse: collapse;
+	}
+    </style>
   </head>
   <body>
     <h1>Systems</h1>
@@ -12,13 +18,12 @@
         <th>Comments</th>
         <th>IP Address</th>
         <th>MAC address</th>
-        <th>Status</th>
       </tr>
       <% @systems.each do |system| %>
       <tr>
-        <td><a href="/systems/<%= system.id %>"><%= system.model %>></a></td>
+        <td><a href="/systems/<%= system.id %>"><%= system.model %></a></td>
         <td><%= system.comments %></td>
-        <td></td>
+        <td><a href="http://<%= system.ipaddr %>"><%=system.ipaddr%></a></td>
         <td><%= system.bmc_mac %></td>
       </tr>
       <% end %>

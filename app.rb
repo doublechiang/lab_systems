@@ -1,11 +1,33 @@
 require 'sinatra'
 require 'system'
 require 'system_store'
+require 'socket'
+require 'get_dhcpd_leases'
+
+set :sessions, true
+set :logging, true
+set :bind, '0.0.0.0'
+set :port, 80
+set :public_folder, '/var/www/html'
+set :environment, :production
+
+Socket.do_not_reverse_lookup = true
+
 
 store = SystemStore.new('system.yml')
 
+get '/' do
+  redirect '/index.html'
+end
+
 get('/systems') do
   @systems = store.all
+  leases = Lease.get_current
+  @systems.each do |sys|
+    if leases.has_key?(sys.bmc_mac.to_sym)
+      sys.ipaddr = leases[sys.bmc_mac.to_sym].ipaddr
+    end
+  end
 
   erb :index
 end
