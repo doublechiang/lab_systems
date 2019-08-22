@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Lab Systems - <%= @system.model %></title>
+  </head>
+  <body>
+    <h1><%= @system.model %></h1>
+    <table>
+      <tr>
+        <td><strong>Model:</strong></td>
+        <td><%= @system.model %></td>
+      </tr>
+      <tr>
+        <td><strong>Comments:</strong></td>
+        <td><%= @system.comments %></td>
+      </tr>
+      <tr>
+        <td><strong>BMC MAC:</strong></td>
+        <td><%= @system.bmc_mac %></td>
+      </tr>
+    </table>
+    <a href="/systems">Back to Index</a>
+  </body>
+</html>

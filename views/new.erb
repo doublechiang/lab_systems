@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Lab Systems - Add System</title>
+  </head>
+  <body>
+    <h1>Add New System</h1>
+    <form method="post" action="/systems/create">
+      <table>
+        <tr>
+          <td><label for="model"> Model:</label></td>
+          <td><input type="text" name="model"></td>
+        </tr>
+        <tr>
+          <td><label for="comments"> Comments:</label></td>
+          <td><input type="text" name="comments"></td>
+        </tr>
+        <tr>
+          <td><label for="bmc_mac"> BMC MAC:</label></td>
+          <td><input type="text" name="bmc_mac"></td>
+        </tr>
+        <tr>
+          <td><input type="submit"></td>
+        </tr>
+      </table>
+    </form>
+    <a href="/systems">Back to Index</a>
+  </body>
+</html>

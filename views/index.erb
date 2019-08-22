@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Lab Systems</title>
+  </head>
+  <body>
+    <h1>Systems</h1>
+    <table>
+      <tr>
+        <th>Model</th>
+        <th>Comments</th>
+        <th>IP Address</th>
+        <th>MAC address</th>
+        <th>Status</th>
+      </tr>
+      <% @systems.each do |system| %>
+      <tr>
+        <td><a href="/systems/<%= system.id %>"><%= system.model %>></a></td>
+        <td><%= system.comments %></td>
+        <td></td>
+        <td><%= system.bmc_mac %></td>
+      </tr>
+      <% end %>
+    </table>
+
+    <a href="/systems/new">Add new System</a>
+  </body>
+</html>

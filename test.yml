@@ -1,0 +1,8 @@
+---
+Spirited Away: !ruby/object:Movie
+  title: Spirited Away
+  director: Hayao Mikazaki
+  year: '2001'
+Inception: !ruby/object:Movie
+  title: '2010'
+  director: Christopher Nolan
