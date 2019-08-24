@@ -6,20 +6,31 @@
   </head>
   <body>
     <h1><%= @system.model %></h1>
-    <table>
-      <tr>
-        <td><strong>Model:</strong></td>
-        <td><%= @system.model %></td>
-      </tr>
-      <tr>
-        <td><strong>Comments:</strong></td>
-        <td><%= @system.comments %></td>
-      </tr>
-      <tr>
-        <td><strong>BMC MAC:</strong></td>
-        <td><%= @system.bmc_mac %></td>
-      </tr>
-    </table>
+    <form method="post" action="/systems/<%=@system.id%>">
+      <input type="hidden" name="_method" value="patch">
+      <table>
+        <tr>
+          <td><label for="model"> Model:</label></td>
+          <td><input type="text" name="model" value="<%= @system.model%>"></td>
+        </tr>
+        <tr>
+          <td><label for="comments"> Comments:</label></td>
+          <td><input type="text" name="comments" value="<%= @system.comments %>"></td>
+        </tr>
+        <tr>
+          <td><label for="bmc_mac"> BMC MAC:</label></td>
+          <td><input type="text" name="bmc_mac" value="<%= @system.bmc_mac %>"></td>
+        </tr>
+        <tr>
+        </tr>
+      </table>
+      <button type="submit">Update</button>
+    </form>
     <a href="/systems">Back to Index</a>
-  </body>
+    <form method="post" action="/systems/<%=@system.id%>">
+        <input type="hidden" name="_method" value="delete">
+	<button type="submit">Delete</button>
+    </form>
+ 
+      </body>
 </html>

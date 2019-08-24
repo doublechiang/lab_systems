@@ -48,9 +48,30 @@ post('/systems/create') do
 
 end
 
+patch ('/systems/:id') do
+#  puts "Received a request for ID: #{params['id']}"
+  id = params['id'].to_i
+  @system = System.new
+  @system.id = id
+  @system.model = params['model']
+  @system.comments = params['comments']
+  @system.bmc_mac = params['bmc_mac']
+  store.save(@system)
+  redirect "/systems/#{id}"
+end
+
+delete ('/systems/:id') do 
+#  puts "Delete receive a request for ID: #{params['id']}"
+  id = params['id'].to_i
+  store.delete id
+  redirect '/systems'
+end
+
 get('/systems/:id') do
-#  "Received a request for movie ID: #{params['id']}"
+#  puts "Received a request for movie ID: #{params['id']}"
   id = params['id'].to_i
   @system = store.find(id)
   erb :show
 end
+
+

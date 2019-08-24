@@ -1,7 +1,7 @@
 ---
 1: !ruby/object:System
-  model: S5B
-  comments: CY's sandbox
+  model: S5B ebay
+  comments: CY's root/root
   bmc_mac: a8:1e:84:73:b9:bd
   id: 1
 2: !ruby/object:System
@@ -29,13 +29,18 @@
   comments: SFC
   bmc_mac: a8:1e:84:fa:a0:47
   id: 6
-7: !ruby/object:System
-  model: S5T
-  comments: SFC
-  bmc_mac: a8:1e:84:fa:a0:47
-  id: 7
 8: !ruby/object:System
   model: S2BP
   comments: ''
   bmc_mac: 2c:60:0c:52:24:5b
   id: 8
+9: !ruby/object:System
+  model: CY's S5B System
+  comments: debian/password
+  bmc_mac: 80:38:bc:13:97:59
+  id: 9
+10: !ruby/object:System
+  model: CY's S5S System
+  comments: debian/password
+  bmc_mac: 24:8a:07:3f:96:0e
+  id: 10

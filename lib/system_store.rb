@@ -26,4 +26,10 @@ class SystemStore
       @store[id]
     end
   end
+
+  def delete(id)
+    @store.transaction do
+      @store.delete id
+    end
+  end
 end
