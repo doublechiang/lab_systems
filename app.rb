@@ -44,7 +44,7 @@ post('/systems/create') do
   @system.bmc_mac = params['bmc_mac']
 
   store.save(@system)
-  redirect '/systems/new'
+  redirect '/systems'
 
 end
 
@@ -57,7 +57,7 @@ patch ('/systems/:id') do
   @system.comments = params['comments']
   @system.bmc_mac = params['bmc_mac']
   store.save(@system)
-  redirect "/systems/#{id}"
+  redirect "/systems"
 end
 
 delete ('/systems/:id') do 
