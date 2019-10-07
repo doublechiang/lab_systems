@@ -51,7 +51,7 @@
   id: 11
 12: !ruby/object:System
   model: Mellanox 25G NIC port1
-  comments: ''
+  comments: test/password
   bmc_mac: a8:1e:84:a4:c2:98
   id: 12
 13: !ruby/object:System
@@ -59,3 +59,33 @@
   comments: ''
   bmc_mac: a8:1e:84:a4:c2:99
   id: 13
+14: !ruby/object:System
+  model: S2PH
+  comments: admin/admin
+  bmc_mac: 2c:60:0c:cd:29:98
+  id: 14
+15: !ruby/object:System
+  model: S2PH LOM1
+  comments: ''
+  bmc_mac: 2c:60:0c:cd:29:96
+  id: 15
+16: !ruby/object:System
+  model: S2PH LOM2
+  comments: ''
+  bmc_mac: 2c:60:0c:cd:29:97
+  id: 16
+17: !ruby/object:System
+  model: S2P
+  comments: admin/admin
+  bmc_mac: 2c:60:0c:bc:24:81
+  id: 17
+18: !ruby/object:System
+  model: S2P LOM1
+  comments: ''
+  bmc_mac: 2c:60:0c:bc:24:7f
+  id: 18
+19: !ruby/object:System
+  model: S2P LOM2
+  comments: ''
+  bmc_mac: 2c:60:0c:bc:24:80
+  id: 19

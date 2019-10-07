@@ -24,8 +24,8 @@ get('/systems') do
   @systems = store.all
   leases = Lease.get_current
   @systems.each do |sys|
-    if leases.has_key?(sys.bmc_mac.to_sym)
-      sys.ipaddr = leases[sys.bmc_mac.to_sym].ipaddr
+    if leases.has_key?(sys.bmc_mac.downcase.to_sym)
+      sys.ipaddr = leases[sys.bmc_mac.downcase.to_sym].ipaddr
     end
   end
 
@@ -41,7 +41,7 @@ post('/systems/create') do
   @system = System.new
   @system.model = params['model']
   @system.comments = params['comments']
-  @system.bmc_mac = params['bmc_mac']
+  @system.bmc_mac = params['bmc_mac'].downcase
 
   store.save(@system)
   redirect '/systems'
@@ -55,7 +55,7 @@ patch ('/systems/:id') do
   @system.id = id
   @system.model = params['model']
   @system.comments = params['comments']
-  @system.bmc_mac = params['bmc_mac']
+  @system.bmc_mac = params['bmc_mac'].downcase
   store.save(@system)
   redirect "/systems"
 end
