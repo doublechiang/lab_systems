@@ -1,9 +1,11 @@
 ---
 1: !ruby/object:System
   model: S5B ebay
-  comments: ebay version root/root
+  comments: ''
   bmc_mac: a8:1e:84:73:b9:bd
   id: 1
+  username: root
+  password: root
 2: !ruby/object:System
   model: S5B
   comments: ''
@@ -14,16 +16,22 @@
   comments: ''
   bmc_mac: a8:1e:84:96:8a:de
   id: 3
+  username: root
+  password: root
 4: !ruby/object:System
   model: S5D
   comments: ''
   bmc_mac: a8:1e:84:7e:2b:f1
   id: 4
+  username: admin
+  password: cmb9.admin
 5: !ruby/object:System
   model: S5S
   comments: ''
   bmc_mac: a8:1e:84:a2:cc:fb
   id: 5
+  username: admin
+  password: cmb9.admin
 6: !ruby/object:System
   model: S5T
   comments: SFC
@@ -36,34 +44,21 @@
   id: 8
 9: !ruby/object:System
   model: CY's S5B Debian 9.3
-  comments: debian/password
+  comments: ''
   bmc_mac: 80:38:bc:13:97:59
   id: 9
-10: !ruby/object:System
-  model: S5S Debian System
-  comments: debian/password
-  bmc_mac: 24:8a:07:3f:96:0e
-  id: 10
 11: !ruby/object:System
   model: S5B Debian Interface 2
-  comments: debian/password
+  comments: ''
   bmc_mac: a8:1e:84:73:b9:be
   id: 11
-12: !ruby/object:System
-  model: Mellanox 25G NIC port1
-  comments: test/password
-  bmc_mac: a8:1e:84:a4:c2:98
-  id: 12
-13: !ruby/object:System
-  model: Mellanox 25G NIC port2
-  comments: ''
-  bmc_mac: a8:1e:84:a4:c2:99
-  id: 13
 14: !ruby/object:System
   model: S2PH
-  comments: admin/admin
+  comments: ''
   bmc_mac: 2c:60:0c:cd:29:98
   id: 14
+  username: admin
+  password: admin
 15: !ruby/object:System
   model: S2PH LOM1
   comments: ''
@@ -89,3 +84,53 @@
   comments: ''
   bmc_mac: 2c:60:0c:bc:24:80
   id: 19
+20: !ruby/object:System
+  model: Broadcom PCIE port0
+  comments: on S5BQ
+  bmc_mac: 00:0a:f7:b7:01:b0
+  id: 20
+21: !ruby/object:System
+  model: Broadcom PCIE port1
+  comments: on S5BQ
+  bmc_mac: 00:0a:f7:b7:01:b1
+  id: 21
+22: !ruby/object:System
+  model: Mellanox CX-4 Port1
+  comments: On S5S
+  bmc_mac: 24:8a:07:3f:96:0f
+  id: 22
+23: !ruby/object:System
+  model: Mellanox CX-4 Port0
+  comments: On S5S
+  bmc_mac: 24:8a:07:3f:96:0e
+  id: 23
+24: !ruby/object:System
+  model: S5B-1U
+  comments: Ebay USB/KVM switch issue
+  bmc_mac: d8:c4:97:e8:19:46
+  id: 24
+25: !ruby/object:System
+  model: S2P
+  comments: ''
+  bmc_mac: d8:c4:97:55:18:64
+  id: 25
+26: !ruby/object:System
+  model: S2P Port0
+  comments: ''
+  bmc_mac: d8:c4:97:55:18:62
+  id: 26
+27: !ruby/object:System
+  model: S2P Port1
+  comments: ''
+  bmc_mac: d8:c4:97:55:18:63
+  id: 27
+28: !ruby/object:System
+  model: Mellanox 25G Port#0
+  comments: ''
+  bmc_mac: a8:1e:84:a4:c2:98
+  id: 28
+29: !ruby/object:System
+  model: Mellanox 25G Port#1
+  comments: ''
+  bmc_mac: a8:1e:84:a4:c2:99
+  id: 29

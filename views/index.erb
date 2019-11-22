@@ -24,6 +24,8 @@
       <% @systems.each do |system| %>
       <tr>
         <td><a href="/systems/<%= system.id %>"><%= system.model %></a></td>
+        <td><%= system.username %></a></td>
+        <td><%= system.password %></a></td>
         <td><%= system.comments %></td>
         <td><a href="http://<%= system.ipaddr %>"><%=system.ipaddr%></a></td>
         <td><%= system.bmc_mac %></td>

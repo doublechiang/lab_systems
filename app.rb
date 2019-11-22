@@ -40,6 +40,8 @@ post('/systems/create') do
 #    "Received: #{params.inspect}"
   @system = System.new
   @system.model = params['model']
+  @system.username=params['username']
+  @system.password=params['password']
   @system.comments = params['comments']
   @system.bmc_mac = params['bmc_mac'].downcase
 
@@ -54,6 +56,8 @@ patch ('/systems/:id') do
   @system = System.new
   @system.id = id
   @system.model = params['model']
+  @system.username=params['username']
+  @system.password=params['password']
   @system.comments = params['comments']
   @system.bmc_mac = params['bmc_mac'].downcase
   store.save(@system)
