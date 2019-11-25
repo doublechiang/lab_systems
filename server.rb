@@ -19,9 +19,11 @@ class Server < Sinatra::Base
     require route
   end
 
+  enable :method_override
   set :sessions, true
   set :logging, true
   set :bind, '0.0.0.0'
+  set :port, 80
   set :public_folder, File.dirname(__FILE__) + '/static'
 
   get '/' do

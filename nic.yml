@@ -1,7 +1,7 @@
 ---
 5: !ruby/object:Nic
   model: Broadcom PCIE
-  comments: ''
+  comments: S5BQ
   mac1: 00:0a:f7:b7:01:b0
   mac2: 00:0a:f7:b7:01:b1
   mac3: ''
@@ -9,9 +9,41 @@
   id: 5
 6: !ruby/object:Nic
   model: Mellanox CX-4
-  comments: ''
+  comments: S5S
   mac1: 24:8a:07:3f:96:0e
   mac2: 24:8a:07:3f:96:0f
   mac3: ''
   mac4: ''
   id: 6
+7: !ruby/object:Nic
+  model: Mellanox 25G NIC
+  comments: ''
+  mac1: a8:1e:84:a4:c2:98
+  mac2: a8:1e:84:a4:c2:99
+  mac3: ''
+  mac4: ''
+  id: 7
+8: !ruby/object:Nic
+  model: S2P LOM
+  comments: ''
+  mac1: d8:c4:97:55:18:62
+  mac2: d8:c4:97:55:18:63
+  mac3: ''
+  mac4: ''
+  id: 8
+9: !ruby/object:Nic
+  model: S2P LOM
+  comments: ''
+  mac1: 2c:60:0c:bc:24:7f
+  mac2: 2c:60:0c:bc:24:80
+  mac3: ''
+  mac4: ''
+  id: 9
+10: !ruby/object:Nic
+  model: S2PH LOM
+  comments: ''
+  mac1: 2c:60:0c:cd:29:96
+  mac2: 2c:60:0c:cd:29:97
+  mac3: ''
+  mac4: ''
+  id: 10

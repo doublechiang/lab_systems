@@ -24,15 +24,16 @@ class Server < Sinatra::Base
         @system.username=params['username']
         @system.password=params['password']
         @system.comments = params['comments']
-        @system.bmc_mac = params['bmc_mac'].downcase
+        @system.bmc_mac = params['bmc_mac'].to_s.downcase
     
         store.save(@system)
         redirect '/systems'
     
     end
     
-    post ('/systems/:id') do
+    patch ('/systems/:id') do
     #  puts "Received a request for ID: #{params['id']}"
+        "Received: #{params.inspect}"
         id = params['id'].to_i
         @system = System.new
         @system.id = id
@@ -40,13 +41,13 @@ class Server < Sinatra::Base
         @system.username=params['username']
         @system.password=params['password']
         @system.comments = params['comments']
-        @system.bmc_mac = params['bmc_mac'].downcase
+        @system.bmc_mac = params['bmc_mac'].to_s.downcase
         store.save(@system)
         redirect "/systems"
     end
     
     delete ('/systems/:id') do 
-    #  puts "Delete receive a request for ID: #{params['id']}"
+        puts "Delete receive a request for ID: #{params['id']}"
         id = params['id'].to_i
         store.delete id
         redirect '/systems'
