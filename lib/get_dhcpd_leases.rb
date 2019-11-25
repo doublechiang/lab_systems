@@ -5,7 +5,11 @@
 
 require 'date'
 require 'time'
-FILE="/var/lib/dhcpd/dhcpd.leases"
+if settings.development?
+  FILE="dhcpd.leases"
+else
+  FILE="/var/lib/dhcpd/dhcpd.leases"
+end
 
 class Lease
   attr_accessor :ipaddr, :macaddr, :date, :time

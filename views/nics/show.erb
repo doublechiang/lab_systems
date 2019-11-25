@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Lab Nics - <%= @nic.model %></title>
+  </head>
+  <body>
+    <h1><%= @nic.model %></h1>
+    <form method="post" action="/nicss/<%=@nic.id%>">
+      <input type="hidden" name="_method" value="patch">
+      <table>
+        <tr>
+          <td><label for="model"> Model:</label></td>
+          <td><input type="text" name="model" value="<%= @nic.model%>"></td>
+        </tr>
+        <tr>
+          <td><label for="comments"> Comments:</label></td>
+          <td><input type="text" name="comments" value="<%= @nic.comments %>"></td>
+        </tr>
+        <tr>
+          <td><label for="mac1"> MAC1:</label></td>
+          <td><input type="text" name="mac1" value="<%= @nic.mac1 %>"></td>
+        </tr>
+        <tr>
+          <td><label for="mac2"> MAC2:</label></td>
+          <td><input type="text" name="mac2" value="<%= @nic.mac2 %>"></td>
+        </tr>
+        <tr>
+          <td><label for="mac3"> MAC3:</label></td>
+          <td><input type="text" name="mac3" value="<%= @nic.mac3 %>"></td>
+        </tr>
+        <tr>
+          <td><label for="mac4"> MAC4:</label></td>
+          <td><input type="text" name="mac4" value="<%= @nic.mac4 %>"></td>
+        </tr>
+        <tr>
+        </tr>
+      </table>
+      <button type="submit">Update</button>
+    </form>
+    <a href="/nics">Back to Index</a>
+    <form method="post" action="/nics/<%=@nic.id%>">
+        <input type="hidden" name="_method" value="delete">
+	<button type="submit">Delete</button>
+    </form>
+ 
+      </body>
+</html>

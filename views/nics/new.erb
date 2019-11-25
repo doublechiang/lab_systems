@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Lab Systems - Add NIC</title>
+  </head>
+  <body>
+    <h1>Add New Nic</h1>
+    <form method="post" action="/nics/create">
+      <table>
+        <tr>
+          <td><label for="model"> Model:</label></td>
+          <td><input type="text" name="model"></td>
+        </tr>
+        <tr>
+          <td><label for="comments"> Comments:</label></td>
+          <td><input type="text" name="comments"></td>
+        </tr>
+        <tr>
+          <td><label for="mac1"> Mac1:</label></td>
+          <td><input type="text" name="mac1"></td>
+        </tr>
+        <tr>
+          <td><label for="mac2"> Mac2:</label></td>
+          <td><input type="text" name="mac2"></td>
+        </tr>
+        <tr>
+          <td><label for="mac3"> Mac3:</label></td>
+          <td><input type="text" name="mac3"></td>
+        </tr>
+        <tr>
+          <td><label for="mac4"> Mac4:</label></td>
+          <td><input type="text" name="mac4"></td>
+        </tr>
+        <tr>
+          <td><input type="submit"></td>
+        </tr>
+      </table>
+    </form>
+    <a href="/nics">Back to Index</a>
+  </body>
+</html>
