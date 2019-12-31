@@ -5,6 +5,7 @@ require 'nic'
 require 'nic_store'
 require 'socket'
 require 'get_dhcpd_leases'
+require 'ipmi_proxy'
 
 class Server < Sinatra::Base
 
@@ -23,8 +24,12 @@ class Server < Sinatra::Base
   set :sessions, true
   set :logging, true
   set :bind, '0.0.0.0'
-  set :port, 80
   set :public_folder, File.dirname(__FILE__) + '/static'
+
+  if ENV["APP_ENV"] == "production"
+    set :port, 80
+  end
+ 
 
   get '/' do
     redirect '/index.html'

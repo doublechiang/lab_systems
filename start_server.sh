@@ -2,8 +2,15 @@
 # provide the default environment string with pararmeter.
 # ./start_server.sh (development|test) to start the server with developement|test env
 # 
-envvar="production"
-if [ "$1" ]
-    then envvar=$1
+param="production"
+if [ "$1" ]; then 
+    param=$1
 fi
-APP_ENV=${envvar} ruby -I lib server.rb
+
+cmd="APP_ENV=${param} ruby -I lib server.rb"
+
+# if gem 'rerun' is installed, and the parameter is 'test', then we will use rerun to run the sinatra
+if [ -x "$(command -v rerun)" ] && [ "${param}" == "test" ]; then
+    echo ${cmd}
+    eval rerun -d ./lib -d ./app/routes -d ./views/systems \'${cmd}\'
+fi 

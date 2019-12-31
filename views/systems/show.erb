@@ -30,6 +30,18 @@
           <td><input type="text" name="bmc_mac" value="<%= @system.bmc_mac %>"></td>
         </tr>
         <tr>
+          <td>BIOS Version:</td>
+          <td><%= @system.bios_ver %></td>
+        </tr>
+        <tr>
+          <td>BMC Version:</td>
+          <td><%= @system.bmc_ver %></td>
+        </tr>
+        <tr>
+          <td>CPLD Version:</td>
+          <td><%= @system.cpld %></td>
+        </tr>
+        <tr>
         </tr>
       </table>
       <button type="submit">Update</button>

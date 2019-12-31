@@ -7,6 +7,9 @@ require 'date'
 require 'time'
 
 FILE="/var/lib/dhcpd/dhcpd.leases"
+if ENV["APP_ENV"] == "test"
+  FILE="./dhcpd.leases"
+end
 
 class Lease
   attr_accessor :ipaddr, :macaddr, :date, :time
