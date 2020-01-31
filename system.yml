@@ -13,8 +13,8 @@
   id: 2
 3: !ruby/object:System
   model: S5BQ
-  username: root
-  password: root
+  username: admin
+  password: cmb9.admin
   comments: ''
   bmc_mac: a8:1e:84:96:8a:de
   id: 3

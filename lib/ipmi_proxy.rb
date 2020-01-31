@@ -53,11 +53,37 @@ class IpmiProxy
         return ret
     end
 
+    # return the systems mac address.
+    def get_system_mac
+        sysarray = []
+        for i in 0..15 do
+            f=IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} raw 0x30 0x19 #{i} 0")
+            if (mac = parse_ipmi_raw_mac_resp(f.readlines.join.strip)) != nil
+                if mac.length != 0
+                    sysarray << mac
+                end
+            end
+            f.close
+        end
+        return sysarray
+    end
 
+    private
+    def parse_ipmi_raw_mac_resp(macstr)
+        strary = macstr.split
+        strary.shift(2)
+        if strary[0] != "ff"
+            return strary.slice(0,6).join(":")
+        else
+            return nil
+        end
+    end
 end
 
+#conn=IpmiProxy.new("10.16.0.170", "admin", "admin")
 conn=IpmiProxy.new("10.16.1.149", "root", "root")
 #puts conn.get_bmc_version
 #puts conn.get_bios_version
 #puts conn.get_cpld
+puts conn.get_system_mac
 

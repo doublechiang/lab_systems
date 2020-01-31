@@ -57,15 +57,20 @@ class Server < Sinatra::Base
     #  puts "Received a request for movie ID: #{params['id']}"
         id = params['id'].to_i
         @system = store.find(id)
-        leases = Lease.get_current
-        if leases.has_key?(@system.bmc_mac.to_sym)
-            @system.ipaddr = leases[@system.bmc_mac.to_sym].ipaddr
+        @leases = Lease.get_current
+        if @leases.has_key?(@system.bmc_mac.to_sym)
+            @system.ipaddr = @leases[@system.bmc_mac.to_sym].ipaddr
         end
+
+        @system.sysmacs = []
         if @system.ipaddr && @system.username && @system.password
             conn = IpmiProxy.new(@system.ipaddr, @system.username, @system.password)
             @system.bios_ver = conn.get_bios_version
             @system.bmc_ver =  conn.get_bmc_version
+            # Get cpld is slow process
             @system.cpld = conn.get_cpld
+            # get systems mac in an array form
+            @system.sysmacs = conn.get_system_mac
         end
 
         erb :"systems/show"

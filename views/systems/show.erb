@@ -29,6 +29,17 @@
           <td><label for="bmc_mac"> BMC MAC:</label></td>
           <td><input type="text" name="bmc_mac" value="<%= @system.bmc_mac %>"></td>
         </tr>
+      </table>
+      <button type="submit">Update</button>
+    </form>
+    <a href="/systems">Back to Index</a>
+    <form method="post" action="/systems/<%=@system.id%>">
+        <input type="hidden" name="_method" value="delete">
+	<button type="submit">Delete</button>
+    </form>
+
+    <table>
+        <caption>System Information</caption>
         <tr>
           <td>BIOS Version:</td>
           <td><%= @system.bios_ver %></td>
@@ -41,16 +52,28 @@
           <td>CPLD Version:</td>
           <td><%= @system.cpld %></td>
         </tr>
-        <tr>
-        </tr>
-      </table>
-      <button type="submit">Update</button>
-    </form>
-    <a href="/systems">Back to Index</a>
-    <form method="post" action="/systems/<%=@system.id%>">
-        <input type="hidden" name="_method" value="delete">
-	<button type="submit">Delete</button>
-    </form>
+    </table>
+
+    <table>
+    <caption>In-Band System MAC</caption>
+    <tr>
+      <th>MAC address</th>
+      <th>IP Address</th>
+    </tr>
+    <% @system.sysmacs.each do |mac| 
+        ipaddr = nil
+        if @leases.has_key?(mac.to_sym) 
+            ipaddr = @leases[mac.to_sym].ipaddr
+        end
+    %>
+      
+      <tr>
+        <td><%= mac %></td>
+        <td><%= ipaddr %></td>
+      </tr>
+    <% end %>
+
+    </table>
  
       </body>
 </html>
