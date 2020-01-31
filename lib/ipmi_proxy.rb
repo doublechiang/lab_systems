@@ -81,9 +81,9 @@ class IpmiProxy
 end
 
 #conn=IpmiProxy.new("10.16.0.170", "admin", "admin")
-conn=IpmiProxy.new("10.16.1.149", "root", "root")
+#conn=IpmiProxy.new("10.16.1.149", "root", "root")
 #puts conn.get_bmc_version
 #puts conn.get_bios_version
 #puts conn.get_cpld
-puts conn.get_system_mac
+#puts conn.get_system_mac
 
