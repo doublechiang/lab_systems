@@ -13,4 +13,6 @@ cmd="APP_ENV=${param} ruby -I lib server.rb"
 if [ -x "$(command -v rerun)" ] && [ "${param}" == "test" ]; then
     echo ${cmd}
     eval rerun -d ./lib -d ./app/routes -d ./views/systems \'${cmd}\'
+else
+   eval ${cmd}
 fi 
