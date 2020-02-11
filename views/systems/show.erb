@@ -38,21 +38,6 @@
 	<button type="submit">Delete</button>
     </form>
 
-    <table>
-        <caption>System Information</caption>
-        <tr>
-          <td>BIOS Version:</td>
-          <td><%= @system.bios_ver %></td>
-        </tr>
-        <tr>
-          <td>BMC Version:</td>
-          <td><%= @system.bmc_ver %></td>
-        </tr>
-        <tr>
-          <td>CPLD Version:</td>
-          <td><%= @system.cpld %></td>
-        </tr>
-    </table>
 
     <table>
     <caption>In-Band System MAC</caption>
@@ -66,14 +51,65 @@
             ipaddr = @leases[mac.to_sym].ipaddr
         end
     %>
-      
       <tr>
         <td><%= mac %></td>
         <td><%= ipaddr %></td>
       </tr>
     <% end %>
-
     </table>
- 
-      </body>
+    <table>
+        <caption>System Information</caption>
+        <tr>
+          <td>BIOS Version:</td>
+          <td><%= @system.bios_ver %></td>
+        </tr>
+        <tr>
+          <td>BMC Version:</td>
+          <td><%= @system.bmc_ver %></td>
+        </tr>
+        <tr>
+          <td>CPLD Version:</td>
+          <td id="cpld_version"></td>
+        </tr>
+    </table>
+
+    <div id="sse_result">
+    </div>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <!-- type="text/javascript" src="app.js?"+Math.random() -->
+    <script>
+      $("#cpld_version").text("Retrieveing...");   
+
+      var sse_path = "/systems/" + <%= @system.id %> + "/system.json";
+      console.log(sse_path)
+    if(typeof(EventSource) !== "undefined") {
+      var source = new EventSource(sse_path);
+      source.addEventListener('message', function(event) {
+      }, false);
+      source.addEventListener('open', function(event) {
+      }, false);
+      source.addEventListener('error', function(event) {
+        if (event.readyState == EventSource.CLOSED) {
+          console.log("connection has error and closed.")
+        }
+      }, false);
+
+      
+      source.onmessage = function(event) {
+          // build a table and from the result from route
+          // console.log(event.data)
+          var msg = JSON.parse(event.data)
+          console.log(msg.cpld)
+          $("#cpld_version").text(msg.cpld);
+          source.close()
+          // $("#sse_result").text(event.data)
+      };
+    } else {
+      $("#sse_result").text("Browser does not support server-sent events....");
+    }
+
+
+    </script>
+    </body>
 </html>

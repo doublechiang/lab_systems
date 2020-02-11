@@ -12,7 +12,6 @@ class Server < Sinatra::Base
   Socket.do_not_reverse_lookup = true
   configure :production do
     set :port, 80
-    set :public_folder, '/var/www/html'
   end
 
   # Load all route files
@@ -25,6 +24,7 @@ class Server < Sinatra::Base
   set :logging, true
   set :bind, '0.0.0.0'
   set :public_folder, File.dirname(__FILE__) + '/static'
+  set server: 'thin'
 
   if ENV["APP_ENV"] == "production"
     set :port, 80

@@ -1,6 +1,11 @@
 
 class Server < Sinatra::Base
+
     store = SystemStore.new('system.yml')
+
+    get('/systems/') do
+        redirect('/systems')
+    end
 
     get('/systems') do
         @systems = store.all
@@ -12,6 +17,7 @@ class Server < Sinatra::Base
         end
         erb :"systems/index"
     end
+
     
     get('/systems/new') do
         erb :"systems/new"
@@ -68,12 +74,33 @@ class Server < Sinatra::Base
             @system.bios_ver = conn.get_bios_version
             @system.bmc_ver =  conn.get_bmc_version
             # Get cpld is slow process
-            @system.cpld = conn.get_cpld
+            # @system.cpld = conn.get_cpld
             # get systems mac in an array form
             @system.sysmacs = conn.get_system_mac
         end
 
         erb :"systems/show"
+    end
+
+    get('/systems/:id/system.json') do 
+        content_type 'text/event-stream'
+
+        stream :keep_open do |out|
+            id = params['id'].to_i
+            @system = store.find(id)
+            leases = Lease.get_current
+            if leases.has_key?(@system.bmc_mac.to_sym)
+                @system.ipaddr = leases[@system.bmc_mac.to_sym].ipaddr
+            end
+            out << "data: "
+            out << @system.get_system_json
+            out << "\n\n"
+            # puts @system.get_system_json
+            out.callback {
+                # delete the connections
+                out.close()
+            }
+        end
     end
   
 end    

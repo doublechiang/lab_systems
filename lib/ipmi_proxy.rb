@@ -3,6 +3,8 @@
 # IPMI wrapper to get system information from BMC.
 # Author: Jiang Junyu
 
+require 'json'
+
 class IpmiProxy
 
     def initialize(host, username, password)
@@ -49,8 +51,8 @@ class IpmiProxy
         f=IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} raw 0x30 0x17 3")
         version=f.readlines.join.strip
         f.close
-        ret = version.upcase
-        return ret
+        @cpld_ver = version.upcase
+        return @cpld_ver
     end
 
     # return the systems mac address.
@@ -81,9 +83,10 @@ class IpmiProxy
 end
 
 #conn=IpmiProxy.new("10.16.0.170", "admin", "admin")
-#conn=IpmiProxy.new("10.16.1.149", "root", "root")
+# conn=IpmiProxy.new("10.16.1.149", "root", "root")
 #puts conn.get_bmc_version
 #puts conn.get_bios_version
-#puts conn.get_cpld
+# puts conn.get_cpld
+# conn.save
 #puts conn.get_system_mac
 
