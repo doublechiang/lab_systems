@@ -1,3 +1,4 @@
+require 'json'
 
 class Server < Sinatra::Base
 
@@ -73,10 +74,8 @@ class Server < Sinatra::Base
             conn = IpmiProxy.new(@system.ipaddr, @system.username, @system.password)
             @system.bios_ver = conn.get_bios_version
             @system.bmc_ver =  conn.get_bmc_version
-            # Get cpld is slow process
-            # @system.cpld = conn.get_cpld
-            # get systems mac in an array form
-            @system.sysmacs = conn.get_system_mac
+
+            # get system's mac and CPLD moved to sever sent event.
         end
 
         erb :"systems/show"
@@ -85,6 +84,8 @@ class Server < Sinatra::Base
     get('/systems/:id/system.json') do 
         content_type 'text/event-stream'
 
+        contents = {}
+
         stream :keep_open do |out|
             id = params['id'].to_i
             @system = store.find(id)
@@ -92,9 +93,18 @@ class Server < Sinatra::Base
             if leases.has_key?(@system.bmc_mac.to_sym)
                 @system.ipaddr = leases[@system.bmc_mac.to_sym].ipaddr
             end
+            mac_ips = @system.get_system_macs_with_ip
+            contents[:mac_ips] = mac_ips
             out << "data: "
-            out << @system.get_system_json
+            out << contents.to_json
             out << "\n\n"
+
+            
+            contents = @system.get_cpld
+            out << "data: "
+            out << contents.to_json
+            out << "\n\n"
+
             # puts @system.get_system_json
             out.callback {
                 # delete the connections
@@ -102,5 +112,6 @@ class Server < Sinatra::Base
             }
         end
     end
-  
 end    
+
+

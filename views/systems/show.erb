@@ -40,24 +40,6 @@
 
 
     <table>
-    <caption>In-Band System MAC</caption>
-    <tr>
-      <th>MAC address</th>
-      <th>IP Address</th>
-    </tr>
-    <% @system.sysmacs.each do |mac| 
-        ipaddr = nil
-        if @leases.has_key?(mac.to_sym) 
-            ipaddr = @leases[mac.to_sym].ipaddr
-        end
-    %>
-      <tr>
-        <td><%= mac %></td>
-        <td><%= ipaddr %></td>
-      </tr>
-    <% end %>
-    </table>
-    <table>
         <caption>System Information</caption>
         <tr>
           <td>BIOS Version:</td>
@@ -77,7 +59,7 @@
     </div>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-    <!-- type="text/javascript" src="app.js?"+Math.random() -->
+    <script type="text/javascript" src="app.js?"+Math.random()></script>
     <script>
       $("#cpld_version").text("Retrieveing...");   
 
@@ -98,12 +80,38 @@
       
       source.onmessage = function(event) {
           // build a table and from the result from route
-          // console.log(event.data)
-          var msg = JSON.parse(event.data)
-          console.log(msg.cpld)
-          $("#cpld_version").text(msg.cpld);
-          source.close()
-          // $("#sse_result").text(event.data)
+          var msg = JSON.parse(event.data);
+          // console.log(msg);
+          if ('cpld' in msg) {
+            $("#cpld_version").text(msg.cpld)
+            // will close the event source when get the cpld version.
+            source.close()
+          } else if ('mac_ips' in msg) {
+            console.log(msg.mac_ips);
+            a_mac_ips = msg.mac_ips;
+            var $table = $("<table>")
+
+            $table.prepend("<caption>In-Band System MAC</caption>")
+            // Add teh header
+            $th = $('<tr>').append (
+                  $('<th>').text("Sys MAC Address"),
+                  $('<th>').text("IP Address")
+            )
+            $table.append($th)
+
+            $.each(a_mac_ips, function(i, item) {
+                if (item.ipaddr == null) {
+                  item.ipaddr= "";
+                }
+                var $tr = $('<tr>').append(
+                  $('<td>').text(item.mac),
+                  $('<td>').text(item.ipaddr)
+                );
+                $table.append($tr);
+            })
+            $('#sse_result').append($table);
+          }
+
       };
     } else {
       $("#sse_result").text("Browser does not support server-sent events....");
