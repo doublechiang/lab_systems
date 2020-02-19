@@ -38,7 +38,9 @@
 	<button type="submit">Delete</button>
     </form>
 
+    <br/>
 
+  <div id='sse_result'>
     <table>
         <caption>System Information</caption>
         <tr>
@@ -54,14 +56,23 @@
           <td id="cpld_version"></td>
         </tr>
     </table>
-
-    <div id="sse_result">
-    </div>
+    <br/>
+    <table id='sys_mac_ips'>
+      <caption>In-Band System MAC</caption>
+      <tr>
+        <th>Sys MAC Address</th>
+        <th>IP Address</th>
+      </tr>
+    </table>
+  </div>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="app.js?"+Math.random()></script>
     <script>
-      $("#cpld_version").text("Retrieveing...");   
+      $("#cpld_version").text("Retrieveing...");
+      $('<tr>', {
+        id: 'msg_retrieving'
+      }).text('Retrieveing...').appendTo('#sys_mac_ips')
 
       var sse_path = "/systems/" + <%= @system.id %> + "/system.json";
       console.log(sse_path)
@@ -88,17 +99,8 @@
             source.close()
           } else if ('mac_ips' in msg) {
             console.log(msg.mac_ips);
+            $("#msg_retrieving").remove();
             a_mac_ips = msg.mac_ips;
-            var $table = $("<table>")
-
-            $table.prepend("<caption>In-Band System MAC</caption>")
-            // Add teh header
-            $th = $('<tr>').append (
-                  $('<th>').text("Sys MAC Address"),
-                  $('<th>').text("IP Address")
-            )
-            $table.append($th)
-
             $.each(a_mac_ips, function(i, item) {
                 if (item.ipaddr == null) {
                   item.ipaddr= "";
@@ -107,9 +109,8 @@
                   $('<td>').text(item.mac),
                   $('<td>').text(item.ipaddr)
                 );
-                $table.append($tr);
+                $('#sys_mac_ips').append($tr);
             })
-            $('#sse_result').append($table);
           }
 
       };

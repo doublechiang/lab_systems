@@ -99,7 +99,7 @@ class Server < Sinatra::Base
             out << contents.to_json
             out << "\n\n"
 
-            
+            # keep get_cpld in the last of the update, client will close it when receive it.
             contents = @system.get_cpld
             out << "data: "
             out << contents.to_json
