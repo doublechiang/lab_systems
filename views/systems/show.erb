@@ -41,6 +41,14 @@
     <br/>
 
   <div id='sse_result'>
+    <table id='sys_mac_ips'>
+      <caption>In-Band System MAC</caption>
+      <tr>
+        <th>Sys MAC Address</th>
+        <th>IP Address</th>
+      </tr>
+    </table>
+    <br/>
     <table>
         <caption>System Information</caption>
         <tr>
@@ -56,20 +64,13 @@
           <td id="cpld_version"></td>
         </tr>
     </table>
-    <br/>
-    <table id='sys_mac_ips'>
-      <caption>In-Band System MAC</caption>
-      <tr>
-        <th>Sys MAC Address</th>
-        <th>IP Address</th>
-      </tr>
-    </table>
   </div>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="app.js?"+Math.random()></script>
     <script>
       $("#cpld_version").text("Retrieveing...");
+      // add a table row with id so that we can remove later
       $('<tr>', {
         id: 'msg_retrieving'
       }).text('Retrieveing...').appendTo('#sys_mac_ips')
