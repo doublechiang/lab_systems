@@ -10,10 +10,6 @@ require 'ipmi_proxy'
 class Server < Sinatra::Base
 
   Socket.do_not_reverse_lookup = true
-  configure :production do
-    set :port, 80
-  end
-
   # Load all route files
   Dir[File.dirname(__FILE__) + "/app/routes/**"].each do |route|
     require route
@@ -22,12 +18,12 @@ class Server < Sinatra::Base
   enable :method_override
   set :sessions, true
   set :logging, true
-  set :bind, '0.0.0.0'
   set :public_folder, File.dirname(__FILE__) + '/static'
   set server: 'thin'
 
   if ENV["APP_ENV"] == "production"
-    set :port, 80
+    set :bind, '0.0.0.0'
+    set :environment, :production
   end
  
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 # provide the default environment string with pararmeter.
-# ./start_server.sh (development|test) to start the server with developement|test env
+# ./start_server.sh (production|test) to start the server with developement|test env
 # 
 param="production"
 if [ "$1" ]; then 
