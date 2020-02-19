@@ -69,15 +69,16 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="app.js?"+Math.random()></script>
     <script>
+
+      var sse_path = "/systems/" + <%= @system.id %> + "/system.json";
+      console.log(sse_path)
+    if(typeof(EventSource) !== "undefined") {
+      // Browser support event source, Retreiveing SSE 
       $("#cpld_version").text("Retrieveing...");
       // add a table row with id so that we can remove later
       $('<tr>', {
         id: 'msg_retrieving'
       }).text('Retrieveing...').appendTo('#sys_mac_ips')
-
-      var sse_path = "/systems/" + <%= @system.id %> + "/system.json";
-      console.log(sse_path)
-    if(typeof(EventSource) !== "undefined") {
       var source = new EventSource(sse_path);
       source.addEventListener('message', function(event) {
       }, false);
@@ -118,7 +119,6 @@
     } else {
       $("#sse_result").text("Browser does not support server-sent events....");
     }
-
 
     </script>
     </body>
