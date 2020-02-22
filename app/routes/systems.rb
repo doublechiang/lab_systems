@@ -69,7 +69,6 @@ class Server < Sinatra::Base
             @system.ipaddr = @leases[@system.bmc_mac.to_sym].ipaddr
         end
 
-        @system.sysmacs = []
         if @system.ipaddr && @system.username && @system.password
             conn = IpmiProxy.new(@system.ipaddr, @system.username, @system.password)
             @system.bios_ver = conn.get_bios_version
@@ -84,26 +83,41 @@ class Server < Sinatra::Base
     get('/systems/:id/system.json') do 
         content_type 'text/event-stream'
 
-        contents = {}
-
         stream :keep_open do |out|
+            contents = {}
             id = params['id'].to_i
             @system = store.find(id)
             leases = Lease.get_current
             if leases.has_key?(@system.bmc_mac.to_sym)
                 @system.ipaddr = leases[@system.bmc_mac.to_sym].ipaddr
             end
-            mac_ips = @system.get_system_macs_with_ip
-            contents[:mac_ips] = mac_ips
-            out << "data: "
-            out << contents.to_json
-            out << "\n\n"
 
-            # keep get_cpld in the last of the update, client will close it when receive it.
-            contents = @system.get_cpld
-            out << "data: "
-            out << contents.to_json
-            out << "\n\n"
+            if @system.ipaddr && @system.username && @system.password
+                contents[:online] = true
+                out << "data: "
+                out << contents.to_json
+                out << "\n\n"
+
+                mac_ips = @system.get_system_macs_with_ip
+                contents = {}
+                contents[:mac_ips] = mac_ips
+                out << "data: "
+                out << contents.to_json
+                out << "\n\n"
+
+                # keep get_cpld in the last of the update, client will close it when receive it.
+                contents = {}
+                contents = @system.get_cpld
+                out << "data: "
+                out << contents.to_json
+                out << "\n\n"
+            else
+                # do not have enough information to connect to server
+                contents[:online] = false
+                out << "data: "
+                out << contents.to_json
+                out << "\n\n"
+            end 
 
             # puts @system.get_system_json
             out.callback {

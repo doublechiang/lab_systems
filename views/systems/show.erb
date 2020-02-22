@@ -38,6 +38,8 @@
 	<button type="submit">Delete</button>
     </form>
 
+    <!-- Below section should be displayed when the username/password/ip are present -->
+
     <br/>
 
   <div id='sse_result'>
@@ -48,8 +50,9 @@
         <th>IP Address</th>
       </tr>
     </table>
+
     <br/>
-    <table>
+    <table id='sys_info'>
         <caption>System Information</caption>
         <tr>
           <td>BIOS Version:</td>
@@ -69,6 +72,9 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="app.js?"+Math.random()></script>
     <script>
+      $('#sse_result').hide();
+      //$('#sys_mac_ips').hide();
+      //$('#sys_info').hide();
 
       var sse_path = "/systems/" + <%= @system.id %> + "/system.json";
       console.log(sse_path)
@@ -97,6 +103,7 @@
           // console.log(msg);
           if ('cpld' in msg) {
             $("#cpld_version").text(msg.cpld)
+
             // will close the event source when get the cpld version.
             source.close()
           } else if ('mac_ips' in msg) {
@@ -112,7 +119,13 @@
                   $('<td>').text(item.ipaddr)
                 );
                 $('#sys_mac_ips').append($tr);
+
             })
+          } else if ('online' in msg) {
+            console.log(msg.online);
+            if (msg.online != false) {
+              $('#sse_result').show();
+            }
           }
 
       };
