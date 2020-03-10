@@ -56,11 +56,11 @@
         <caption>System Information</caption>
         <tr>
           <td>BIOS Version:</td>
-          <td><%= @system.bios_ver %></td>
+          <td id='bios_version'></td>
         </tr>
         <tr>
           <td>BMC Version:</td>
-          <td><%= @system.bmc_ver %></td>
+          <td id='bmc_version'></td>
         </tr>
         <tr>
           <td>CPLD Version:</td>
@@ -106,6 +106,10 @@
 
             // will close the event source when get the cpld version.
             source.close()
+          } else if ('bios' in msg) {
+            $("#bios_version").text(msg.bios)
+          } else if ('bmc' in msg) {
+            $("#bmc_version").text(msg.bmc)
           } else if ('mac_ips' in msg) {
             console.log(msg.mac_ips);
             $("#msg_retrieving").remove();

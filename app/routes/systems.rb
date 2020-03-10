@@ -69,13 +69,13 @@ class Server < Sinatra::Base
             @system.ipaddr = @leases[@system.bmc_mac.to_sym].ipaddr
         end
 
-        if @system.ipaddr && @system.username && @system.password
-            conn = IpmiProxy.new(@system.ipaddr, @system.username, @system.password)
-            @system.bios_ver = conn.get_bios_version
-            @system.bmc_ver =  conn.get_bmc_version
+        # move all of the BMC retrivals server sent events.
 
-            # get system's mac and CPLD moved to sever sent event.
-        end
+#        if @system.ipaddr && @system.username && @system.password
+#            conn = IpmiProxy.new(@system.ipaddr, @system.username, @system.password)
+#            @system.bios_ver = conn.get_bios_version
+#            @system.bmc_ver =  conn.get_bmc_version
+#        end
 
         erb :"systems/show"
     end
@@ -92,8 +92,20 @@ class Server < Sinatra::Base
                 @system.ipaddr = leases[@system.bmc_mac.to_sym].ipaddr
             end
 
-            if @system.ipaddr && @system.username && @system.password
+            if @system.ipaddr && !@system.username.empty? && !@system.password.empty?
                 contents[:online] = true
+                out << "data: "
+                out << contents.to_json
+                out << "\n\n"
+
+                contents = {}
+                contents= @system.get_bios_version
+                out << "data: "
+                out << contents.to_json
+                out << "\n\n"
+
+                contents = {}
+                contents= @system.get_bmc_version
                 out << "data: "
                 out << contents.to_json
                 out << "\n\n"

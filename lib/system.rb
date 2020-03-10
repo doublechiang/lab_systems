@@ -18,10 +18,26 @@ class System
     return content
   end
 
+  def get_bios_version()
+    if (@ipaddr && !@username.empty? && !@password.empty? )
+      conn = IpmiProxy.new(@ipaddr, @username, @password)
+      bios_ver = conn.get_bios_version
+      content = { bios: bios_ver }
+    end
+  end
+
+  def get_bmc_version()
+    if (@ipaddr && !@username.empty? && !@password.empty?)
+      conn = IpmiProxy.new(@ipaddr, @username, @password)
+      bmc_ver = conn.get_bmc_version
+      content = { bmc: bmc_ver }
+    end
+  end
+
   def get_system_mac()
     # Get in-band system macs and returned in an array form
     macs = []
-    if (@ipaddr && @username && @password)
+    if (@ipaddr && !@username.empty? && !@password.empty?)
       conn = IpmiProxy.new(@ipaddr, @username, @password)
       macs = conn.get_system_mac
     end
