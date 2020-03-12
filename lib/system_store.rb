@@ -22,7 +22,7 @@ class SystemStore
   end
 
   def find(id)
-    @store.transaction do
+    @store.transaction read_only=true do
       @store[id]
     end
   end

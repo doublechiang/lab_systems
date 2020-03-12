@@ -1,8 +1,8 @@
 ---
 1: !ruby/object:System
-  model: S5B ebay
   username: root
   password: root
+  model: S5B ebay
   comments: ''
   bmc_mac: a8:1e:84:73:b9:bd
   id: 1
@@ -12,51 +12,51 @@
   bmc_mac: a8:1e:84:a2:29:d2
   id: 2
 3: !ruby/object:System
-  model: S5BQ
   username: admin
   password: cmb9.admin
+  model: S5BQ
   comments: ''
   bmc_mac: a8:1e:84:96:8a:de
   id: 3
 4: !ruby/object:System
-  model: S5D
   username: admin
   password: cmb9.admin
+  model: S5D
   comments: ''
   bmc_mac: a8:1e:84:7e:2b:f1
   id: 4
 5: !ruby/object:System
-  model: S5S
   username: admin
   password: cmb9.admin
+  model: S5S
   comments: ''
   bmc_mac: a8:1e:84:a2:cc:fb
   id: 5
 6: !ruby/object:System
-  model: S5T
   username: admin
   password: cmb9.admin
+  model: S5T
   comments: SFC
   bmc_mac: a8:1e:84:fa:a0:47
   id: 6
 8: !ruby/object:System
-  model: S2BP
   username: admin
   password: admin
+  model: S2BP
   comments: ''
   bmc_mac: 2c:60:0c:52:24:5b
   id: 8
 14: !ruby/object:System
-  model: S2PH
   username: admin
   password: admin
+  model: S2PH
   comments: ''
   bmc_mac: 2c:60:0c:cd:29:98
   id: 14
 17: !ruby/object:System
-  model: S2P
   username: admin
   password: admin
+  model: S2P
   comments: ''
   bmc_mac: 2c:60:0c:bc:24:81
   id: 17
@@ -65,3 +65,24 @@
   comments: Ebay USB/KVM switch issue
   bmc_mac: d8:c4:97:e8:19:46
   id: 24
+25: !ruby/object:System
+  username: ''
+  password: ''
+  model: S5B-2U
+  comments: ''
+  bmc_mac: 2c:60:0c:98:90:7f
+  id: 25
+26: !ruby/object:System
+  username: dropbox
+  password: hhnFlaw5
+  model: S5HF_Left
+  comments: David's DBX Support
+  bmc_mac: a8:1e:84:fa:62:14
+  id: 26
+27: !ruby/object:System
+  username: dropbox
+  password: hhnFlaw5
+  model: S5HF_Right
+  comments: David's DBX Support
+  bmc_mac: a8:1e:84:fa:63:70
+  id: 27
