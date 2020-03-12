@@ -7,6 +7,15 @@ class System
   attr_accessor :bios_ver, :bmc_ver, :cpld
   attr_accessor :sysmacs
 
+  # If get system_name will get the string, the the system is online
+  def online?()
+    if (@ipaddr && !(@username.to_s == '') && !(@password.to_s == ''))
+      conn = IpmiProxy.new(@ipaddr, @username, @password)
+      return conn.get_system_name.to_s != ''
+    end
+    return false
+  end
+
   def get_cpld()
     # retrieve system information and save return json format
     content = {}

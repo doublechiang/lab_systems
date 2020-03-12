@@ -70,6 +70,13 @@ class IpmiProxy
         return sysarray
     end
 
+    def get_system_name
+        f=IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} mc getsysinfo system_name")
+        system_name =f.readlines.join.strip
+        f.close
+        return system_name
+    end
+
     private
     def parse_ipmi_raw_mac_resp(macstr)
         strary = macstr.split

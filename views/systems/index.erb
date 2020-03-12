@@ -18,7 +18,12 @@
         <th>MAC address</th>
       </tr>
       <% @systems.each do |system| %>
-      <tr>
+      <% if system.online? %>
+        <tr style="background-color: green" >
+      <% else %>
+        <tr style="background-color: transparent" >
+      <% end %>
+
         <td><a href="/systems/<%= system.id %>"><%= system.model %></a></td>
         <td><%= system.username %></a></td>
         <td><%= system.password %></a></td>
@@ -30,5 +35,13 @@
     </table>
 
     <a href="/systems/new">Add new System</a>
+
+    <p> PS: 
+    <table>
+      <tr style="background-color: green">
+        <td>System with right username & password in Green Color</td>
+      </tr>
+    </table>
+
   </body>
 </html>
