@@ -16,6 +16,15 @@ class System
     return false
   end
 
+   # return true if use the credential can't get the correct name
+  def offline?()
+    if (@ipaddr && (@username.to_s != '') && (@password.to_s != ''))
+      conn = IpmiProxy.new(@ipaddr, @username, @password)
+      return conn.get_system_name.to_s == ''
+    end
+    return false
+  end
+
   def get_cpld()
     # retrieve system information and save return json format
     content = {}

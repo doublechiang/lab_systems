@@ -18,8 +18,8 @@
         <th>MAC address</th>
       </tr>
       <% @systems.each do |system| %>
-      <% if system.online? %>
-        <tr style="background-color: green" >
+      <% if system.offline? %>
+        <tr style="background-color: yellow" >
       <% else %>
         <tr style="background-color: transparent" >
       <% end %>
@@ -38,8 +38,8 @@
 
     <p> PS: 
     <table>
-      <tr style="background-color: green">
-        <td>System with right username & password in Green Color</td>
+      <tr style="background-color: yellow">
+        <td>System with wrong username & password in yellow color</td>
       </tr>
     </table>
 

@@ -44,7 +44,8 @@ class IpmiProxy
             ret += i.to_i(16).chr
         end
         f.close
-        return ret
+	# There is special charater, use zero terminated string convert to array then get first element
+        return ret.unpack('Z*')[0]
     end
 
     def get_cpld

@@ -2,7 +2,8 @@ require 'yaml/store'
 
 class SystemStore
   def initialize(file_name)
-    @store = YAML::Store.new(file_name)
+    @store = YAML::Store.new(file_name, thread_safe=true)
+    @store.ultra_safe = true
   end
 
   def save(system)
@@ -16,14 +17,19 @@ class SystemStore
   end
 
   def all
-    @store.transaction do
+    @store.transaction read_only=true do
       @store.roots.map { |id| @store[id] }
     end
   end
 
   def find(id)
-    @store.transaction read_only=true do
-      @store[id]
+    begin
+	    @store.transaction read_only=true do
+	      @store[id]
+	    end
+    rescue Excetion => e
+	puts e.message
+	puts e.backtrace.inspect
     end
   end
 
