@@ -13,7 +13,7 @@
   id: 2
 3: !ruby/object:System
   username: admin
-  password: cmb9.admin
+  password: ''
   model: S5BQ
   comments: ''
   bmc_mac: a8:1e:84:96:8a:de
@@ -26,10 +26,10 @@
   bmc_mac: a8:1e:84:7e:2b:f1
   id: 4
 5: !ruby/object:System
-  username: admin
-  password: cmb9.admin
+  username: Administrator
+  password: P1nkP0ney
   model: S5S
-  comments: ''
+  comments: Criteo BMC firmware
   bmc_mac: a8:1e:84:a2:cc:fb
   id: 5
 6: !ruby/object:System
@@ -86,3 +86,10 @@
   comments: David's DBX Support
   bmc_mac: a8:1e:84:fa:63:70
   id: 27
+28: !ruby/object:System
+  username: admin
+  password: cmb.admin
+  model: S5G
+  comments: ''
+  bmc_mac: d8:c4:97:17:6e:ef
+  id: 28
