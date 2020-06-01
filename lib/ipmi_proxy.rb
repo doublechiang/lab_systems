@@ -123,6 +123,9 @@ class IpmiProxy
 	if buf
 	    buf = buf.strip.split
 	    for i in buf
+		if i == "ff"
+		    break
+		end
 	        str += i.to_i(16).chr
 	    end
 	end
