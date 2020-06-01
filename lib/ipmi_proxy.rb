@@ -35,6 +35,36 @@ class IpmiProxy
         return ret.upcase
     end
 
+    def get_board_id
+        Encoding.default_external = Encoding::UTF_8
+        content= {}
+        IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} raw 0x6 0x52 0x7 0xa8 0x80 0x00 0") { |f|
+            # Board ID sequential contents
+            f.gets
+            f.gets
+            model = xxd_reverse_str f.gets
+            mb_type = xxd_reverse_str f.gets
+            f.gets
+            bmc_chip = xxd_reverse_str f.gets
+            customer_code = xxd_reverse_str f.gets
+            date_code = xxd_reverse_str f.gets
+
+            content = {
+                    model: model,
+                    mb_type: mb_type,
+                    bmc_chip: bmc_chip,
+                    customer_code: customer_code,
+                    date_code: date_code
+                }
+	}
+    if $?.success?
+        p content
+	    return content
+	end
+	return "Invalide command, check #{__LINE__}, #{__FILE__}"
+    end
+
+
     def get_bios_version
         f=IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} raw 0x6 0x59 0x0 0x1 0x0 0x0")
         content = f.readlines.map(&:chomp).join.split
@@ -87,6 +117,15 @@ class IpmiProxy
         else
             return nil
         end
+    end
+
+    def xxd_reverse_str(buf)
+        buf = buf.strip.split
+        str = ""
+        for i in buf
+            str += i.to_i(16).chr
+        end
+        return str
     end
 end
 

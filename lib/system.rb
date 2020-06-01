@@ -52,6 +52,14 @@ class System
     end
   end
 
+  def get_board_id()
+    if (@ipaddr && !@username.empty? && !@password.empty?)
+      conn = IpmiProxy.new(@ipaddr, @username, @password)
+      output = conn.get_board_id
+      content = { board_id: output }
+    end
+   end
+
   def get_system_mac()
     # Get in-band system macs and returned in an array form
     macs = []
