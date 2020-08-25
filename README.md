@@ -12,7 +12,7 @@ Can add/edit/delete a system's description with MAC address. This application wi
 If the systems in the database has MAC matching the leases file MAC address, it will show the IP address on that server.
 
 ## Installation.
-require ruby 2.4, Thin module. "gem install thin".
+support bundle, use "bundle install" to update the required module.
 
 ## Testing
 Since it will check the current time.
