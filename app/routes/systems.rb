@@ -11,6 +11,7 @@ class Server < Sinatra::Base
     end
 
     get('/systems') do
+        headers['Cache-Control'] = 'no-store'
         @systems = @@store.all
         leases = Lease.get_current
         @systems.each do |sys|
