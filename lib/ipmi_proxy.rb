@@ -118,7 +118,7 @@ class IpmiProxy
     end
 
     def xxd_reverse_str(buf)
-        if buf
+       if buf
             buf = buf.strip.split
             str = ""
             for i in buf
