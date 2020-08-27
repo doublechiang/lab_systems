@@ -3,36 +3,32 @@
   <head>
     <meta charset='UTF-8' />
     <title>Lab Systems</title>
+    <script type='text/javascript'>
+      function get_sys_status() {
+          $.ajax({
+            url:'systems',
+            type:'get',
+            success: function(data) {
+              $("#systems_table").fadeOut(function() {
+                $(this).html(data).slideDown()
+              })
+              setTimeout(get_sys_status, 10*60*1000);
+            }
+          });
+      }
+
+      $(document).ready(function(){
+        get_sys_status();
+      });
+    </script>
     <style>
     </style>
   </head>
   <body>
     <h1>Systems</h1>
-    <table>
-      <tr>
-        <th>Model</th>
-        <th>username</th>
-        <th>password</th>
-        <th>Comments</th>
-        <th>BMC IP Address</th>
-        <th>MAC address</th>
-      </tr>
-      <% @systems.each do |system| %>
-      <% if system.offline? %>
-        <tr style="background-color: yellow" >
-      <% else %>
-        <tr style="background-color: transparent" >
-      <% end %>
-
-        <td><a href="/systems/<%= system.id %>"><%= system.model %></a></td>
-        <td><%= system.username %></a></td>
-        <td><%= system.password %></a></td>
-        <td><%= system.comments %></td>
-        <td><a href="http://<%= system.ipaddr %>"><%=system.ipaddr%></a></td>
-        <td><%= system.bmc_mac %></td>
-      </tr>
-      <% end %>
-    </table>
+    <div id='systems_table'>
+      <%= erb :'_systems_table', :locals => {:update => false} %>
+    </div>
 
     <a href="/systems/new">Add new System</a>
 

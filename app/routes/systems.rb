@@ -2,6 +2,8 @@ require 'json'
 
 class Server < Sinatra::Base
 
+    set :views, "views/systems"
+
     @@store = SystemStore.new('system.yml')
 
     get('/systems/') do
@@ -16,12 +18,16 @@ class Server < Sinatra::Base
                 sys.ipaddr = leases[sys.bmc_mac.downcase.to_sym].ipaddr
             end
         end
-        erb :"systems/index"
+        if request.xhr?
+            erb :'_systems_table', :layout => false, :locals => {:update => true}
+        else
+            erb :"index"
+        end
     end
 
     
     get('/systems/new') do
-        erb :"systems/new"
+        erb :"new"
     end
     
     post('/systems/create') do
@@ -77,7 +83,7 @@ class Server < Sinatra::Base
 #            @system.bmc_ver =  conn.get_bmc_version
 #        end
 
-        erb :"systems/show"
+        erb :"show"
     end
 
     get('/systems/:id/system.json') do 

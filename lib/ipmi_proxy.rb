@@ -36,7 +36,6 @@ class IpmiProxy
     end
 
     def get_board_id
-        Encoding.default_external = Encoding::UTF_8
         content= {}
         IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} raw 0x6 0x52 0x7 0xa8 0x80 0x00 0") { |f|
             # Board ID sequential contents
@@ -56,12 +55,11 @@ class IpmiProxy
                     customer_code: customer_code,
                     date_code: date_code
                 }
-	}
-    if $?.success?
-        p content
-	    return content
-	end
-	return "Invalide command, check #{__LINE__}, #{__FILE__}"
+	    }
+        if $?.success?
+            return content
+        end
+        return "Invalide command, check #{__LINE__}, #{__FILE__}"
     end
 
 
@@ -120,12 +118,16 @@ class IpmiProxy
     end
 
     def xxd_reverse_str(buf)
-        buf = buf.strip.split
-        str = ""
-        for i in buf
-            str += i.to_i(16).chr
+        if buf
+            buf = buf.strip.split
+            str = ""
+            for i in buf
+                str += i.to_i(16).chr
+            end
+            return str
+        else
+            return ""
         end
-        return str
     end
 end
 

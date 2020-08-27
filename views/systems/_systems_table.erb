@@ -1,0 +1,28 @@
+<table>
+    <tr>
+    <th>Model</th>
+    <th>username</th>
+    <th>password</th>
+    <th>Comments</th>
+    <th>BMC IP Address</th>
+    <th>MAC address</th>
+    </tr>
+    <% @systems.each do |system| %>
+        <% if update %>
+            <% if system.offline? %>
+                <tr style="background-color: yellow" >
+            <% else %>
+                <tr style="background-color: transparent" >
+            <% end %>
+        <% else %>
+            <tr>
+        <% end %>
+            <td><a href="/systems/<%= system.id %>"><%= system.model %></a></td>
+            <td><%= system.username %></a></td>
+            <td><%= system.password %></a></td>
+            <td><%= system.comments %></td>
+            <td><a href="http://<%= system.ipaddr %>"><%=system.ipaddr%></a></td>
+            <td><%= system.bmc_mac %></td>
+        </tr>
+    <% end %>
+</table>
