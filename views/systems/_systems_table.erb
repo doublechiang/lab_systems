@@ -1,3 +1,6 @@
+<% if !update %>
+<p>Retrieving systems information....
+<% end %>
 <table>
     <tr>
     <th>Model</th>
@@ -7,9 +10,11 @@
     <th>BMC IP Address</th>
     <th>MAC address</th>
     </tr>
+    <% _sys_offline = false %>
     <% @systems.each do |system| %>
         <% if update %>
             <% if system.offline? %>
+                <% _sys_offline = true %>
                 <tr style="background-color: yellow" >
             <% else %>
                 <tr style="background-color: transparent" >
@@ -26,3 +31,14 @@
         </tr>
     <% end %>
 </table>
+<% time = Time.new %>
+<%= "updated at: " + time.hour.to_s + ":" + format('%02d', time.min) %>
+<% if _sys_offline %>
+<p> PS: 
+<table>
+    <tr style="background-color: yellow">
+    <td>System with wrong username & password in yellow color</td>
+    </tr>
+</table>
+<% end %>
+
