@@ -20,6 +20,7 @@ class Server < Sinatra::Base
   set :logging, true
   set :public_folder, File.dirname(__FILE__) + '/static'
   set server: 'thin'
+  set :cache_control, :no_store
 
   if ENV["APP_ENV"] == "production"
     set :bind, '0.0.0.0'
