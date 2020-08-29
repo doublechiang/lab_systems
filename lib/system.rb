@@ -31,33 +31,31 @@ class System
     if (@ipaddr && @username && @password)
       conn = IpmiProxy.new(@ipaddr, @username, @password)
       @cpld = conn.get_cpld
-      content = { cpld: @cpld }
     end
-    return content
   end
 
   def get_bios_version()
     if (@ipaddr && !@username.empty? && !@password.empty? )
       conn = IpmiProxy.new(@ipaddr, @username, @password)
-      bios_ver = conn.get_bios_version
-      content = { bios: bios_ver }
+      conn.get_bios_version
     end
   end
 
   def get_bmc_version()
     if (@ipaddr && !@username.empty? && !@password.empty?)
       conn = IpmiProxy.new(@ipaddr, @username, @password)
-      bmc_ver = conn.get_bmc_version
-      content = { bmc: bmc_ver }
+      conn.get_bmc_version
     end
   end
 
   def get_board_id()
+    content = {}
     if (@ipaddr && !@username.empty? && !@password.empty?)
+      # board_id is a has structure
       conn = IpmiProxy.new(@ipaddr, @username, @password)
-      output = conn.get_board_id
-      content = { board_id: output }
+      content=conn.get_board_id
     end
+    content
    end
 
   def get_system_mac()

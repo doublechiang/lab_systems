@@ -1,0 +1,19 @@
+<% if !update %>
+<p>Retrieving inband MAC and Ip address associated....
+<% else %>
+    <table>
+        <caption>Inband System MAC</caption>
+        <tr>
+        <th>System MAC Address</th>
+        <th>IP Address</th>
+        </tr>
+        <% ar_macips = @system.get_system_macs_with_ip %>
+        <% ar_macips.each do | entry| %>
+            <tr>
+                <td><%= entry[:mac] %></td>
+                <td><%= entry[:ipaddr] %></td>
+            </tr>
+        <% end %>
+        
+    </table>
+<% end %>

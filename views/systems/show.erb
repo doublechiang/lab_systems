@@ -3,6 +3,37 @@
   <head>
     <meta charset='UTF-8' />
     <title>Lab Systems - <%= @system.model %></title>
+    <script type='text/javascript'>
+      function get_inband_mac() {
+          $.ajax({
+            url:'/systems/<%=@system.id%>/inband_mac',
+            type:'get',
+            success: function(data) {
+              $("#inband_mac").fadeOut(function() {
+                $(this).html(data).slideDown()
+              })
+            }
+          });
+      }
+
+      function get_sys_info() {
+          $.ajax({
+            url:'/systems/<%=@system.id%>/sys_info',
+            type:'get',
+            success: function(data) {
+              $("#sys_info").fadeOut(function() {
+                $(this).html(data).slideDown()
+              })
+            }
+          });
+      }
+
+      $(document).ready(function(){
+        get_inband_mac();
+        get_sys_info();
+      });
+    </script>
+
   </head>
   <body>
     <h1><%= @system.model %></h1>
@@ -42,111 +73,15 @@
 
     <br/>
 
-  <div id='sse_result'>
-    <table id='sys_mac_ips'>
-      <caption>In-Band System MAC</caption>
-      <tr>
-        <th>Sys MAC Address</th>
-        <th>IP Address</th>
-      </tr>
-    </table>
+    <div id='inband_mac'>
+      <%= erb :'_inband_mac', :locals => {:update => false} %>
+    </div>
 
     <br/>
-    <table id='sys_info'>
-        <caption>System Information</caption>
-        <tr>
-          <td>BIOS Version:</td>
-          <td id='bios_version'></td>
-        </tr>
-        <tr>
-          <td>BMC Version:</td>
-          <td id='bmc_version'></td>
-        </tr>
-        <tr>
-          <td>CPLD Version:</td>
-          <td id="cpld_version"></td>
-        </tr>
-        <tr>
-          <td>Boad ID:</td>
-          <td id="board_id"></td>
-        </tr>
-     </table>
-  </div>
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script>
-      $('#sse_result').hide();
-      //$('#sys_mac_ips').hide();
-      //$('#sys_info').hide();
+    <div id='sys_info'>
+      <%= erb :'_sys_info', :locals => {:update => false} %>
+    </div>
 
-      var sse_path = "/systems/" + <%= @system.id %> + "/system.json";
-      console.log(sse_path)
-    if(typeof(EventSource) !== "undefined") {
-      // Browser support event source, Retreiveing SSE 
-      $("#cpld_version").text("Retrieveing...");
-      // add a table row with id so that we can remove later
-      $('<tr>', {
-        id: 'msg_retrieving'
-      }).text('Retrieveing...').appendTo('#sys_mac_ips')
-      var source = new EventSource(sse_path);
-      source.addEventListener('message', function(event) {
-      }, false);
-      source.addEventListener('open', function(event) {
-      }, false);
-      source.addEventListener('error', function(event) {
-        if (event.readyState == EventSource.CLOSED) {
-          console.log("connection has error and closed.")
-        }
-      }, false);
-
-      
-      source.onmessage = function(event) {
-          // build a table and from the result from route
-          var msg = JSON.parse(event.data);
-          // console.log(msg);
-          if ('cpld' in msg) {
-            $("#cpld_version").text(msg.cpld)
-
-            // will close the event source when get the cpld version.
-            source.close()
-          } else if ('bios' in msg) {
-            $("#bios_version").text(msg.bios)
-          } else if ('bmc' in msg) {
-            $("#bmc_version").text(msg.bmc)
-          } else if ('board_id' in msg) {
-            console.log(msg.board_id)
-            $.each(msg.board_id, function(key, value) {
-              console.log(key, value)
-              $('#board_id').append(key+":"+value+"<br/>")
-            })
-
-           } else if ('mac_ips' in msg) {
-            console.log(msg.mac_ips);
-            $("#msg_retrieving").remove();
-            a_mac_ips = msg.mac_ips;
-            $.each(a_mac_ips, function(i, item) {
-                if (item.ipaddr == null) {
-                  item.ipaddr= "";
-                }
-                var $tr = $('<tr>').append(
-                  $('<td>').text(item.mac),
-                  $('<td>').text(item.ipaddr)
-                );
-                $('#sys_mac_ips').append($tr);
-
-            })
-          } else if ('online' in msg) {
-            console.log(msg.online);
-            if (msg.online != false) {
-              $('#sse_result').show();
-            }
-          }
-
-      };
-    } else {
-      $("#sse_result").text("Browser does not support server-sent events....");
-    }
-
-    </script>
     </body>
 </html>

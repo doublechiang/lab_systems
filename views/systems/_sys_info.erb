@@ -1,0 +1,27 @@
+<% if !update %>
+<p>Retrieving systems information....
+<% end %>
+<% if update %>
+    <table>
+        <caption>System Information</caption>
+        <tr>
+            <td>BIOS Version</td>
+            <td><%=@system.get_bios_version %></td>
+        </tr>
+        <tr>
+            <td>BMC Version</td>
+            <td><%= @system.get_bmc_version %></td>
+        </tr>
+        <tr>
+            <td>CPLD Version</td>
+            <td><%= @system.get_cpld %></td>
+        </tr>
+        <tr>
+            <td>Boad ID</td>
+            <td>
+                <% content = @system.get_board_id %>
+                <%=content.map{ | k, v| "#{k}: #{v}"}.join('<br/>') %>
+            </td>
+        </tr>
+    </table>
+<% end %>

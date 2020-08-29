@@ -68,89 +68,39 @@ class Server < Sinatra::Base
     end
     
     get('/systems/:id') do
-    #  puts "Received a request for movie ID: #{params['id']}"
+        puts "Received a request for system ID: #{params['id']}"
+        @system = get_system_from_store_by_id(params['id'].to_i)
+
+        erb :"show"
+    end
+
+    get('/systems/:id/inband_mac') do 
+        puts "Received inband_mac call request for system ID: #{params['id']}"
+        @system = get_system_from_store_by_id(params['id'].to_i)
+        erb :'_inband_mac', :layout => false, :locals => {:update => true}
+    end
+
+    get('/systems/:id/sys_info') do 
+        puts "Received sys_info call request for system ID: #{params['id']}"
+        @system = get_system_from_store_by_id(params['id'].to_i)
+        erb :'_sys_info', :layout => false, :locals => {:update => true}
+    end
+
+    private
+
+    def get_system_from_store_by_id (id)
         id = params['id'].to_i
         @system = @@store.find(id)
         @leases = Lease.get_current
         if @leases.has_key?(@system.bmc_mac.to_sym)
             @system.ipaddr = @leases[@system.bmc_mac.to_sym].ipaddr
         end
+        @system
+    end 
 
-        # move all of the BMC retrivals server sent events.
 
-#        if @system.ipaddr && @system.username && @system.password
-#            conn = IpmiProxy.new(@system.ipaddr, @system.username, @system.password)
-#            @system.bios_ver = conn.get_bios_version
-#            @system.bmc_ver =  conn.get_bmc_version
-#        end
 
-        erb :"show"
-    end
 
-    get('/systems/:id/system.json') do 
-        content_type 'text/event-stream'
-
-        stream :keep_open do |out|
-        contents = {}
-        id = params['id'].to_i
-        @system = @@store.find(id)
-        leases = Lease.get_current
-        if leases.has_key?(@system.bmc_mac.to_sym)
-            @system.ipaddr = leases[@system.bmc_mac.to_sym].ipaddr
-        end
-
-        if @system.ipaddr && !@system.username.empty? && !@system.password.empty?
-            contents[:online] = true
-            out << "data: "
-            out << contents.to_json
-            out << "\n\n"
-
-            contents = {}
-            contents= @system.get_bios_version
-            out << "data: "
-            out << contents.to_json
-            out << "\n\n"
-
-            contents = {}
-            contents= @system.get_bmc_version
-            out << "data: "
-            out << contents.to_json
-            out << "\n\n"
-
-            contents={}
-            contents=@system.get_board_id
-            out << "data: "
-            out << contents.to_json
-            out << "\n\n"
-
-            mac_ips = @system.get_system_macs_with_ip
-            contents = {}
-            contents[:mac_ips] = mac_ips
-            out << "data: "
-            out << contents.to_json
-            out << "\n\n"
-
-            # keep get_cpld in the last of the update, client will close it when receive it.
-            contents = {}
-            contents = @system.get_cpld
-            out << "data: "
-            out << contents.to_json
-            out << "\n\n"
-            else
-                # do not have enough information to connect to server
-                contents[:online] = false
-                out << "data: "
-                out << contents.to_json
-                out << "\n\n"
-            end 
-
-            # puts @system.get_system_json
-            out.callback {
-                # delete the connections
-                out.close()
-            }
-        end
-    end
 end    
 
 

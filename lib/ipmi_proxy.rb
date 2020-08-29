@@ -55,11 +55,11 @@ class IpmiProxy
                     customer_code: customer_code,
                     date_code: date_code
                 }
-	    }
-        if $?.success?
-            return content
-        end
-        return "Invalide command, check #{__LINE__}, #{__FILE__}"
+        }
+        puts "Invalide command, check #{__LINE__}, #{__FILE__}" if !$?.success?
+            
+        return content
+
     end
 
 
@@ -124,7 +124,7 @@ class IpmiProxy
             for i in buf
                 str += i.to_i(16).chr
             end
-            return str
+            return str.to_s.strip
         else
             return ""
         end
