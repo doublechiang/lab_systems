@@ -16,6 +16,13 @@ class System
     return false
   end
 
+  def getPowerStatus?()
+    if (@ipaddr && @username && @password)
+      conn = IpmiProxy.new(@ipaddr, @username, @password)
+      conn.get_power_status
+    end
+  end
+
    # return true if use the credential can't get the correct name
   def offline?()
     if (@ipaddr && (@username.to_s != '') && (@password.to_s != ''))

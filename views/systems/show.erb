@@ -37,7 +37,7 @@
   </head>
   <body>
     <h1><%= @system.model %></h1>
-    <form method="post" action="/systems/<%=@system.id%>">
+    <form method="post" action="/systems/<%=@system.id%>" id="detail_form">
       <input type="hidden" name="_method" value="patch">
       <table>
         <tr>
@@ -60,14 +60,14 @@
           <td><label for="bmc_mac"> BMC MAC:</label></td>
           <td><input type="text" name="bmc_mac" value="<%= @system.bmc_mac %>"></td>
         </tr>
-      </table>
-      <button type="submit">Update</button>
+      </table><br/>
+    </form>
+    <form method="post" action="/systems/<%=@system.id%>" id="delete_system">
+        <input type="hidden" name="_method" value="delete">
     </form>
     <a href="/systems">Back to Index</a>
-    <form method="post" action="/systems/<%=@system.id%>">
-        <input type="hidden" name="_method" value="delete">
-	<button type="submit">Delete</button>
-    </form>
+    <button type="submit" form="detail_form">Update</button>
+	  <button type="submit" form="delete_sysetm">Delete</button><br/>
 
     <!-- Below section should be displayed when the username/password/ip are present -->
 

@@ -13,6 +13,14 @@ class IpmiProxy
         @password = password
     end
 
+
+    def get_power_status
+        f= IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} chassis power status")
+        pwr_status = f.gets.split.last
+        f.close
+        pwr_status
+    end
+
     def get_bmc_version
         f= IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} mc info")
         version=aux_version = 0

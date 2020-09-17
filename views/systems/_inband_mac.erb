@@ -2,6 +2,16 @@
 <p>Retrieving inband MAC and Ip address associated....
 <% else %>
     <table>
+        <caption>System Status</caption>
+        <tr>
+            <td>Power Status</td>
+            <td><%= @system.getPowerStatus? %>
+        </tr>
+        <tr>
+            <td>BMC IP Address</td>
+            <td><%= @system.ipaddr %></td>
+    </table><br/>
+    <table>
         <caption>Inband System MAC</caption>
         <tr>
         <th>System MAC Address</th>
