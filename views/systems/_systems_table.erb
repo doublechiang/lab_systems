@@ -1,6 +1,3 @@
-<% if !update %>
-<p>Retrieving systems information....
-<% end %>
 <table>
     <tr>
     <th>Model</th>
@@ -31,8 +28,12 @@
         </tr>
     <% end %>
 </table>
+<% if !update %>
+<p>Updating systems information....
+<% else %>
 <% time = Time.new %>
 <%= "updated at: " + time.hour.to_s + ":" + format('%02d', time.min) %>
+<% end %>
 <% if _sys_offline %>
 <p> PS: 
 <table>
