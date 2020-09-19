@@ -18,6 +18,7 @@ support bundle, use "bundle install" to update the required module.
 Since it will check the current time.
 You can copy dhcpd.leases file from the server to get the working valid sample.
 scp cchiang@10.16.0.1:/var/lib/dhcpd/dhcpd.leases .
+scp cchiang@10.16.0.1:lab_systems/system.yml .
 
 
 ## Problem when deploy
