@@ -1,8 +1,6 @@
 require 'sinatra'
 require 'system'
 require 'system_store'
-require 'nic'
-require 'nic_store'
 require 'socket'
 require 'get_dhcpd_leases'
 require 'ipmi_proxy'
