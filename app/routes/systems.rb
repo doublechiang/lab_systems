@@ -3,6 +3,7 @@ require 'json'
 class Server < Sinatra::Base
 
     set :views, "views/systems"
+    enable :sessions
 
     @@store = SystemStore.new('system.yml')
 
@@ -28,17 +29,37 @@ class Server < Sinatra::Base
 
     
     get('/systems/new') do
+        cache_control :no_store
+        @errors = session[:errors]
+        session[:errors] =  nil
+        @system = session[:system]
+        session[:system] = nil
+        if !@system
+            @system = System.new
+        end
         erb :"new"
     end
     
     post('/systems/create') do
     #    "Received: #{params.inspect}"
+
         @system = System.new
         @system.model = params['model']
         @system.username=params['username']
         @system.password=params['password']
         @system.comments = params['comments']
         @system.bmc_mac = params['bmc_mac'].to_s.downcase
+
+        inputed_mac = params['bmc_mac'].to_s.downcase
+        systems = @@store.all
+        systems.each do |sys|
+            if sys.bmc_mac == inputed_mac
+                puts "found MAC duplicated"
+                session[:errors] = "MAC address already in database."
+                session[:system] = @system
+                redirect '/systems/new'
+            end
+        end
     
         @@store.save(@system)
         redirect '/systems'
