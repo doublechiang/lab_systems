@@ -55,7 +55,7 @@ class Server < Sinatra::Base
         systems.each do |sys|
             if sys.bmc_mac == inputed_mac
                 puts "found MAC duplicated"
-                session[:errors] = "MAC address already in database."
+                session[:errors] = "The system has already been added to QCT lab database - need a cup of coffee?"
                 session[:system] = @system
                 redirect '/systems/new'
             end

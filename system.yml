@@ -1,0 +1,137 @@
+---
+1: !ruby/object:System
+  username: root
+  password: db9b3748e18a
+  model: S5B
+  comments: CY
+  bmc_mac: a8:1e:84:73:b9:bd
+  id: 1
+2: !ruby/object:System
+  model: S5B
+  comments: ''
+  bmc_mac: a8:1e:84:a2:29:d2
+  id: 2
+3: !ruby/object:System
+  username: admin
+  password: cmb9.admin
+  model: S5BQ
+  comments: ''
+  bmc_mac: a8:1e:84:96:8a:de
+  id: 3
+4: !ruby/object:System
+  username: admin
+  password: cmb9.admin
+  model: S5D
+  comments: ''
+  bmc_mac: a8:1e:84:7e:2b:f1
+  id: 4
+5: !ruby/object:System
+  username: admin
+  password: cmbadmin
+  model: S5S
+  comments: CY
+  bmc_mac: a8:1e:84:a2:cc:fb
+  id: 5
+6: !ruby/object:System
+  username: admin
+  password: cmb9.admin
+  model: S5T
+  comments: SFC
+  bmc_mac: a8:1e:84:fa:a0:47
+  id: 6
+8: !ruby/object:System
+  username: admin
+  password: admin
+  model: S2BP
+  comments: ''
+  bmc_mac: 2c:60:0c:52:24:5b
+  id: 8
+14: !ruby/object:System
+  username: admin
+  password: admin
+  model: S2PH
+  comments: ''
+  bmc_mac: 2c:60:0c:cd:29:98
+  id: 14
+17: !ruby/object:System
+  username: admin
+  password: adminadmin
+  model: S2P
+  comments: ''
+  bmc_mac: 2c:60:0c:bc:24:81
+  id: 17
+24: !ruby/object:System
+  model: S5B-1U
+  comments: Ebay USB/KVM switch issue
+  bmc_mac: d8:c4:97:e8:19:46
+  id: 24
+26: !ruby/object:System
+  username: dropbox
+  password: hhnFlaw5
+  model: S5HF_Left
+  comments: David's DBX Support
+  bmc_mac: a8:1e:84:fa:62:14
+  id: 26
+27: !ruby/object:System
+  username: dropbox
+  password: hhnFlaw5
+  model: S5HF_Right
+  comments: David's DBX Support
+  bmc_mac: a8:1e:84:fa:63:70
+  id: 27
+28: !ruby/object:System
+  username: admin
+  password: cmb.admin
+  model: S5G
+  comments: ''
+  bmc_mac: d8:c4:97:17:6e:ef
+  id: 28
+29: !ruby/object:System
+  username: admin
+  password: admin
+  model: S2S
+  comments: ''
+  bmc_mac: a8:1e:84:37:15:c8
+  id: 29
+30: !ruby/object:System
+  username: admin
+  password: cmb9.admin
+  model: S5BE
+  comments: ''
+  bmc_mac: d8:c4:97:b5:93:87
+  id: 30
+31: !ruby/object:System
+  username: admin
+  password: adminadmin
+  model: S2B
+  comments: ''
+  bmc_mac: 2c:60:0c:98:90:81
+  id: 31
+32: !ruby/object:System
+  username: admin
+  password: admin
+  model: S2S
+  comments: ''
+  bmc_mac: a8:1e:84:37:15:c8
+  id: 32
+33: !ruby/object:System
+  username: admin
+  password: adminadmin
+  model: S5KL
+  comments: KB System
+  bmc_mac: b4:a9:fc:59:67:0d
+  id: 33
+34: !ruby/object:System
+  username: admin
+  password: admin
+  model: S2S
+  comments: ''
+  bmc_mac: a8:1e:84:37:15:7e
+  id: 34
+35: !ruby/object:System
+  username: admin
+  password: adminadmin
+  model: S5P
+  comments: Jesse
+  bmc_mac: b4:a9:fc:82:26:86
+  id: 35
