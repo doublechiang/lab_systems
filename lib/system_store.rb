@@ -8,6 +8,12 @@ class SystemStore
 
   def save(system)
     @store.transaction do
+      # When save into database, if mac address is duplicated, then abort.
+      saved_macs = @store.roots.map { |id| @store[id].bmc_mac }
+      if saved_macs.include? system.bmc_mac
+        @store.abort
+      end
+
       unless system.id
         highest_id =@store.roots.max || 0
         system.id = highest_id + 1

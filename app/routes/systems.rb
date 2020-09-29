@@ -50,19 +50,14 @@ class Server < Sinatra::Base
         @system.comments = params['comments']
         @system.bmc_mac = params['bmc_mac'].to_s.downcase
 
-        inputed_mac = params['bmc_mac'].to_s.downcase
-        systems = @@store.all
-        systems.each do |sys|
-            if sys.bmc_mac == inputed_mac
-                puts "found MAC duplicated"
-                session[:errors] = "The system has already been added to QCT lab database - need a cup of coffee?"
-                session[:system] = @system
-                redirect '/systems/new'
-            end
+
+        if @@store.save(@system)
+            redirect '/systems'
+        else
+            session[:errors] = "The system has already been added to QCT lab database - need a cup of coffee?"
+            session[:system] = @system
+            redirect '/systems/new'
         end
-    
-        @@store.save(@system)
-        redirect '/systems'
     
     end
     
