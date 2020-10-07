@@ -9,6 +9,11 @@ class SystemStore
   def save(system)
     # Save system to the original file
     @store.transaction do
+    unless system.id
+      highest_id =@store.roots.max || 0
+      system.id = highest_id + 1
+    end
+    @store[system.id] = system
       # When save into database, if mac address is duplicated and the id is different from the current one, then abort
       systems = @store.roots.map { |id| @store[id] }
       systems.each do |sys|
@@ -17,11 +22,6 @@ class SystemStore
         end
       end
 
-      unless system.id
-        highest_id =@store.roots.max || 0
-        system.id = highest_id + 1
-      end
-      @store[system.id] = system
     end
   end
 
