@@ -21,6 +21,7 @@ class Server < Sinatra::Base
             end
         end
         if request.xhr?
+            puts 'Ajax called'
             erb :'_systems_table', :layout => false, :locals => {:update => true}
         else
             erb :"index"
@@ -62,8 +63,8 @@ class Server < Sinatra::Base
     end
     
     patch ('/systems/:id') do
-    #  puts "Received a request for ID: #{params['id']}"
-        "Received: #{params.inspect}"
+        puts "Received a PATCH request for ID: #{params['id']}"
+        # "Received: #{params.inspect}"
         id = params['id'].to_i
         @system = System.new
         @system.id = id
@@ -72,8 +73,12 @@ class Server < Sinatra::Base
         @system.password=params['password']
         @system.comments = params['comments']
         @system.bmc_mac = params['bmc_mac'].to_s.downcase
-        @@store.save(@system)
-        redirect "/systems"
+        if @@store.save(@system)
+            redirect "/systems"
+        else
+            session[:errors] = "The system has already been added to QCT lab database - need a cup of coffee?"
+            redirect "/systems/#{@system.id}"
+        end
     end
     
     delete ('/systems/:id') do 
@@ -85,19 +90,19 @@ class Server < Sinatra::Base
     
     get('/systems/:id') do
         puts "Received a request for system ID: #{params['id']}"
+        @errors = session[:errors]
+        session[:errors] =  nil
         @system = get_system_from_store_by_id(params['id'].to_i)
 
         erb :"show"
     end
 
     get('/systems/:id/inband_mac') do 
-        puts "Received inband_mac call request for system ID: #{params['id']}"
         @system = get_system_from_store_by_id(params['id'].to_i)
         erb :'_inband_mac', :layout => false, :locals => {:update => true}
     end
 
     get('/systems/:id/sys_info') do 
-        puts "Received sys_info call request for system ID: #{params['id']}"
         @system = get_system_from_store_by_id(params['id'].to_i)
         erb :'_sys_info', :layout => false, :locals => {:update => true}
     end

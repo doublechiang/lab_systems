@@ -7,11 +7,14 @@ class SystemStore
   end
 
   def save(system)
+    # Save system to the original file
     @store.transaction do
-      # When save into database, if mac address is duplicated, then abort.
-      saved_macs = @store.roots.map { |id| @store[id].bmc_mac }
-      if saved_macs.include? system.bmc_mac
-        @store.abort
+      # When save into database, if mac address is duplicated and the id is different from the current one, then abort
+      systems = @store.roots.map { |id| @store[id] }
+      systems.each do |sys|
+        if system.bmc_mac == sys.bmc_mac and system.id != sys.id
+          @store.abort
+        end
       end
 
       unless system.id

@@ -36,6 +36,12 @@
 
   </head>
   <body>
+    <% if @errors %>
+    <div id="errors">
+        <%= @errors %><br>
+    </div>
+    <% end %>
+    <br/>
     <h1><%= @system.model %></h1>
     <form method="post" action="/systems/<%=@system.id%>" id="detail_form">
       <input type="hidden" name="_method" value="patch">
