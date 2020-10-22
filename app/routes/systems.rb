@@ -21,7 +21,6 @@ class Server < Sinatra::Base
             end
         end
         if request.xhr?
-            puts 'Ajax called'
             erb :'_systems_table', :layout => false, :locals => {:update => true}
         else
             erb :"index"
@@ -87,7 +86,7 @@ class Server < Sinatra::Base
         @@store.delete id
         redirect '/systems'
     end
-    
+
     get('/systems/:id') do
         puts "Received a request for system ID: #{params['id']}"
         @errors = session[:errors]
@@ -97,6 +96,11 @@ class Server < Sinatra::Base
         erb :"show"
     end
 
+    get('/systems/:id/power_status') do
+        @system = get_system_from_store_by_id(params['id'].to_i)
+        return @system.getPowerStatus?
+    end
+    
     get('/systems/:id/inband_mac') do 
         @system = get_system_from_store_by_id(params['id'].to_i)
         erb :'_inband_mac', :layout => false, :locals => {:update => true}

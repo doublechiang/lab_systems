@@ -1,4 +1,35 @@
-<table>
+<script>
+    $(document).ready(function(){
+        // Initialize tooltip
+        $('.sysToolTip').tooltip({
+            title: getSysInfo,
+            html: true,
+            placement: 'right',
+            trigger: 'hover'
+        });
+    });
+
+    function getSysInfo() {
+        var tooltipText = "Retrieving....";
+        $.ajax({
+            url: "/systems/" + this.id + "/power_status",
+            type: 'get',
+            async: false,
+            success: function(response) {
+                tooltipText = response
+            }
+        });
+        return "System: " + tooltipText;
+    }
+</script>
+
+
+<style>
+
+
+</style>
+
+<table id='sys_index'>
     <tr>
     <th>Model</th>
     <th>username</th>
@@ -12,9 +43,11 @@
         <% if update %>
             <% if system.offline? %>
                 <% _sys_offline = true %>
-                <tr style="background-color: yellow" >
+                <tr style="background-color: yellow">
+            <% elsif system.online? %>
+                <tr style="background-color: transparent" class='sysToolTip' id=<%=system.id%> data-toggle="tooltip" data-placement="right">
             <% else %>
-                <tr style="background-color: transparent" >
+                <tr style="background-color: transparent" data-toogle="tooltip" data-placement="right">
             <% end %>
         <% else %>
             <tr>
@@ -26,6 +59,7 @@
             <td><a href="http://<%= system.ipaddr %>"><%=system.ipaddr%></a></td>
             <td><%= system.bmc_mac %></td>
         </tr>
+
     <% end %>
 </table>
 <% if !update %>
