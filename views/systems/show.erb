@@ -66,6 +66,10 @@
           <td><label for="bmc_mac"> BMC MAC:</label></td>
           <td><input type="text" name="bmc_mac" value="<%= @system.bmc_mac %>"></td>
         </tr>
+        <tr>
+            <td>BMC IP Address</td>
+            <td><a href='https://<%= @system.ipaddr %>'><%= @system.ipaddr %></td>
+        </tr>
       </table><br/>
     </form>
     <form method="post" action="/systems/<%=@system.id%>" id="delete_system">
