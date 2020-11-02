@@ -17,19 +17,14 @@ class Server < Sinatra::Base
   set :sessions, true
   set :logging, true
   set :public_folder, File.dirname(__FILE__) + '/static'
-  set server: 'thin'
   set :cache_control, :no_store
 
   if ENV["APP_ENV"] == "production"
     set :bind, '0.0.0.0'
     set :environment, :production
+    set server: 'thin'
   end
  
-
-  get '/' do
-    redirect '/index.html'
-  end
-
   run! if app_file == $0
 
 end

@@ -1,4 +1,6 @@
 require 'json'
+require 'sinatra/base'
+require 'system_store'
 
 class Server < Sinatra::Base
 

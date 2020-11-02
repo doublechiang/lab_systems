@@ -6,3 +6,10 @@ gem 'sinatra'
 gem 'thin'
 gem 'rerun'
 gem 'session'
+
+
+
+group :development, :test do
+  gem 'rspec'
+  gem 'rack-test'
+end
