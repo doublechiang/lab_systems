@@ -6,6 +6,7 @@ gem 'sinatra'
 gem 'thin'
 gem 'rerun'
 gem 'session'
+gem 'rake'
 
 
 

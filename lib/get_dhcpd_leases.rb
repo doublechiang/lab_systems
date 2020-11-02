@@ -24,30 +24,38 @@ class Lease
     lease = ipaddr = macaddr=date=time=nil
     leases = Hash.new
 
-# We are processing fixed dhcpd.lease format, no nested braces.
-    f = File.open(FILE)
-    f.each do |line|
-      case line
-      when /lease (.*) \{/
-	ipaddr = $1
-      when /hardware ethernet (.*);/
-	macaddr = $1
-      when /ends (.*);/
-	date_fmt = $1.split()
-	date, time = date_fmt[1], date_fmt[2]
-      when /}/
-	next if Date.parse(date) < Date.today 
-	next if Time.parse(time) < Time.now && Date.parse(date) == Date.today
 
-	lease = Lease.new(ipaddr: ipaddr, macaddr: macaddr, date: date, time: time)
-	leases[macaddr.to_sym] = lease
+    begin
+      # We are processing fixed dhcpd.lease format, no nested braces.
+      f = File.open(FILE, 'r')
+      f.each do |line|
+        case line
+        when /lease (.*) \{/
+          ipaddr = $1
+        when /hardware ethernet (.*);/
+          macaddr = $1
+        when /ends (.*);/
+          date_fmt = $1.split()
+          date, time = date_fmt[1], date_fmt[2]
+        when /}/
+          next if Date.parse(date) < Date.today 
+          next if Time.parse(time) < Time.now && Date.parse(date) == Date.today
+
+          lease = Lease.new(ipaddr: ipaddr, macaddr: macaddr, date: date, time: time)
+          leases[macaddr.to_sym] = lease
+        end
       end
+
+      f.close
+    rescue Errno::ENOENT => e
+      $stderr.puts "#{e}"
     end
 
-    f.close
     leases
   end
-end
+end    # class definition end
+
+
 
 leases = Lease.get_current
 leases.each do |k, v|
