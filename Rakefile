@@ -6,4 +6,10 @@ RSpec::Core::RakeTask.new(:spec) do |t|
 end
 task default: :spec
 
+task :development do
+  # prepare the development env from server.
+  system("scp cchiang@10.16.0.1:/var/lib/dhcpd/dhcpd.leases .")
+  system("scp cchiang@10.16.0.1:lab_systems/system.yml .")
+end
+
 

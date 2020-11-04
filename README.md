@@ -1,6 +1,4 @@
 # lab_systems
-
-
 Manage the Lab Server
 
 ## Preface
@@ -14,17 +12,16 @@ If the systems in the database has MAC matching the leases file MAC address, it 
 ## Installation.
 support bundle, use "bundle install" to update the required module.
 
-## Testing
+## Development
 Since it will check the current time.
 You can copy dhcpd.leases file from the server to get the working valid sample.
-scp cchiang@10.16.0.1:/var/lib/dhcpd/dhcpd.leases .
-scp cchiang@10.16.0.1:lab_systems/system.yml .
+rake development
 
+## Testing
+Use bundle exec rake to test the application, default is to run the spec with rspec
 
 ## Problem when deploy
 
 WEBrick very slow, check the solution from https://stackoverflow.com/questions/1156759/webrick-is-very-slow-to-respond-how-to-speed-it-up
 Changed the source of ruby code /share/ruby/webrick/server.rb to remove dns lookup, otherwise it's very slow
 
-## Testing 
-Use bundle exec rake to test the application.
