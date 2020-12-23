@@ -93,5 +93,11 @@
       <%= erb :'_sys_info', :locals => {:update => false} %>
     </div>
 
+    <br/>
+
+    <div id='conn_logs'>
+      <%= erb :'_conn_logs', :locals => {:cons => @system.getCons?} %>
+    </div> 
+
     </body>
 </html>

@@ -108,9 +108,16 @@ class Server < Sinatra::Base
         erb :'_inband_mac', :layout => false, :locals => {:update => true}
     end
 
+
     get('/systems/:id/sys_info') do 
         @system = get_system_from_store_by_id(params['id'].to_i)
         erb :'_sys_info', :layout => false, :locals => {:update => true}
+    end
+
+    get('/systems/:id/con_logs') do 
+        # puts "Receiving logs request #{params['id']}"
+        @system = get_system_from_store_by_id(params['id'].to_i)
+        erb :'conn_logs'
     end
 
     private

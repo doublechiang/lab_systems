@@ -1,17 +1,34 @@
 require 'json'
-#require_relative 'ipmi_proxy'
-#require_relative 'get_dhcpd_leases'
+require 'connection'
+require 'date'
 
 class System
   attr_accessor :model, :comments, :bmc_mac, :ipaddr, :id, :username, :password
   attr_accessor :bios_ver, :bmc_ver, :cpld
   attr_accessor :sysmacs
 
+  # Retrieve the recent 50 connections log based on system
+  # @params recent how many connections you would like to get maximum, default is 50
+  def getCons?(recent=50)
+    cons =Connection.where(mac: @bmc_mac).order(:tod).reverse_order.limit(recent)
+  end
+
   # If get system_name will get the string, the the system is online
+  # return true if get system name, othewise false
   def online?()
     if (@ipaddr && !(@username.to_s == '') && !(@password.to_s == ''))
       conn = IpmiProxy.new(@ipaddr, @username, @password)
-      return conn.get_system_name.to_s != ''
+      sys_name = conn.get_system_name.to_s
+      if sys_name != ''
+        con = Connection.new
+        con.mac = @bmc_mac
+        con.user = @username
+        con.pass = @password
+        con.ip = @ipaddr
+        con.tod = DateTime.now
+        con.save
+        return true
+      end
     end
     return false
   end

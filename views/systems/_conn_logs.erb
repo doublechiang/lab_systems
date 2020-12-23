@@ -1,0 +1,6 @@
+<h2>Successful Connection Histoy</h1>
+<ul>
+    <% cons.each do |c| %>
+    <li> <%= "#{c.user}:#{c.pass}@#{c.ip} authenticated at #{c.tod}" %></li>
+    <%end%>
+<ul>

@@ -11,6 +11,8 @@ If the systems in the database has MAC matching the leases file MAC address, it 
 
 ## Installation.
 support bundle, use "bundle install" to update the required module.
+database: use ActiveRecord
+bundle exec rake -I lib db:migrate
 
 ## Development
 Since it will check the current time.
