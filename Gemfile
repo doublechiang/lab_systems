@@ -9,7 +9,7 @@ gem 'session'
 gem 'rake'
 gem 'sqlite3'
 gem 'sinatra-activerecord'
-gem 'activerecord'
+gem 'activerecord', '~> 5.2'
 
 group :development, :test do
   gem 'rspec'
