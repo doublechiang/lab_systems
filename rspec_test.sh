@@ -1,1 +1,1 @@
-APP_ENV=test rspec -I . -I app/routes -I lib
+APP_ENV=test bundle exec rspec -I . -I app/routes -I lib
