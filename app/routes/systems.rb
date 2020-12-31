@@ -82,6 +82,17 @@ class Server < Sinatra::Base
         end
         redirect "/systems"
     end
+
+    # API to retrieve sel information
+    post ('/systems/:id') do
+        puts "Received a POST request for ID: #{params['id']}"
+        # "Received: #{params.inspect}"
+        @system = get_system_from_store_by_id(params['id'].to_i)
+        @system.save_sels()
+    end
+
+
+
     
     delete ('/systems/:id') do 
         puts "Delete receive a request for ID: #{params['id']}"
@@ -115,11 +126,19 @@ class Server < Sinatra::Base
         erb :'_sys_info', :layout => false, :locals => {:update => true}
     end
 
-    get('/systems/:id/con_logs') do 
-        # puts "Receiving logs request #{params['id']}"
+    get('/systems/:id/conn_logs') do 
+         puts "Receiving logs request #{params['id']}"
         @system = get_system_from_store_by_id(params['id'].to_i)
-        erb :'conn_logs'
+        erb :'_conn_logs', :locals => {:cons => @system.getCons?}
+   end
+
+    get('/systems/:id/sels') do 
+        puts "Receiving logs request #{params['id']}"
+        @system = get_system_from_store_by_id(params['id'].to_i)
+        @sels = @system.get_sels
+        erb :'sels'
     end
+
 
     private
 

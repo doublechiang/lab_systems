@@ -1,8 +1,11 @@
 #require 'json'
 require 'connection'
 require 'date'
-
 require 'sinatra/activerecord'
+
+# local require
+require 'ipmi_sel'
+require 'sel'
 
 class System < ActiveRecord::Base
   attr_accessor :ipaddr
@@ -111,6 +114,44 @@ class System < ActiveRecord::Base
     end
     return mac_ips
   end
+
+  # Query BMC to get sels and save into database without duplication
+  def save_sels()
+    content = ""
+    if (@ipaddr && !@username.empty? && !@password.empty?)
+      # board_id is a has structure
+      conn = IpmiProxy.new(@ipaddr, @username, @password)
+      content=conn.get_sel_elist
+      sellib = IpmiSel.new
+      sel_content = sellib.parse(content)
+      sel_content.each do |s|
+        sel = Sel.new
+        checking = {}
+        s.each do | key, value|
+          # our field name is a lower case and replace the space with undercore
+          field = key.downcase.tr(' ', '_')
+          if field == 'timestamp' 
+            value = DateTime.strptime(value, '%m/%d/%Y %H:%M:%S')
+          end
+          sel[field] = value
+          checking[field] = value
+        end
+        # puts sel.inspect
+        sel.save unless Sel.exists?(checking)
+      end
+      puts "Processed #{sel_content.length} sel records into database."
+      return true
+    end
+  end
+
+  # Retrieve SEL records in database 
+  def get_sels()
+    sels = Sel.all
+    return sels
+  end
+
+
+
 end
 
 #sys = System.new

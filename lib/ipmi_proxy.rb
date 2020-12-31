@@ -114,6 +114,14 @@ class IpmiProxy
         return system_name
     end
 
+
+    def get_sel_elist
+        f=IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} -v sel elist")
+        sel_output =f.readlines
+        f.close
+        return sel_output
+    end
+
     private
     def parse_ipmi_raw_mac_resp(macstr)
         strary = macstr.split

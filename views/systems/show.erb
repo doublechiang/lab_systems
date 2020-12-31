@@ -95,9 +95,10 @@
 
     <br/>
 
-    <div id='conn_logs'>
-      <%= erb :'_conn_logs', :locals => {:cons => @system.getCons?} %>
-    </div> 
+    <h3>
+    <a href="/systems/<%=@system.id%>/sels">SEL History</a><br/>
+    <a href="/systems/<%=@system.id%>/conn_logs">Connection logs</a>
+    </h3>
 
     </body>
 </html>
