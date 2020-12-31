@@ -1,13 +1,11 @@
 require 'json'
 require 'sinatra/base'
-require 'system_store'
+require 'system'
 
 class Server < Sinatra::Base
 
     set :views, "views/systems"
     enable :sessions
-
-    @@store = SystemStore.new('system.yml')
 
     get('/systems/') do
         redirect('/systems')
@@ -15,7 +13,7 @@ class Server < Sinatra::Base
 
     get('/systems') do
         headers['Cache-Control'] = 'no-store'
-        @systems = @@store.all
+        @systems = System.all
         leases = Lease.get_current
         @systems.each do |sys|
             if leases.has_key?(sys.bmc_mac.downcase.to_sym)
@@ -53,39 +51,42 @@ class Server < Sinatra::Base
         @system.bmc_mac = params['bmc_mac'].to_s.downcase
 
 
-        if @@store.save(@system)
-            redirect '/systems'
-        else
+        begin
+            @system.save 
+        rescue => exception
             session[:errors] = "The system has already been added to QCT lab database - need a cup of coffee?"
             session[:system] = @system
             redirect '/systems/new'
         end
-    
+        redirect '/systems'
+
     end
     
     patch ('/systems/:id') do
         puts "Received a PATCH request for ID: #{params['id']}"
         # "Received: #{params.inspect}"
         id = params['id'].to_i
-        @system = System.new
-        @system.id = id
-        @system.model = params['model']
-        @system.username=params['username']
-        @system.password=params['password']
-        @system.comments = params['comments']
-        @system.bmc_mac = params['bmc_mac'].to_s.downcase
-        if @@store.save(@system)
-            redirect "/systems"
-        else
+        params['bmc_mac'] = params['bmc_mac'].to_s.downcase
+        sys =System.find_by(id: id)
+        sys.model = params['model']
+        sys.username=params['username']
+        sys.password=params['password']
+        sys.comments = params['comments']
+        sys.bmc_mac = params['bmc_mac'].to_s.downcase
+        begin
+            sys.save
+        rescue => exception
+            puts exception.inspect
             session[:errors] = "The system has already been added to QCT lab database - need a cup of coffee?"
-            redirect "/systems/#{@system.id}"
+            redirect "/systems/#{id}"
         end
+        redirect "/systems"
     end
     
     delete ('/systems/:id') do 
         puts "Delete receive a request for ID: #{params['id']}"
-        id = params['id'].to_i
-        @@store.delete id
+        sys = System.find_by(id: params['id'].to_i)
+        sys.destroy
         redirect '/systems'
     end
 
@@ -124,7 +125,7 @@ class Server < Sinatra::Base
 
     def get_system_from_store_by_id (id)
         id = params['id'].to_i
-        @system = @@store.find(id)
+        @system = System.find(id)
         @leases = Lease.get_current
         if @leases.has_key?(@system.bmc_mac.to_sym)
             @system.ipaddr = @leases[@system.bmc_mac.to_sym].ipaddr

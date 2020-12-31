@@ -1,6 +1,11 @@
 require 'yaml/store'
 
 class SystemStore
+
+  # Phase out Yaml store method, please use ActiveRecord instead.
+  extend Gem::Deprecate
+
+
   def initialize(file_name)
     @store = YAML::Store.new(file_name, thread_safe=true)
     @store.ultra_safe = true
@@ -47,4 +52,11 @@ class SystemStore
       @store.delete id
     end
   end
+
+  deprecate :save, "ActiveRecord", 2020, 12
+  deprecate :all, "ActiveRecord", 2020, 12
+  deprecate :find, "ActiveRecord", 2020, 12
+  deprecate :delete, "ActiveRecord", 2020, 12
+
+
 end
