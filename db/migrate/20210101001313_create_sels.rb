@@ -1,6 +1,7 @@
 class CreateSels < ActiveRecord::Migration[5.2]
   def change
     create_table :sels do |t|
+      t.integer :system_id
       t.text :sel_record_id
       t.text :record_type
       t.datetime :timestamp
@@ -14,6 +15,7 @@ class CreateSels < ActiveRecord::Migration[5.2]
       t.text :description
       t.text :manufactacturer_id
       t.text :oem_defined
+      t.text :panic_string
     end
   end
 end

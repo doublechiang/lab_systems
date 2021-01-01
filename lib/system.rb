@@ -13,6 +13,7 @@ class System < ActiveRecord::Base
   attr_accessor :sysmacs
 
   validates_presence_of :model, :bmc_mac
+  has_many :sels, :dependent => :destroy
 
   # Retrieve the recent 50 connections log based on system
   # @params recent how many connections you would like to get maximum, default is 50
@@ -34,6 +35,7 @@ class System < ActiveRecord::Base
         con.ip = ipaddr
         con.tod = DateTime.now
         con.save
+        Thread.new {save_sels}
         return true
       end
     end
@@ -118,15 +120,16 @@ class System < ActiveRecord::Base
   # Query BMC to get sels and save into database without duplication
   def save_sels()
     content = ""
-    if (@ipaddr && !@username.empty? && !@password.empty?)
+    if (ipaddr && !username.empty? && !password.empty?)
       # board_id is a has structure
-      conn = IpmiProxy.new(@ipaddr, @username, @password)
+      conn = IpmiProxy.new(ipaddr, username, password)
       content=conn.get_sel_elist
       sellib = IpmiSel.new
       sel_content = sellib.parse(content)
       sel_content.each do |s|
-        sel = Sel.new
-        checking = {}
+        # calling collections to get dependent object 
+        sel = sels.new
+        reference = {}
         s.each do | key, value|
           # our field name is a lower case and replace the space with undercore
           field = key.downcase.tr(' ', '_')
@@ -134,20 +137,19 @@ class System < ActiveRecord::Base
             value = DateTime.strptime(value, '%m/%d/%Y %H:%M:%S')
           end
           sel[field] = value
-          checking[field] = value
+          reference[field] = value
         end
         # puts sel.inspect
-        sel.save unless Sel.exists?(checking)
+        sel.save unless Sel.exists?(reference)
       end
-      puts "Processed #{sel_content.length} sel records into database."
+      puts "Processed #{sel_content.length} sel records on system #{id} into database."
       return true
     end
   end
 
   # Retrieve SEL records in database 
   def get_sels()
-    sels = Sel.all
-    return sels
+    return sels.all
   end
 
 

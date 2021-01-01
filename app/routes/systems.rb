@@ -91,8 +91,6 @@ class Server < Sinatra::Base
         @system.save_sels()
     end
 
-
-
     
     delete ('/systems/:id') do 
         puts "Delete receive a request for ID: #{params['id']}"
@@ -127,13 +125,13 @@ class Server < Sinatra::Base
     end
 
     get('/systems/:id/conn_logs') do 
-         puts "Receiving logs request #{params['id']}"
+        # puts "Receiving logs request #{params['id']}"
         @system = get_system_from_store_by_id(params['id'].to_i)
         erb :'_conn_logs', :locals => {:cons => @system.getCons?}
    end
 
     get('/systems/:id/sels') do 
-        puts "Receiving logs request #{params['id']}"
+        # puts "Receiving logs request #{params['id']}"
         @system = get_system_from_store_by_id(params['id'].to_i)
         @sels = @system.get_sels
         erb :'sels'
@@ -143,7 +141,6 @@ class Server < Sinatra::Base
     private
 
     def get_system_from_store_by_id (id)
-        id = params['id'].to_i
         @system = System.find(id)
         @leases = Lease.get_current
         if @leases.has_key?(@system.bmc_mac.to_sym)

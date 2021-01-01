@@ -24,8 +24,8 @@
             @sels.each do |sel|
                 if attrs.empty?
                     sel.attributes.each do |k, v| 
-                        attrs << k
-                    end
+                        attrs << k unless k=='id' or k=='system_id'
+                     end
                 end
             end
         %>
@@ -37,6 +37,7 @@
         <% @sels.each do |sel| %>
             <tr>
             <% sel.attributes.each do |k, v| %>
+                <% next if k == 'id' or k=='system_id'%>
                 <td><%=v%></td>
             <% end %>
             </tr>

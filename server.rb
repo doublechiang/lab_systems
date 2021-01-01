@@ -20,7 +20,7 @@ class Server < Sinatra::Base
   set :logging, true
   set :public_folder, File.dirname(__FILE__) + '/static'
   set :cache_control, :no_store
-  set :database, {adapter: "sqlite3", database: "db/systems.sqlite3"}
+  set :database, {adapter: "sqlite3", database: "db/systems.sqlite3", timeout: 10000}
 
   if ENV["APP_ENV"] == "production"
     set :bind, '0.0.0.0'
