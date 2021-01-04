@@ -35,7 +35,11 @@ class System < ActiveRecord::Base
         con.ip = ipaddr
         con.tod = DateTime.now
         con.save
-        Thread.new {save_sels}
+        Thread.new {
+	    # Due to solite3 performance issue,we will delay write the sel processing to upmost 1 minutes later
+	    sleep rand(10..60)
+	    save_sels
+	}
         return true
       end
     end
