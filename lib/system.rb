@@ -141,9 +141,13 @@ class System < ActiveRecord::Base
             value = DateTime.strptime(value, '%m/%d/%Y %H:%M:%S')
           end
           sel[field] = value
-          reference[field] = value
+          reference[field] = value if value 
         end
-        # puts sel.inspect
+
+        # reference do not hold the foreign key, add it manually.
+        reference[:system_id] = sel[:system_id]
+        # puts Sel.find(reference)
+        Sel.exists?(reference)
         sel.save unless Sel.exists?(reference)
       end
       puts "Processed #{sel_content.length} sel records on system #{id} into database."
