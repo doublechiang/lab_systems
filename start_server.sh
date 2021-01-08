@@ -20,5 +20,6 @@ if [ -x "$(command -v rerun)" ] && [ "${param}" == "development" ]; then
     echo ${cmd}
     eval rerun -d ${pd}/app/routes -d ${pd}/views/systems -d ${pd}/lib -d . \'${cmd}\'
 else
+   mkdir -p log
    eval ${cmd} > log/production.log 2>&1
 fi 
