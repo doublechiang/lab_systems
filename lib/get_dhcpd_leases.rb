@@ -6,9 +6,10 @@
 require 'date'
 require 'time'
 
-FILE="/var/lib/dhcpd/dhcpd.leases"
-if ENV["APP_ENV"] == "test"
+if ENV["APP_ENV"] == "development"
   FILE="./dhcpd.leases"
+else
+  FILE="/var/lib/dhcpd/dhcpd.leases"
 end
 
 class Lease

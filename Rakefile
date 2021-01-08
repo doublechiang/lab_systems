@@ -11,10 +11,9 @@ end
 task default: :spec
 
 desc 'copy server lease file & systems database file'
-task :devel do
+task :development do
   puts "prepare the development env from server."
   system("scp cchiang@10.16.0.1:/var/lib/dhcpd/dhcpd.leases .")
-  system("scp cchiang@10.16.0.1:lab_systems/system.yml .")
 end
 
 namespace :db do

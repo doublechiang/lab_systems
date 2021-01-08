@@ -1,11 +1,14 @@
 require 'json'
 require 'sinatra/base'
-require 'system'
 
-class Server < Sinatra::Base
+require 'lab_systems'
+require 'system'
+require 'ipmi_proxy'
+require 'get_dhcpd_leases'
+
+class Systems < LabSystems
 
     set :views, "views/systems"
-    enable :sessions
 
     get('/systems/') do
         redirect('/systems')
@@ -149,9 +152,11 @@ class Server < Sinatra::Base
         @system
     end 
 
+    error do
+        "Please contact chunyu.chiang@qct.io for the error."
+    end
 
-
-
+    run! if __FILE__ == $0
 end    
 
 

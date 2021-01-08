@@ -36,10 +36,10 @@ class System < ActiveRecord::Base
         con.tod = DateTime.now
         con.save
         Thread.new {
-	    # Due to solite3 performance issue,we will delay write the sel processing to upmost 1 minutes later
-	    sleep rand(10..60)
-	    save_sels
-	}
+          # Due to solite3 performance issue,we will delay write the sel processing to upmost 1 minutes later
+          sleep rand(10..60)
+          save_sels
+        }
         return true
       end
     end
@@ -150,14 +150,14 @@ class System < ActiveRecord::Base
         Sel.exists?(reference)
         sel.save unless Sel.exists?(reference)
       end
-      puts "Processed #{sel_content.length} sel records on system #{id} into database."
+      logger.info "Processed #{sel_content.length} sel records on system #{id} into database."
       return true
     end
   end
 
   # Retrieve SEL records in database 
   def get_sels()
-    return sels.all
+    return sels.all.order(:timestamp)
   end
 
 
