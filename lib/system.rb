@@ -21,10 +21,17 @@ class System < ActiveRecord::Base
     cons =Connection.where(mac: bmc_mac).order(:tod).reverse_order.limit(recent)
   end
 
+  # If the ip address and username password is persent, the it's is queryable
+  def queryable?()
+    if (ipaddr && username && password)
+      return !(ipaddr.empty? || username.empty? || password.empty?)
+    end
+  end
+
   # If get system_name will get the string, the the system is online
   # return true if get system name, othewise false
   def online?()
-    if (ipaddr && !(username.to_s == '') && !(password.to_s == ''))
+    if queryable?
       conn = IpmiProxy.new(ipaddr, username, password)
       sys_name = conn.get_system_name.to_s
       if sys_name != ''
@@ -47,7 +54,7 @@ class System < ActiveRecord::Base
   end
 
   def getPowerStatus?()
-    if (ipaddr && username && password)
+    if queryable?
       conn = IpmiProxy.new(ipaddr, username, password)
       conn.get_power_status
     end
@@ -55,7 +62,7 @@ class System < ActiveRecord::Base
 
    # return true if use the credential can't get the correct name
   def offline?()
-    if (ipaddr && (username.to_s != '') && (password.to_s != ''))
+    if queryable?
       conn = IpmiProxy.new(ipaddr, username, password)
       return conn.get_system_name.to_s == ''
     end
@@ -65,21 +72,21 @@ class System < ActiveRecord::Base
   def get_cpld()
     # retrieve system information and save return json format
     content = {}
-    if (ipaddr && username && password)
+    if queryable?
       conn = IpmiProxy.new(ipaddr, username, password)
       @cpld = conn.get_cpld
     end
   end
 
   def get_bios_version()
-    if (ipaddr && !username.empty? && !password.empty? )
+    if queryable?
       conn = IpmiProxy.new(ipaddr, username, password)
       conn.get_bios_version
     end
   end
 
   def get_bmc_version()
-    if (ipaddr && !username.empty? && !password.empty?)
+    if queryable?
       conn = IpmiProxy.new(ipaddr, username, password)
       conn.get_bmc_version
     end
@@ -87,7 +94,7 @@ class System < ActiveRecord::Base
 
   def get_board_id()
     content = {}
-    if (ipaddr && !username.empty? && !password.empty?)
+    if queryable?
       # board_id is a has structure
       conn = IpmiProxy.new(ipaddr, username, password)
       content=conn.get_board_id
@@ -98,7 +105,7 @@ class System < ActiveRecord::Base
   def get_system_mac()
     # Get in-band system macs and returned in an array form
     macs = []
-    if (ipaddr && !username && !password)
+    if queryable?
       conn = IpmiProxy.new(ipaddr, username, password)
       macs = conn.get_system_mac
     end
@@ -108,7 +115,7 @@ class System < ActiveRecord::Base
   def get_system_macs_with_ip()
     # retreive the json format with system mac with matching IP.
     mac_ips = []
-    sysmacs = self.get_system_mac
+    sysmacs = get_system_mac
     leases = Lease.get_current
     sysmacs.each do |mac|
       ipaddr = nil
@@ -124,7 +131,7 @@ class System < ActiveRecord::Base
   # Query BMC to get sels and save into database without duplication
   def save_sels()
     content = ""
-    if (ipaddr && !username.empty? && !password.empty?)
+    if queryable?
       # board_id is a has structure
       conn = IpmiProxy.new(ipaddr, username, password)
       content=conn.get_sel_elist
