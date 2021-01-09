@@ -5,6 +5,7 @@ require 'lab_systems'
 require 'system'
 require 'ipmi_proxy'
 require 'get_dhcpd_leases'
+require 'connection'
 
 class Systems < LabSystems
 
@@ -130,13 +131,14 @@ class Systems < LabSystems
     get('/systems/:id/conn_logs') do 
         # puts "Receiving logs request #{params['id']}"
         @system = get_system_from_store_by_id(params['id'].to_i)
-        erb :'_conn_logs', :locals => {:cons => @system.getCons?}
+        @cons = Connection.where(mac: @system.bmc_mac).order(:tod).reverse_order.paginate(page: params[:page], per_page: 40)
+        erb :'_conn_logs'
    end
 
     get('/systems/:id/sels') do 
         # puts "Receiving logs request #{params['id']}"
         @system = get_system_from_store_by_id(params['id'].to_i)
-        @sels = @system.get_sels
+        @sels = @system.sels.order(:timestamp).paginate(page: params[:page], per_page: 40)
         erb :'sels'
     end
 

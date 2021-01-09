@@ -1,5 +1,4 @@
 #require 'json'
-require 'connection'
 require 'date'
 require 'sinatra/activerecord'
 
@@ -15,14 +14,9 @@ class System < ActiveRecord::Base
   validates_presence_of :model, :bmc_mac
   has_many :sels, :dependent => :destroy
 
-  # Retrieve the recent 50 connections log based on system
-  # @params recent how many connections you would like to get maximum, default is 50
-  def getCons?(recent=50)
-    cons =Connection.where(mac: bmc_mac).order(:tod).reverse_order.limit(recent)
-  end
-
   # If the ip address and username password is persent, the it's is queryable
   def queryable?()
+    puts ipaddr.inspect, username.inspect, password.inspect
     if (ipaddr && username && password)
       return !(ipaddr.empty? || username.empty? || password.empty?)
     end
@@ -161,13 +155,6 @@ class System < ActiveRecord::Base
       return true
     end
   end
-
-  # Retrieve SEL records in database 
-  def get_sels()
-    return sels.all.order(:timestamp)
-  end
-
-
 
 end
 

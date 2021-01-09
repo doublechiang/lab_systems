@@ -10,6 +10,7 @@ gem 'rake'
 gem 'sqlite3'
 gem 'sinatra-activerecord'
 gem 'activerecord', '~> 5.2'
+gem 'will_paginate'
 
 group :development, :test do
   gem 'rspec'

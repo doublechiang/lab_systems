@@ -1,9 +1,12 @@
 require 'sinatra/base'
 require 'socket'
 require "sinatra/activerecord"
+require 'will_paginate'
+require 'will_paginate/active_record'  # or data_mapper/sequel
 
 class LabSystems < Sinatra::Base
   register Sinatra::ActiveRecordExtension
+  include WillPaginate::Sinatra::Helpers
   # helpers Sinatra::CustomLogger
 
   Socket.do_not_reverse_lookup = true
