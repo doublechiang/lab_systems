@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Lab Systems Inventories</title>
+    <script type='text/javascript'>
+    </script>
+    <style>
+    </style>
+  </head>
+  <body>
+    <h1>Inventories</h1>
+    <table>
+    <tr>
+    <th>BMC MAC address</th>
+    </tr>
+    <% @invs.each do |inv| %>
+    <tr>
+      <td><a href="<%=inv.id%>"><%=inv.bmc_mac %></a></td>
+    </tr>
+    <% end %>
+    </table>
+
+
+  </body>
+</html>

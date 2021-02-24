@@ -18,7 +18,7 @@ end
 
 namespace :db do
   task :load_config do
-    require "./server"
+    require "./lab_systems"
   end
 end
 

@@ -11,11 +11,7 @@ class Systems < LabSystems
 
     set :views, "views/systems"
 
-    get('/systems/') do
-        redirect('/systems')
-    end
-
-    get('/systems') do
+    get('/') do
         headers['Cache-Control'] = 'no-store'
         @systems = System.all
         leases = Lease.get_current
@@ -32,7 +28,7 @@ class Systems < LabSystems
     end
 
     
-    get('/systems/new') do
+    get('/new') do
         cache_control :no_store
         @errors = session[:errors]
         session[:errors] =  nil
@@ -44,7 +40,7 @@ class Systems < LabSystems
         erb :"new"
     end
     
-    post('/systems/create') do
+    post('/create') do
     #    "Received: #{params.inspect}"
 
         @system = System.new
@@ -60,13 +56,13 @@ class Systems < LabSystems
         rescue => exception
             session[:errors] = "The system has already been added to QCT lab database - need a cup of coffee?"
             session[:system] = @system
-            redirect '/systems/new'
+            redirect '/new'
         end
-        redirect '/systems'
+        redirect '/'
 
     end
     
-    patch ('/systems/:id') do
+    patch ('/:id') do
         puts "Received a PATCH request for ID: #{params['id']}"
         # "Received: #{params.inspect}"
         id = params['id'].to_i
@@ -82,13 +78,13 @@ class Systems < LabSystems
         rescue => exception
             puts exception.inspect
             session[:errors] = "The system has already been added to QCT lab database - need a cup of coffee?"
-            redirect "/systems/#{id}"
+            redirect "/#{id}"
         end
-        redirect "/systems"
+        redirect "/"
     end
 
     # API to retrieve sel information
-    post ('/systems/:id') do
+    post ('/:id') do
         puts "Received a POST request for ID: #{params['id']}"
         # "Received: #{params.inspect}"
         @system = get_system_from_store_by_id(params['id'].to_i)
@@ -96,14 +92,14 @@ class Systems < LabSystems
     end
 
     
-    delete ('/systems/:id') do 
+    delete ('/:id') do 
         puts "Delete receive a request for ID: #{params['id']}"
         sys = System.find_by(id: params['id'].to_i)
         sys.destroy
-        redirect '/systems'
+        redirect '/'
     end
 
-    get('/systems/:id') do
+    get('/:id') do
         puts "Received a request for system ID: #{params['id']}"
         @errors = session[:errors]
         session[:errors] =  nil
@@ -112,30 +108,30 @@ class Systems < LabSystems
         erb :"show"
     end
 
-    get('/systems/:id/power_status') do
+    get('/:id/power_status') do
         @system = get_system_from_store_by_id(params['id'].to_i)
         return @system.getPowerStatus?
     end
     
-    get('/systems/:id/inband_mac') do 
+    get('/:id/inband_mac') do 
         @system = get_system_from_store_by_id(params['id'].to_i)
         erb :'_inband_mac', :layout => false, :locals => {:update => true}
     end
 
 
-    get('/systems/:id/sys_info') do 
+    get('/:id/sys_info') do 
         @system = get_system_from_store_by_id(params['id'].to_i)
         erb :'_sys_info', :layout => false, :locals => {:update => true}
     end
 
-    get('/systems/:id/conn_logs') do 
+    get('/:id/conn_logs') do 
         # puts "Receiving logs request #{params['id']}"
         @system = get_system_from_store_by_id(params['id'].to_i)
         @cons = Connection.where(mac: @system.bmc_mac).order(:tod).reverse_order.paginate(page: params[:page], per_page: 40)
         erb :'_conn_logs'
    end
 
-    get('/systems/:id/sels') do 
+    get('/:id/sels') do 
         # puts "Receiving logs request #{params['id']}"
         @system = get_system_from_store_by_id(params['id'].to_i)
         @sels = @system.sels.order(:timestamp).paginate(page: params[:page], per_page: 40)

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Lab Systems Inventories - <%= @inv.bmc_mac %></title>
+    <script type='text/javascript'>
+    </script>
+
+  </head>
+  <body>
+    <% if @errors %>
+    <div id="errors">
+        <%= @errors %><br>
+    </div>
+    <% end %>
+    <br/>
+    <h1><%= @inv.bmc_mac %></h1>
+    <h2>CPU</h2>
+    <% @cpus.each do |c| %>
+    <li><%= c.product %>, <%=c.slot %></li>
+    <% end %>
+
+    <h2> Memory </h2>
+    <% @mems.each do |m| %>
+    <li><%=m.description%>, <%=m.product%>, <%=m.vendor%>,<%=m.serial%>,<%=m.slot%>,<%=m.size%></li>
+    <% end %>
+
+    <h2>Storage</h2>
+    <% @storage.each do |s| %>
+    <li><%=s.descritpion %>,<%=s.product%>, <%=s.vendor%>, <%=s.businfo%></li>
+    <% end %>
+
+    <h2>NICs</h2>
+    <% @nics.each do |n| %>
+    <li><%=n.product%>, <%=n.vendor%>, <%=n.physid%>, <%=n.serial%>, <%=n.businfo%></li>
+    <% end %>
+
+    <h2>Disks</h2>
+    <% @disks.each do |d| %>
+    <li><%=d.description%>,<%=d.product%>, <%=d.version%>, <%=d.serial%>, <%=d.businfo%></li>
+    <% end %>
+
+    <h2>NVMEs</h2>
+    <% @nvmes.each do |n| %>
+    <li><%=n.model%>, <%=n.serial%>, <%=n.firmware_rev%>, <%=n.address%></li>
+    <% end %>
+
+
+    
+
+
+    <a href="/inventories">Back to Index</a>
+
+</html>

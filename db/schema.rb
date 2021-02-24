@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_01_001313) do
+ActiveRecord::Schema.define(version: 2021_01_23_005838) do
 
   create_table "connections", force: :cascade do |t|
     t.text "mac"
@@ -18,6 +18,58 @@ ActiveRecord::Schema.define(version: 2021_01_01_001313) do
     t.text "pass"
     t.text "ip"
     t.datetime "tod"
+  end
+
+  create_table "cpus", force: :cascade do |t|
+    t.integer "inventory_id"
+    t.text "product"
+    t.text "slot"
+    t.datetime "timestamp"
+  end
+
+  create_table "disks", force: :cascade do |t|
+    t.integer "inventory_id"
+    t.text "description"
+    t.text "product"
+    t.text "version"
+    t.text "serial"
+    t.text "businfo"
+    t.datetime "timestamp"
+  end
+
+  create_table "inventories", force: :cascade do |t|
+    t.text "bmc_mac"
+  end
+
+  create_table "mems", force: :cascade do |t|
+    t.integer "inventory_id"
+    t.text "description"
+    t.text "product"
+    t.text "vendor"
+    t.text "physid"
+    t.text "serial"
+    t.text "slot"
+    t.text "size"
+    t.datetime "timestamp"
+  end
+
+  create_table "nics", force: :cascade do |t|
+    t.integer "inventory_id"
+    t.text "product"
+    t.text "vendor"
+    t.text "physid"
+    t.text "serial"
+    t.text "businfo"
+    t.datetime "timestamp"
+  end
+
+  create_table "nvmes", force: :cascade do |t|
+    t.integer "inventory_id"
+    t.text "model"
+    t.text "serial"
+    t.text "firmware_rev"
+    t.text "address"
+    t.datetime "timestamp"
   end
 
   create_table "sels", force: :cascade do |t|
@@ -36,6 +88,15 @@ ActiveRecord::Schema.define(version: 2021_01_01_001313) do
     t.text "manufactacturer_id"
     t.text "oem_defined"
     t.text "panic_string"
+  end
+
+  create_table "storages", force: :cascade do |t|
+    t.integer "inventory_id"
+    t.text "description"
+    t.text "product"
+    t.text "vendor"
+    t.text "businfo"
+    t.datetime "timestamp"
   end
 
   create_table "systems", force: :cascade do |t|
