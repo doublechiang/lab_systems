@@ -1,15 +1,20 @@
 require 'spec_helper'
 require 'rspec'
+require 'rack'
 require 'rack/test'
-require 'server'
+require 'lab_systems'
 
-set :environment, :test
+# set :environment, :test
 
 RSpec.describe 'Servers' do
     include Rack::Test::Methods
 
     def app
-        Server
+        #LabSystems
+        @app ||= Rack::Builder.parse_file('config.ru').first
+    end
+
+    before do
     end
 
     context 'Get to /systems' do
@@ -59,15 +64,6 @@ RSpec.describe 'Servers' do
         end
 
     end
-
-    context 'get /systems/' do
-        let(:response) { get '/systems/'}
-
-        it 'redirect to /systems' do 
-            expect(response.status).to eq 302
-        end
-    end
-
 
     context 'post to /systems/create' do 
         let!(:response) { post '/systems/create', :model => "Seed" }

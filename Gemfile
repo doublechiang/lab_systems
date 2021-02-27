@@ -1,8 +1,9 @@
-# use 'bundle install' to instll the required gem
+# use 'bundle install' to install the required gem
 
 source 'https://rubygems.org'
 
 gem 'sinatra'
+# gem 'sinatra-contrib'
 gem 'thin'
 gem 'rerun'
 gem 'session'

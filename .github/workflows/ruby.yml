@@ -30,6 +30,8 @@ jobs:
     - name: Install dependencies
       run: |
         bundle install
+        bundle exec db:schema:load -I lib
         bundle exec rake db:migrate -I lib
+        bundle exec db:seed -I lib
     - name: Run tests
       run: bundle exec rake
