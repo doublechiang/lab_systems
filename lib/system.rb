@@ -35,9 +35,16 @@ class System < ActiveRecord::Base
         con.pass = password
         con.ip = ipaddr
         con.tod = DateTime.now
-        con.save
+        # Check last connetion record, if nothing change, just update tod.
+        last = Connection.where(mac: bmc_mac).last
+        if last && last.user == username && last.pass == password && last.ip == ipaddr
+          last.tod = DateTime.now
+          last.update
+        else
+          con.save
+        end
         Thread.new {
-          # Due to solite3 performance issue,we will delay write the sel processing to upmost 1 minutes later
+          # Due to sqlite3 performance issue,we will delay write the sel processing to upmost 1 minutes later
           sleep rand(10..60)
           save_sels
         }
