@@ -1,5 +1,5 @@
 require 'sinatra/base'
-# require 'sinatra/custom_logging'
+# require 'sinatra/custom_logger'
 Dir.glob('./{lib,controllers}/*.rb').each { |file| require file }
 
 map('/inventories') { run Inventories }
