@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Lab Systems Inventories - All Network Interface Card</title>
+    <script type='text/javascript'>
+    </script>
+
+  </head>
+  <body>
+    <% if @errors %>
+    <div id="errors">
+        <%= @errors %><br>
+    </div>
+    <% end %>
+    <br/>
+    <h2>Network Interface Card</h2>
+    <table>
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+    </tr>
+    <% @nics.each do |c| %>
+    <% i = Inventory.find(c.inventory_id) %>
+    <tr>
+    <td><a href="./<%=c.inventory_id%>"><%=i.bmc_mac%></a></td>
+    <td><%= c.product %>,<%= c.vendor %>,<%= c.physid %>,<%=c.serial %>,<%=c.businfo %></td>
+    <tr>
+    <% end %>
+    </table>
+
+
+    <a href="/inventories">Back to Index</a>
+
+</html>

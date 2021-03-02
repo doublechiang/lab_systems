@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Lab Systems Inventories - All Storage Card</title>
+    <script type='text/javascript'>
+    </script>
+
+  </head>
+  <body>
+    <% if @errors %>
+    <div id="errors">
+        <%= @errors %><br>
+    </div>
+    <% end %>
+    <br/>
+    <h2>Storage Card</h2>
+    <table>
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+    </tr>
+    <% @storage_all.each do |c| %>
+    <% i = Inventory.find(c.inventory_id) %>
+    <tr>
+    <td><a href="./<%=c.inventory_id%>"><%=i.bmc_mac%></a></td>
+    <td><%= c.description %>,<%= c.product %>,<%= c.vendor %>,<%=c.businfo %></td>
+    <tr>
+    <% end %>
+    </table>
+
+
+    <a href="/inventories">Back to Index</a>
+
+</html>

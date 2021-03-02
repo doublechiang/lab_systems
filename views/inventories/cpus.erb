@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Lab Systems Inventories - All Cpus</title>
+    <script type='text/javascript'>
+    </script>
+
+  </head>
+  <body>
+    <% if @errors %>
+    <div id="errors">
+        <%= @errors %><br>
+    </div>
+    <% end %>
+    <br/>
+    <h2>CPU</h2>
+    <table>
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+    </tr>
+    <% @cpus.each do |c| %>
+    <% i = Inventory.find(c.inventory_id) %>
+    <tr>
+    <td><a href="./<%=c.inventory_id%>"><%=i.bmc_mac%></a></td><td><%= c.product %>, <%=c.slot %></td>
+    <tr>
+    <% end %>
+    </table>
+
+
+    <a href="/inventories">Back to Index</a>
+
+</html>
