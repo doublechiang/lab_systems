@@ -19,12 +19,13 @@
     <tr>
         <th>ID</th>
         <th>Description</th>
+        <th>Timestamp</th>
     </tr>
     <% @nics.each do |c| %>
     <% i = Inventory.find(c.inventory_id) %>
     <tr>
     <td><a href="./<%=c.inventory_id%>"><%=i.bmc_mac%></a></td>
-    <td><%= c.product %>,<%= c.vendor %>,<%= c.physid %>,<%=c.serial %>,<%=c.businfo %></td>
+    <td><%= c.product %>,<%= c.vendor %>,<%= c.physid %>,<%=c.serial %>,<%=c.businfo %></td><td><%=c.timestamp%></td>
     <tr>
     <% end %>
     </table>

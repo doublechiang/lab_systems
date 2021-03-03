@@ -19,12 +19,13 @@
     <tr>
         <th>ID</th>
         <th>Description</th>
+        <th>Timestamp</th>
     </tr>
     <% @storage_all.each do |c| %>
     <% i = Inventory.find(c.inventory_id) %>
     <tr>
     <td><a href="./<%=c.inventory_id%>"><%=i.bmc_mac%></a></td>
-    <td><%= c.description %>,<%= c.product %>,<%= c.vendor %>,<%=c.businfo %></td>
+    <td><%= c.description %>,<%= c.product %>,<%= c.vendor %>,<%=c.businfo %></td><td><%=c.timestamp%></td>
     <tr>
     <% end %>
     </table>

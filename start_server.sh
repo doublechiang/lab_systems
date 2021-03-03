@@ -19,7 +19,7 @@ cmd="APP_ENV=${param} bundle exec rackup config.ru -I ${pd} -I ${pd}/lib -p 4567
 # if gem 'rerun' is installed, and the parameter is 'test', then we will use rerun to run the sinatra
 if [ -x "$(command -v rerun)" ] && [ "${param}" == "development" ]; then
     echo ${cmd}
-    eval rerun -d ${pd}/controllers -d ${pd}/views/systems -d ${pd}/lib -d . \'${cmd}\'
+    eval rerun -d ${pd}/controllers -d ${pd}/views/systems -d ${pd}/views/inventories -d ${pd}/lib -d . \'${cmd}\'
 else
    mkdir -p log
    eval ${cmd} > log/production.log 2>&1

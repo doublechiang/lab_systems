@@ -19,11 +19,12 @@
     <tr>
         <th>ID</th>
         <th>Description</th>
+        <th>Timestamp</th>
     </tr>
     <% @cpus.each do |c| %>
     <% i = Inventory.find(c.inventory_id) %>
     <tr>
-    <td><a href="./<%=c.inventory_id%>"><%=i.bmc_mac%></a></td><td><%= c.product %>, <%=c.slot %></td>
+    <td><a href="./<%=c.inventory_id%>"><%=i.bmc_mac%></a></td><td><%= c.product %>, <%=c.slot %></td><td><%=c.timestamp%></td>
     <tr>
     <% end %>
     </table>
