@@ -39,7 +39,7 @@ class System < ActiveRecord::Base
         last = Connection.where(mac: bmc_mac).last
         if last && last.user == username && last.pass == password && last.ip == ipaddr
           last.tod = DateTime.now
-          last.update
+          last.save
         else
           con.save
         end

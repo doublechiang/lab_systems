@@ -12,6 +12,7 @@ class Systems < LabSystems
     set :views, "views/systems"
 
     get('/') do
+        puts "GET / is requrested."
         headers['Cache-Control'] = 'no-store'
         @systems = System.all
         leases = Lease.get_current

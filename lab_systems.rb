@@ -1,3 +1,4 @@
+require 'rack'
 require 'sinatra/base'
 require 'socket'
 require "sinatra/activerecord"
@@ -46,7 +47,6 @@ class LabSystems < Sinatra::Base
 
   configure :test do
   end
-
 
 end
     

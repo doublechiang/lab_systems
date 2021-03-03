@@ -6,7 +6,7 @@
     <script type='text/javascript'>
       function get_sys_status() {
           $.ajax({
-            url:'systems',
+            url:'/systems',
             type:'get',
             success: function(data) {
               $("#systems_table").fadeOut(function() {
