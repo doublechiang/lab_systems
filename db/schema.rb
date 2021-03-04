@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_23_005838) do
+ActiveRecord::Schema.define(version: 2021_03_04_212825) do
 
   create_table "connections", force: :cascade do |t|
     t.text "mac"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2021_01_23_005838) do
 
   create_table "inventories", force: :cascade do |t|
     t.text "bmc_mac"
+    t.text "product"
   end
 
   create_table "mems", force: :cascade do |t|
