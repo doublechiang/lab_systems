@@ -18,7 +18,9 @@ class Inventory < ActiveRecord::Base
         payload = JSON.parse(str)
 
         bmc_mac = payload['bmc']
+        product= payload['product']
         timestamp = payload['timestamp']
+    
         # Have trouble to convert time, use system time now.
         timestamp=DateTime.now
         inv = Inventory.find_by(bmc_mac: bmc_mac)
@@ -26,8 +28,12 @@ class Inventory < ActiveRecord::Base
             # sysetm not in the database, save all the inventories
             inv = Inventory.new
             inv.bmc_mac = bmc_mac
+            inv.product =product
             inv.save
         end 
+
+        inv.product=product
+        inv.save
 
         # payload['nics'].each do |n|
         #     nic = inv.nics.new
@@ -189,7 +195,7 @@ class Inventory < ActiveRecord::Base
         if latest_item
             puts "found latest timestamp #{latest_item.timestamp}"
             latest_sets =inv.nics.where(timestamp: latest_item.timestamp).order('product').to_a.map(&:attributes)
-            matching = 'description product vendor businfo'.split()
+            matching = 'product vendor physid serial businfo'.split()
             sets_in_hash = latest_sets.map { |a| a.slice(*matching) }
             req_nics = nics.to_a.map { |a| a.slice(*matching)}
             if req_nics != sets_in_hash
