@@ -46,11 +46,6 @@ class Inventory < ActiveRecord::Base
             r.timestamp = timestamp
             r
         }
-        nics = payload['nics'].map { |n| 
-            r = inv.nics.new(n) 
-            r.timestamp= timestamp
-            r
-         }
         mems = payload['mems'].map { |n| 
             r= inv.mems.new(n)
             r.timestamp= timestamp
@@ -61,16 +56,44 @@ class Inventory < ActiveRecord::Base
             r.timestamp= timestamp
             r  
         }
+        if storage.empty?
+            r= inv.storage.new()
+            r.timestamp= timestamp
+            storage.append(r)
+        end
+        nics = payload['nics'].map { |n| 
+            r = inv.nics.new(n) 
+            r.timestamp= timestamp
+            r
+         }
+         if nics.empty?
+            r= inv.nics.new()
+            r.timestamp= timestamp
+            nics.append(r)
+        end
         disks = payload['disks'].map { |n| 
             r= inv.disks.new(n)  
             r.timestamp= timestamp
             r  
             }
+        puts "--------------------"
+        puts disks.inspect
+        if disks.empty?
+            puts "disks is empty!...."
+            r= inv.disks.new()
+            r.timestamp= timestamp
+            disks.append(r)
+        end
         nvmes = payload['nvmes'].map { |n| 
             r= inv.nvmes.new(n)
             r.timestamp= timestamp
             r  
-          }
+        }
+        if nvmes.empty?
+            r= inv.nvmes.new()
+            r.timestamp= timestamp
+            nvmes.append(r)
+        end
 
         
         # check latest configuration is match to the request, if not match update the config
@@ -81,9 +104,8 @@ class Inventory < ActiveRecord::Base
             latest_sets =inv.cpus.where(timestamp: latest_item.timestamp).order('product').to_a.map(&:attributes)
             matching = 'product slot'.split()
             sets_in_hash = latest_sets.map { |a| a.slice(*matching) }
-            req_inv = payload['cpus'].map { |a| a.slice(*matching)}
+            req_inv = cpus.to_a.map { |a| a.slice(*matching)}
             if req_inv != sets_in_hash
-                puts "Save the cpus records"
                 cpus.each { |n| n.save }
             end
         else
@@ -98,9 +120,8 @@ class Inventory < ActiveRecord::Base
             latest_sets =inv.mems.where(timestamp: latest_item.timestamp).order('product').to_a.map(&:attributes)
             matching = 'product description vendor physid serial slot size'.split()
             sets_in_hash = latest_sets.map { |a| a.slice(*matching) }
-            req_inv = payload['mems'].map { |a| a.slice(*matching)}
+            req_inv = mems.to_a.map { |a| a.slice(*matching)}
             if req_inv != sets_in_hash
-                puts "Save the cpus records"
                 mems.each { |n| n.save }
             end
         else
@@ -111,18 +132,21 @@ class Inventory < ActiveRecord::Base
 
         # Check Storage
         latest_item = inv.storage.order('timestamp').last
+        puts latest_item.inspect
         if latest_item
-            latest_sets =inv.storage.where(timestamp: latest_item.timestamp).order('product').to_a.map(&:attributes)
-            matching = 'product description vendor physid serial slot size'.split()
+            latest_sets =inv.storage.where(timestamp: latest_item.timestamp).to_a.map(&:attributes)
+            matching = 'product description vendor businfo'.split()
             sets_in_hash = latest_sets.map { |a| a.slice(*matching) }
-            req_inv = payload['storage'].map { |a| a.slice(*matching)}
+            req_inv = storage.to_a.map { |a| a.slice(*matching)}
             if req_inv != sets_in_hash
-                puts "Save the cpus records"
+                puts "storage doesn't match, save new storage"
+                puts sets_in_hash.inspect
+                puts req_inv.inspect
                 storage.each { |n| n.save }
             end
         else
             # Can't find any previous record, just save the record
-            puts "Can't find any previous record, just save the record"
+            puts "Can't find any previous record, saving new stoarge"
             storage.each { |n| n.save }
         end
 
@@ -132,10 +156,11 @@ class Inventory < ActiveRecord::Base
             latest_sets =inv.disks.where(timestamp: latest_item.timestamp).order('product').to_a.map(&:attributes)
             matching = 'description product version serial businfo'.split()
             sets_in_hash = latest_sets.map { |a| a.slice(*matching) }
-            req_inv = payload['disks'].map { |a| a.slice(*matching)}
+            req_inv = disks.to_a.map { |a| a.slice(*matching)}
             if req_inv != sets_in_hash
-                puts "Save the cpus records"
-                disks.each { |n| n.save }
+                puts "-------disks are going to save -----------"
+                puts disks.inspect
+                disks.each { |n| n.save}
             end
         else
             # Can't find any previous record, just save the record
@@ -146,17 +171,16 @@ class Inventory < ActiveRecord::Base
         # Check NVMEs
         latest_item = inv.nvmes.order('timestamp').last
         if latest_item
-            latest_sets =inv.nvmes.where(timestamp: latest_item.timestamp).order('product').to_a.map(&:attributes)
-            matching = 'product description vendor physid serial slot size'.split()
+            latest_sets =inv.nvmes.where(timestamp: latest_item.timestamp).to_a.map(&:attributes)
+            matching = 'model serial firmware_rev address'.split()
             sets_in_hash = latest_sets.map { |a| a.slice(*matching) }
-            req_inv = payload['nvmes'].map { |a| a.slice(*matching)}
+            req_inv = nvmes.to_a.map { |a| a.slice(*matching)}
             if req_inv != sets_in_hash
-                puts "Save the cpus records"
                 nvmes.each { |n| n.save }
             end
         else
             # Can't find any previous record, just save the record
-            puts "Can't find any previous record, just save the record"
+            puts "Can't find any previous record, saving NVMEs"
             nvmes.each { |n| n.save }
         end
 
@@ -167,7 +191,7 @@ class Inventory < ActiveRecord::Base
             latest_sets =inv.nics.where(timestamp: latest_item.timestamp).order('product').to_a.map(&:attributes)
             matching = 'description product vendor businfo'.split()
             sets_in_hash = latest_sets.map { |a| a.slice(*matching) }
-            req_nics = payload['nics'].map { |a| a.slice(*matching)}
+            req_nics = nics.to_a.map { |a| a.slice(*matching)}
             if req_nics != sets_in_hash
                 puts "Configuration not matched, save new data sets #{nics}"
                 nics.each { |n| n.save }
@@ -175,6 +199,7 @@ class Inventory < ActiveRecord::Base
         else
             nics.each { |n| n.save }
         end
+
 
  
     end
