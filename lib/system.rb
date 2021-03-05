@@ -61,15 +61,6 @@ class System < ActiveRecord::Base
     end
   end
 
-   # return true if use the credential can't get the correct name
-  def offline?()
-    if queryable?
-      conn = IpmiProxy.new(ipaddr, username, password)
-      return conn.get_system_name.to_s == ''
-    end
-    return false
-  end
-
   def get_cpld()
     # retrieve system information and save return json format
     content = {}

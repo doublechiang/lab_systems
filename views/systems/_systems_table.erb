@@ -38,7 +38,7 @@
     <% _sys_offline = false %>
     <% @systems.each do |system| %>
         <% if update %>
-            <% if system.offline? %>
+            <% if system.queryable? && !system.online? %>
                 <% _sys_offline = true %>
                 <tr style="background-color: yellow">
             <% elsif system.online? %>

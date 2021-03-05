@@ -29,8 +29,10 @@
       }
 
       $(document).ready(function(){
-        get_inband_mac();
-        get_sys_info();
+        if (<%= @system.online? %>) {
+          get_inband_mac();
+          get_sys_info();
+        }
       });
     </script>
 
@@ -84,13 +86,17 @@
     <br/>
 
     <div id='inband_mac'>
+      <% if @system.online? %>
       <%= erb :'_inband_mac', :locals => {:update => false} %>
+      <% end %>
     </div>
 
     <br/>
 
     <div id='sys_info'>
+      <% if @system.online? %>
       <%= erb :'_sys_info', :locals => {:update => false} %>
+      <% end %>
     </div>
 
     <br/>
