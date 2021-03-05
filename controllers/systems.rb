@@ -1,5 +1,6 @@
 require 'json'
 require 'sinatra/base'
+require 'logger'
 
 require 'lab_systems'
 require 'system'
@@ -8,11 +9,11 @@ require 'get_dhcpd_leases'
 require 'connection'
 
 class Systems < LabSystems
-
+    helpers Sinatra::CustomLogger
     set :views, "views/systems"
 
     get('/') do
-        puts "GET / is requrested."
+        logger.debug "GET / on logger is requested."
         headers['Cache-Control'] = 'no-store'
         @systems = System.all
         leases = Lease.get_current
@@ -64,7 +65,7 @@ class Systems < LabSystems
     end
     
     patch ('/:id') do
-        puts "Received a PATCH request for ID: #{params['id']}"
+        logger.debug "Received a PATCH request for ID: #{params['id']}"
         # "Received: #{params.inspect}"
         id = params['id'].to_i
         params['bmc_mac'] = params['bmc_mac'].to_s.downcase
@@ -86,7 +87,7 @@ class Systems < LabSystems
 
     # API to retrieve sel information
     post ('/:id') do
-        puts "Received a POST request for ID: #{params['id']}"
+        logger.debug "Received a POST request for ID: #{params['id']}"
         # "Received: #{params.inspect}"
         @system = get_system_from_store_by_id(params['id'].to_i)
         @system.save_sels()
@@ -94,14 +95,14 @@ class Systems < LabSystems
 
     
     delete ('/:id') do 
-        puts "Delete receive a request for ID: #{params['id']}"
+        logger.debug "Delete receive a request for ID: #{params['id']}"
         sys = System.find_by(id: params['id'].to_i)
         sys.destroy
         redirect '/'
     end
 
     get('/:id') do
-        puts "Received a request for system ID: #{params['id']}"
+        logger.debug "Received a request for system ID: #{params['id']}"
         @errors = session[:errors]
         session[:errors] =  nil
         @system = get_system_from_store_by_id(params['id'].to_i)
@@ -126,14 +127,12 @@ class Systems < LabSystems
     end
 
     get('/:id/conn_logs') do 
-        # puts "Receiving logs request #{params['id']}"
         @system = get_system_from_store_by_id(params['id'].to_i)
         @cons = Connection.where(mac: @system.bmc_mac).order(:tod).reverse_order.paginate(page: params[:page], per_page: 40)
         erb :'_conn_logs'
    end
 
     get('/:id/sels') do 
-        # puts "Receiving logs request #{params['id']}"
         @system = get_system_from_store_by_id(params['id'].to_i)
         @sels = @system.sels.order(:timestamp).reverse_order.paginate(page: params[:page], per_page: 40)
         erb :'sels'
