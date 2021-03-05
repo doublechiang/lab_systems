@@ -18,7 +18,7 @@ class LabSystems < Sinatra::Base
   end
 
   # Load library files
-  logger.info "Root folder is #{settings.root}"
+  puts "Root folder is #{settings.root}"
   Dir["#{settings.root}" + "/lib/**"].each do |lib|
     puts "loading #{lib}..."
     require lib
@@ -30,7 +30,7 @@ class LabSystems < Sinatra::Base
   # set :logging, true
   set :public_folder, "#{settings.root}" + '/static'
   set :cache_control, :no_store
-  logger.info "database file is #{settings.root}/db/systems.sqlite3"
+  puts "database file is #{settings.root}/db/systems.sqlite3"
   set :database, {adapter: "sqlite3", database: "#{settings.root}/db/systems.sqlite3", timeout: 20000}
   set :show_exceptions, true
 
