@@ -10,6 +10,7 @@ class System < ActiveRecord::Base
   attr_accessor :ipaddr
   attr_accessor :bios_ver, :bmc_ver, :cpld
   attr_accessor :sysmacs
+  attr_accessor :device_id
 
   validates_presence_of :model, :bmc_mac
   has_many :sels, :dependent => :destroy
@@ -96,12 +97,26 @@ class System < ActiveRecord::Base
 
   def get_system_mac()
     # Get in-band system macs and returned in an array form
+    
+    if !device_id 
+      device_id = get_product_id()
+    end
     macs = []
     if queryable?
       conn = IpmiProxy.new(ipaddr, username, password)
-      macs = conn.get_system_mac
+      macs = conn.get_system_mac device_id
     end
     return macs
+  end
+
+  def get_product_id()
+    id = nil
+    if queryable?
+      conn = IpmiProxy.new(ipaddr, username, password)
+      id = conn.get_product_id
+      puts "Product ID is #{id}"
+    end
+    id
   end
 
   def get_system_macs_with_ip()

@@ -57,9 +57,9 @@ class Systems < LabSystems
         rescue => exception
             session[:errors] = "The system has already been added to QCT lab database - need a cup of coffee?"
             session[:system] = @system
-            redirect '/new'
+            redirect '/systems/new'
         end
-        redirect '/'
+        redirect '/systems'
 
     end
     
@@ -79,9 +79,9 @@ class Systems < LabSystems
         rescue => exception
             puts exception.inspect
             session[:errors] = "The system has already been added to QCT lab database - need a cup of coffee?"
-            redirect "/#{id}"
+            redirect "/systems/#{id}"
         end
-        redirect "/"
+        redirect "/systems"
     end
 
     # API to retrieve sel information

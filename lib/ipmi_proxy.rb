@@ -93,16 +93,24 @@ class IpmiProxy
     end
 
     # return the systems mac address.
-    def get_system_mac
+    def get_system_mac(device_id=nil)
         sysarray = []
-        for i in 0..15 do
-            f=IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} raw 0x30 0x19 #{i} 0")
-            if (mac = parse_ipmi_raw_mac_resp(f.readlines.join.strip)) != nil
-                if mac.length != 0
-                    sysarray << mac
-                end
+        if device_id == 0x3543
+            puts "S5C variant"
+            for i in 0..3 do
+                f=IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password}  raw 0x30 4 0x49 0x4d 0x41 0 0 #{i}")
+                mac = parse_s5c_sys_mac(f.read.strip)
+                f.close
+                sysarray << mac if mac.length > 0
             end
-            f.close
+        else
+            for i in 0..15 do
+                f=IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} raw 0x30 0x19 #{i} 0")
+                if (mac = parse_ipmi_raw_mac_resp(f.readlines.join.strip)) != nil
+                    sysarray << mac if mac.length > 0
+                end
+                f.close
+            end
         end
         return sysarray
     end
@@ -114,6 +122,22 @@ class IpmiProxy
         return system_name
     end
 
+    def get_product_id
+        id = nil
+        f=IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} mc info")
+        f.each_line do |line|
+            if line.include? 'Product ID'
+                tokens= line.split(':')
+                idstrs = tokens[1].strip
+                id_dec = idstrs.split()
+                id = id_dec[0].to_i(base=10)
+                break
+            end
+        end
+        f.close
+        id
+    end
+
 
     def get_sel_elist
         f=IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} -v sel elist")
@@ -123,6 +147,11 @@ class IpmiProxy
     end
 
     private
+    def parse_s5c_sys_mac(macstr)
+        return macstr.split.join(":").strip
+    end
+
+
     def parse_ipmi_raw_mac_resp(macstr)
         strary = macstr.split
         strary.shift(2)
