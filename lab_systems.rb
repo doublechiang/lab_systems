@@ -30,8 +30,6 @@ class LabSystems < Sinatra::Base
   # set :logging, true
   set :public_folder, "#{settings.root}" + '/static'
   set :cache_control, :no_store
-  puts "database file is #{settings.root}/db/systems.sqlite3"
-  set :database, {adapter: "sqlite3", database: "#{settings.root}/db/systems.sqlite3", timeout: 20000}
   set :show_exceptions, true
 
   configure :production do
@@ -40,6 +38,11 @@ class LabSystems < Sinatra::Base
   end
 
   configure :development do
+  end
+
+  configure :development, :test do
+    # puts "database file is #{settings.root}/db/systems.sqlite3"
+    # set :database, {adapter: "sqlite3", database: "#{settings.root}/db/systems.sqlite3", timeout: 20000}
   end
 
   configure :development, :production do

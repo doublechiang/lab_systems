@@ -8,13 +8,18 @@ gem 'thin'
 gem 'rerun'
 gem 'session'
 gem 'rake'
-gem 'sqlite3'
 gem 'sinatra-activerecord'
 gem 'activerecord', '~> 5.2'
 gem 'will_paginate'
+
+group :production do
+  gem 'mysql2'
+end
 
 group :development, :test do
   gem 'rspec'
   gem 'rack-test'
   gem "rspec-html-matchers"
+  gem 'sqlite3'
+
 end

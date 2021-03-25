@@ -18,6 +18,8 @@ bundle exec rake -I lib db:migrate
 Since it will check the current time.
 You can copy dhcpd.leases file from the server to get the working valid sample.
 rake development
+### using WSL
+Start sudo /etc/init.d/mysql start 
 
 ## Testing
 Use bundle exec rake to test the application, default is to run the spec with rspec
