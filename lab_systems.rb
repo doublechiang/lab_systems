@@ -42,7 +42,8 @@ class LabSystems < Sinatra::Base
 
   configure :development, :test do
     # puts "database file is #{settings.root}/db/systems.sqlite3"
-    # set :database, {adapter: "sqlite3", database: "#{settings.root}/db/systems.sqlite3", timeout: 20000}
+    set :database, {adapter: "sqlite3", database: "#{settings.root}/db/systems.sqlite3", timeout: 20000}
+    # Move database configuration to config/database.yml
   end
 
   configure :development, :production do
