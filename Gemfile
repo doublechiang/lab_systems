@@ -11,6 +11,8 @@ gem 'rake'
 gem 'sinatra-activerecord'
 gem 'activerecord', '~> 5.2'
 gem 'will_paginate'
+gem 'sqlite3'
+gem 'mysql2'
 
 group :production do
   gem 'mysql2'
@@ -20,6 +22,5 @@ group :development, :test do
   gem 'rspec'
   gem 'rack-test'
   gem "rspec-html-matchers"
-  gem 'sqlite3'
 
 end

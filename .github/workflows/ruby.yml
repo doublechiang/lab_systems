@@ -30,9 +30,10 @@ jobs:
     - name: Install dependencies
       run: |
         bundle install
-        APP_ENV=test bundle exec rake db:create -I lib DISABLE_DATABASE_ENVIRONMENT_CHECK=1
-        APP_ENV=test bundle exec rake db:schema:load -I lib DISABLE_DATABASE_ENVIRONMENT_CHECK=1
-        APP_ENV=test bundle exec rake db:migrate -I lib
-        APP_ENV=test bundle exec rake db:seed -I lib
+        APP_ENV=test bundle exec rake db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+        APP_ENV=test bundle exec rake db:create
+        APP_ENV=test bundle exec rake db:schema:load
+        APP_ENV=test bundle exec rake db:migrate
+        APP_ENV=test bundle exec rake db:seed
     - name: Run tests
       run: bundle exec rake
