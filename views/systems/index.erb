@@ -6,7 +6,7 @@
     <script type='text/javascript'>
       function get_sys_status() {
           $.ajax({
-            url:'/systems',
+            url:"<%= url_for '/' %>",
             type:'get',
             success: function(data) {
               $("#systems_table").fadeOut(function() {
@@ -30,7 +30,7 @@
       <%= erb :'_systems_table', :locals => {:update => false} %>
     </div>
 
-    <a href="/systems/new">Add new System</a>
+    <a href="<%= url_for '/new' %>">Add new System</a>
 
 
   </body>

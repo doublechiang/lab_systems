@@ -13,7 +13,7 @@
     </div>
     <% end %>
     <br/>
-    <form method="post" action="/systems/create">
+    <form method="post" action="<%=url_for '/create'%>">
       <table>
         <tr>
           <td><label for="model"> Model:</label></td>
@@ -40,6 +40,6 @@
         </tr>
       </table>
     </form>
-    <a href="/systems">Back to Index</a>
+    <a href="<%= url_for '/' %>">Back to Index</a>
   </body>
 </html>

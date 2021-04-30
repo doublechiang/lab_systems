@@ -9,5 +9,5 @@
 <%= will_paginate @cons %>
 </div>
 <br/>
-<a href="/systems/<%=@system.id%>">Back to System Page</a>
+<a href="<%= url_for '/'+@system.id.to_s %>">Back to System Page</a>
 

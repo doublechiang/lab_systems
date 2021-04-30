@@ -6,7 +6,7 @@
     <script type='text/javascript'>
       function get_inband_mac() {
           $.ajax({
-            url:'/systems/<%=@system.id%>/inband_mac',
+            url:"<%= url_for '/' + @system.id.to_s %>/inband_mac",
             type:'get',
             success: function(data) {
               $("#inband_mac").fadeOut(function() {
@@ -18,7 +18,7 @@
 
       function get_sys_info() {
           $.ajax({
-            url:'/systems/<%=@system.id%>/sys_info',
+            url:"<%= url_for '/' + @system.id.to_s %>/sys_info",
             type:'get',
             success: function(data) {
               $("#sys_info").fadeOut(function() {
@@ -44,10 +44,10 @@
     </div>
     <% end %>
     <br/>
-    <a href="/systems">Back to Index</a><br/>
+    <a href="<%= url_for '/' %>">Back to Index</a><br/>
 
     <h1><%= @system.model %></h1>
-    <form method="post" action="/systems/<%=@system.id%>" id="detail_form">
+    <form method="post" action="<%= url_for '/' + @system.id.to_s %>" id="detail_form">
       <input type="hidden" name="_method" value="patch">
       <table>
         <tr>
@@ -76,7 +76,7 @@
         </tr>
       </table><br/>
     </form>
-    <form method="post" action="/systems/<%=@system.id%>" id="delete_system">
+    <form method="post" action="<%= url_for '/' + @system.id.to_s %>" id="delete_system">
         <input type="hidden" name="_method" value="delete">
     </form>
     <button type="submit" form="detail_form">Update</button>
@@ -103,11 +103,11 @@
     <br/>
 
     <h3>
-    <a href="/systems/<%=@system.id%>/sels">SEL History</a><br/>
-    <a href="/systems/<%=@system.id%>/conn_logs">Connection logs</a>
+    <a href="<%= url_for '/' + @system.id.to_s %>/sels">SEL History</a><br/>
+    <a href="<%= url_for '/' + @system.id.to_s %>/conn_logs">Connection logs</a>
     </h3>
 
-    <a href="/systems">Back to Index</a><br/>
+    <a href="<%= url_for '/'%>">Back to Index</a><br/>
 
     </body>
 </html>

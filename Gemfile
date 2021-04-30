@@ -13,6 +13,7 @@ gem 'activerecord', '~> 5.2'
 gem 'will_paginate'
 gem 'sqlite3'
 gem 'mysql2'
+gem 'emk-sinatra-url-for'
 
 group :production do
   gem 'mysql2'

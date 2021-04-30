@@ -1,7 +1,6 @@
 require 'json'
 require 'sinatra/base'
 require 'logger'
-
 require 'lab_systems'
 require 'system'
 require 'ipmi_proxy'
@@ -58,9 +57,9 @@ class Systems < LabSystems
         rescue => exception
             session[:errors] = "The system has already been added to QCT lab database - need a cup of coffee?"
             session[:system] = @system
-            redirect '/systems/new'
+            redirect url_for '/new'
         end
-        redirect '/systems'
+        redirect url_for '/'
 
     end
     
@@ -80,9 +79,9 @@ class Systems < LabSystems
         rescue => exception
             puts exception.inspect
             session[:errors] = "The system has already been added to QCT lab database - need a cup of coffee?"
-            redirect "/systems/#{id}"
+            redirect url_for "/#{id}"
         end
-        redirect "/systems"
+        redirect url_for '/'
     end
 
     # API to retrieve sel information
@@ -98,7 +97,7 @@ class Systems < LabSystems
         logger.debug "Delete receive a request for ID: #{params['id']}"
         sys = System.find_by(id: params['id'].to_i)
         sys.destroy
-        redirect '/'
+        redirect url_for '/'
     end
 
     get('/:id') do

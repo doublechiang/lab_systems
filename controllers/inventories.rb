@@ -99,7 +99,7 @@ class Inventories < LabSystems
     post('/create') do
 #        puts "Received: #{params.inspect}"
         Inventory.procPayload(request.body.read)
-        redirect '/'
+        redirect url_for '/'
     end
 
     

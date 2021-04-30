@@ -1,6 +1,7 @@
 #require 'json'
 require 'date'
 require 'sinatra/activerecord'
+require 'logger'
 
 # local require
 require 'ipmi_sel'
@@ -15,9 +16,11 @@ class System < ActiveRecord::Base
   validates_presence_of :model, :bmc_mac
   has_many :sels, :dependent => :destroy
 
+  # Adding validate uniquences in the model will result in exception in database save not working.
+    
   # If the ip address and username password is persent, the it's is queryable
   def queryable?()
-    puts ipaddr.inspect, username.inspect, password.inspect
+    logger.info("checking system #{ipaddr}, #{username}, #{password}")
     if (ipaddr && username && password)
       return !(ipaddr.empty? || username.empty? || password.empty?)
     end
@@ -114,7 +117,7 @@ class System < ActiveRecord::Base
     if queryable?
       conn = IpmiProxy.new(ipaddr, username, password)
       id = conn.get_product_id
-      puts "Product ID is #{id}"
+      logger.info "Product ID is #{id}"
     end
     id
   end
