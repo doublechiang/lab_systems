@@ -1,21 +1,22 @@
 require 'rack'
 require 'sinatra/base'
+require 'sinatra/activerecord'
+require 'sinatra/url_for' 
+require 'sinatra/custom_logger'
 require 'socket'
 require 'logger'
-require "sinatra/activerecord"
 require 'will_paginate'
 require 'will_paginate/active_record'  # or data_mapper/sequel
+
+
 
 class LabSystems < Sinatra::Base
   register Sinatra::ActiveRecordExtension
   include WillPaginate::Sinatra::Helpers
-  # helpers Sinatra::CustomLogger
+  helpers Sinatra::CustomLogger
+  helpers Sinatra::UrlForHelper
 
   Socket.do_not_reverse_lookup = true
-  # Load all route files
-  Dir[File.dirname(__FILE__) + "/app/routes/**"].each do |route|
-    require route
-  end
 
   # Load library files
   puts "Root folder is #{settings.root}"
@@ -27,7 +28,7 @@ class LabSystems < Sinatra::Base
   
   enable :method_override
   set :sessions, true
-  # set :logging, true
+    # set :logging, true
   set :public_folder, "#{settings.root}" + '/static'
   set :cache_control, :no_store
   set :show_exceptions, true
@@ -42,7 +43,7 @@ class LabSystems < Sinatra::Base
 
   configure :development, :test do
     # puts "database file is #{settings.root}/db/systems.sqlite3"
-    set :database, {adapter: "sqlite3", database: "#{settings.root}/db/systems.sqlite3", timeout: 20000}
+    # set :database, {adapter: "sqlite3", database: "#{settings.root}/db/systems.sqlite3", timeout: 20000}
     # Move database configuration to config/database.yml
   end
 
