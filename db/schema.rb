@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_04_212825) do
+ActiveRecord::Schema.define(version: 2021_04_14_213049) do
 
-  create_table "connections", force: :cascade do |t|
+  create_table "connections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "mac"
     t.text "user"
     t.text "pass"
@@ -20,14 +20,14 @@ ActiveRecord::Schema.define(version: 2021_03_04_212825) do
     t.datetime "tod"
   end
 
-  create_table "cpus", force: :cascade do |t|
+  create_table "cpus", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "inventory_id"
     t.text "product"
     t.text "slot"
     t.datetime "timestamp"
   end
 
-  create_table "disks", force: :cascade do |t|
+  create_table "disks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "inventory_id"
     t.text "description"
     t.text "product"
@@ -37,12 +37,12 @@ ActiveRecord::Schema.define(version: 2021_03_04_212825) do
     t.datetime "timestamp"
   end
 
-  create_table "inventories", force: :cascade do |t|
+  create_table "inventories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "bmc_mac"
     t.text "product"
   end
 
-  create_table "mems", force: :cascade do |t|
+  create_table "mems", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "inventory_id"
     t.text "description"
     t.text "product"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_212825) do
     t.datetime "timestamp"
   end
 
-  create_table "nics", force: :cascade do |t|
+  create_table "nics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "inventory_id"
     t.text "product"
     t.text "vendor"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_212825) do
     t.datetime "timestamp"
   end
 
-  create_table "nvmes", force: :cascade do |t|
+  create_table "nvmes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "inventory_id"
     t.text "model"
     t.text "serial"
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_212825) do
     t.datetime "timestamp"
   end
 
-  create_table "sels", force: :cascade do |t|
+  create_table "sels", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "system_id"
     t.text "sel_record_id"
     t.text "record_type"
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2021_03_04_212825) do
     t.text "panic_string"
   end
 
-  create_table "storages", force: :cascade do |t|
+  create_table "storages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "inventory_id"
     t.text "description"
     t.text "product"
@@ -100,13 +100,13 @@ ActiveRecord::Schema.define(version: 2021_03_04_212825) do
     t.datetime "timestamp"
   end
 
-  create_table "systems", force: :cascade do |t|
+  create_table "systems", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "username"
     t.text "password"
     t.text "model"
     t.text "comments"
     t.text "bmc_mac"
-    t.index ["bmc_mac"], name: "index_systems_on_bmc_mac", unique: true
+    t.index ["bmc_mac"], name: "index_systems_on_bmc_mac", unique: true, length: 17
   end
 
 end

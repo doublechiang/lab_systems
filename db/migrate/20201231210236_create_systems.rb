@@ -7,6 +7,6 @@ class CreateSystems < ActiveRecord::Migration[5.2]
       t.text :comments
       t.text :bmc_mac
     end
-    add_index :systems, [:bmc_mac], :unique => true
+    add_index :systems, [:bmc_mac], :unique => true, length: 17
   end
 end
