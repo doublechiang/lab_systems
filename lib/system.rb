@@ -20,7 +20,7 @@ class System < ActiveRecord::Base
     
   # If the ip address and username password is persent, the it's is queryable
   def queryable?()
-    logger.info("checking system #{ipaddr}, #{username}, #{password}")
+    # logger.info("checking system #{ipaddr}, #{username}, #{password}")
     if (ipaddr && username && password)
       return !(ipaddr.empty? || username.empty? || password.empty?)
     end
@@ -117,7 +117,7 @@ class System < ActiveRecord::Base
     if queryable?
       conn = IpmiProxy.new(ipaddr, username, password)
       id = conn.get_product_id
-      logger.info "Product ID is #{id}"
+      # logger.info "Product ID is #{id}"
     end
     id
   end
@@ -167,7 +167,7 @@ class System < ActiveRecord::Base
         Sel.exists?(reference)
         sel.save unless Sel.exists?(reference)
       end
-      logger.info "Processed #{sel_content.length} sel records on system #{id} into database."
+      # logger.info "Processed #{sel_content.length} sel records on system #{id} into database."
       return true
     end
   end
