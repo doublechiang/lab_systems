@@ -1,11 +1,16 @@
 require "rake"
 require "rspec/core/rake_task"
-require "sinatra/activerecord/rake"
+require 'sinatra/activerecord'
+require 'sinatra/activerecord/rake'
+
+# $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__))) unless $LOAD_PATH.include?(File.expand_path(File.dirname(__FILE__)))
+$LOAD_PATH.unshift('lib')
+$LOAD_PATH.unshift('.')
 
 
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.pattern = Dir.glob("spec/**/*_spec.rb")
-  t.rspec_opts = "-I app/routes -I . -I lib --format documentation"
+  t.rspec_opts = "-I . --format documentation"
 end
 
 task default: :spec
