@@ -9,9 +9,7 @@
             url:"<%= url_for '/' %>",
             type:'get',
             success: function(data) {
-              $("#systems_table").fadeOut(function() {
-                $(this).html(data).slideDown()
-              })
+              $("#systems_table").html(data).update()
               setTimeout(get_sys_status, 60*60*1000);
             }
           });

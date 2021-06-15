@@ -30,8 +30,11 @@ apt-get install libsqlite3-dev
 Since it will check the current time.
 You can copy dhcpd.leases file from the server to get the working valid sample.
 $ rake development
-### using WSL
+### in WSL, start mysql service.
 Start sudo /etc/init.d/mysql start 
+If the service can't be started due to "mysqld_safe Directory '/var/run/mysqld' for UNIX socket file don't exists"
+sudo mkdir -p /var/run/mysqld 
+sudo chown mysql:mysql /var/run/mysqld
 
 ## Testing
 Use bundle exec rake to test the application, default is to run the spec with rspec
