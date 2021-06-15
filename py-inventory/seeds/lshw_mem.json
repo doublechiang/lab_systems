@@ -1,0 +1,512 @@
+          {
+    "id" : "firmware",
+    "class" : "memory",
+    "claimed" : true,
+    "description" : "BIOS",
+    "vendor" : "American Megatrends Inc.",
+    "physid" : "0",
+    "version" : "S5BH3B17.H01DBG",
+    "date" : "06/30/2020",
+    "units" : "bytes",
+    "size" : 65536,
+    "capacity" : 16777216,
+    "capabilities" : {
+      "pci" : "PCI bus",
+      "upgrade" : "BIOS EEPROM can be upgraded",
+      "shadowing" : "BIOS shadowing",
+      "cdboot" : "Booting from CD-ROM/DVD",
+      "bootselect" : "Selectable boot path",
+      "socketedrom" : "BIOS ROM is socketed",
+      "edd" : "Enhanced Disk Drive extensions",
+      "int5printscreen" : "Print Screen key",
+      "int14serial" : "INT14 serial line control",
+      "int17printer" : "INT17 printer control",
+      "acpi" : "ACPI",
+      "usb" : "USB legacy emulation",
+      "biosbootspecification" : "BIOS boot specification",
+      "uefi" : "UEFI specification is supported"
+    }
+  },
+      {
+    "id" : "memory",
+    "class" : "memory",
+    "claimed" : true,
+    "handle" : "DMI:0043",
+    "description" : "System Memory",
+    "physid" : "43",
+    "slot" : "System board or motherboard",
+    "units" : "bytes",
+    "size" : 137438953472,
+    "capacity" : 8246337208320,
+    "configuration" : {
+      "errordetection" : "ecc"
+    },
+    "capabilities" : {
+      "ecc" : "Single-bit error-correcting code (ECC)"
+    },
+    "children" : [
+      {
+        "id" : "bank:0",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:0044",
+        "description" : "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "product" : "M393A2K40BB2-CTD",
+        "vendor" : "Samsung",
+        "physid" : "0",
+        "serial" : "366D908E",
+        "slot" : "CPU0_A0",
+        "units" : "bytes",
+        "size" : 17179869184,
+        "width" : 64,
+        "clock" : 2666000000
+      },
+      {
+        "id" : "bank:1",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:0045",
+        "description" : "[empty]",
+        "product" : "NO DIMM",
+        "vendor" : "NO DIMM",
+        "physid" : "1",
+        "serial" : "NO DIMM",
+        "slot" : "CPU0_A1"
+      },
+      {
+        "id" : "bank:2",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:0046",
+        "description" : "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "product" : "M393A2K40BB2-CTD",
+        "vendor" : "Samsung",
+        "physid" : "2",
+        "serial" : "366D91A7",
+        "slot" : "CPU0_B0",
+        "units" : "bytes",
+        "size" : 17179869184,
+        "width" : 64,
+        "clock" : 2666000000
+      },
+      {
+        "id" : "bank:3",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:0047",
+        "description" : "[empty]",
+        "product" : "NO DIMM",
+        "vendor" : "NO DIMM",
+        "physid" : "3",
+        "serial" : "NO DIMM",
+        "slot" : "CPU0_B1"
+      },
+      {
+        "id" : "bank:4",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:0048",
+        "description" : "[empty]",
+        "product" : "NO DIMM",
+        "vendor" : "NO DIMM",
+        "physid" : "4",
+        "serial" : "NO DIMM",
+        "slot" : "CPU0_C0"
+      },
+      {
+        "id" : "bank:5",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:0049",
+        "description" : "[empty]",
+        "product" : "NO DIMM",
+        "vendor" : "NO DIMM",
+        "physid" : "5",
+        "serial" : "NO DIMM",
+        "slot" : "CPU0_C1"
+      },
+      {
+        "id" : "bank:6",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:004A",
+        "description" : "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "product" : "M393A2K40BB2-CTD",
+        "vendor" : "Samsung",
+        "physid" : "6",
+        "serial" : "366D8413",
+        "slot" : "CPU0_D0",
+        "units" : "bytes",
+        "size" : 17179869184,
+        "width" : 64,
+        "clock" : 2666000000
+      },
+      {
+        "id" : "bank:7",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:004B",
+        "description" : "[empty]",
+        "product" : "NO DIMM",
+        "vendor" : "NO DIMM",
+        "physid" : "7",
+        "serial" : "NO DIMM",
+        "slot" : "CPU0_D1"
+      },
+      {
+        "id" : "bank:8",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:004C",
+        "description" : "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "product" : "M393A2K40BB2-CTD",
+        "vendor" : "Samsung",
+        "physid" : "8",
+        "serial" : "366D999E",
+        "slot" : "CPU0_E0",
+        "units" : "bytes",
+        "size" : 17179869184,
+        "width" : 64,
+        "clock" : 2666000000
+      },
+      {
+        "id" : "bank:9",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:004D",
+        "description" : "[empty]",
+        "product" : "NO DIMM",
+        "vendor" : "NO DIMM",
+        "physid" : "9",
+        "serial" : "NO DIMM",
+        "slot" : "CPU0_E1"
+      },
+      {
+        "id" : "bank:10",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:004E",
+        "description" : "[empty]",
+        "product" : "NO DIMM",
+        "vendor" : "NO DIMM",
+        "physid" : "a",
+        "serial" : "NO DIMM",
+        "slot" : "CPU0_F0"
+      },
+      {
+        "id" : "bank:11",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:004F",
+        "description" : "[empty]",
+        "product" : "NO DIMM",
+        "vendor" : "NO DIMM",
+        "physid" : "b",
+        "serial" : "NO DIMM",
+        "slot" : "CPU0_F1"
+      },
+      {
+        "id" : "bank:12",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:0050",
+        "description" : "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "product" : "M393A2K40BB2-CTD",
+        "vendor" : "Samsung",
+        "physid" : "c",
+        "serial" : "366D99CE",
+        "slot" : "CPU1_A0",
+        "units" : "bytes",
+        "size" : 17179869184,
+        "width" : 64,
+        "clock" : 2666000000
+      },
+      {
+        "id" : "bank:13",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:0051",
+        "description" : "[empty]",
+        "product" : "NO DIMM",
+        "vendor" : "NO DIMM",
+        "physid" : "d",
+        "serial" : "NO DIMM",
+        "slot" : "CPU1_A1"
+      },
+      {
+        "id" : "bank:14",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:0052",
+        "description" : "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "product" : "M393A2K40BB2-CTD",
+        "vendor" : "Samsung",
+        "physid" : "e",
+        "serial" : "366D99A0",
+        "slot" : "CPU1_B0",
+        "units" : "bytes",
+        "size" : 17179869184,
+        "width" : 64,
+        "clock" : 2666000000
+      },
+      {
+        "id" : "bank:15",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:0053",
+        "description" : "[empty]",
+        "product" : "NO DIMM",
+        "vendor" : "NO DIMM",
+        "physid" : "f",
+        "serial" : "NO DIMM",
+        "slot" : "CPU1_B1"
+      },
+      {
+        "id" : "bank:16",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:0054",
+        "description" : "[empty]",
+        "product" : "NO DIMM",
+        "vendor" : "NO DIMM",
+        "physid" : "10",
+        "serial" : "NO DIMM",
+        "slot" : "CPU1_C0"
+      },
+      {
+        "id" : "bank:17",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:0055",
+        "description" : "[empty]",
+        "product" : "NO DIMM",
+        "vendor" : "NO DIMM",
+        "physid" : "11",
+        "serial" : "NO DIMM",
+        "slot" : "CPU1_C1"
+      },
+      {
+        "id" : "bank:18",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:0056",
+        "description" : "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "product" : "M393A2K40BB2-CTD",
+        "vendor" : "Samsung",
+        "physid" : "12",
+        "serial" : "366D99A2",
+        "slot" : "CPU1_D0",
+        "units" : "bytes",
+        "size" : 17179869184,
+        "width" : 64,
+        "clock" : 2666000000
+      },
+      {
+        "id" : "bank:19",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:0057",
+        "description" : "[empty]",
+        "product" : "NO DIMM",
+        "vendor" : "NO DIMM",
+        "physid" : "13",
+        "serial" : "NO DIMM",
+        "slot" : "CPU1_D1"
+      },
+      {
+        "id" : "bank:20",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:0058",
+        "description" : "DIMM DDR4 Synchronous Registered (Buffered) 2666 MHz (0.4 ns)",
+        "product" : "M393A2K40BB2-CTD",
+        "vendor" : "Samsung",
+        "physid" : "14",
+        "serial" : "366D91AC",
+        "slot" : "CPU1_E0",
+        "units" : "bytes",
+        "size" : 17179869184,
+        "width" : 64,
+        "clock" : 2666000000
+      },
+      {
+        "id" : "bank:21",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:0059",
+        "description" : "[empty]",
+        "product" : "NO DIMM",
+        "vendor" : "NO DIMM",
+        "physid" : "15",
+        "serial" : "NO DIMM",
+        "slot" : "CPU1_E1"
+      },
+      {
+        "id" : "bank:22",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:005A",
+        "description" : "[empty]",
+        "product" : "NO DIMM",
+        "vendor" : "NO DIMM",
+        "physid" : "16",
+        "serial" : "NO DIMM",
+        "slot" : "CPU1_F0"
+      },
+      {
+        "id" : "bank:23",
+        "class" : "memory",
+        "claimed" : true,
+        "handle" : "DMI:005B",
+        "description" : "[empty]",
+        "product" : "NO DIMM",
+        "vendor" : "NO DIMM",
+        "physid" : "17",
+        "serial" : "NO DIMM",
+        "slot" : "CPU1_F1"
+      }
+    ]
+  },
+      {
+    "id" : "cache:0",
+    "class" : "memory",
+    "claimed" : true,
+    "handle" : "DMI:005F",
+    "description" : "L1 cache",
+    "physid" : "5f",
+    "slot" : "L1-Cache",
+    "units" : "bytes",
+    "size" : 786432,
+    "capacity" : 786432,
+    "configuration" : {
+      "level" : "1"
+    },
+    "capabilities" : {
+      "synchronous" : "Synchronous",
+      "internal" : "Internal",
+      "write-back" : "Write-back",
+      "instruction" : "Instruction cache"
+    }
+  },
+      {
+    "id" : "cache:1",
+    "class" : "memory",
+    "claimed" : true,
+    "handle" : "DMI:0060",
+    "description" : "L2 cache",
+    "physid" : "60",
+    "slot" : "L2-Cache",
+    "units" : "bytes",
+    "size" : 12582912,
+    "capacity" : 12582912,
+    "configuration" : {
+      "level" : "2"
+    },
+    "capabilities" : {
+      "synchronous" : "Synchronous",
+      "internal" : "Internal",
+      "varies" : "Varies With Memory Address",
+      "unified" : "Unified cache"
+    }
+  },
+      {
+    "id" : "cache:2",
+    "class" : "memory",
+    "claimed" : true,
+    "handle" : "DMI:0061",
+    "description" : "L3 cache",
+    "physid" : "61",
+    "slot" : "L3-Cache",
+    "units" : "bytes",
+    "size" : 17301504,
+    "capacity" : 17301504,
+    "configuration" : {
+      "level" : "3"
+    },
+    "capabilities" : {
+      "synchronous" : "Synchronous",
+      "internal" : "Internal",
+      "varies" : "Varies With Memory Address",
+      "unified" : "Unified cache"
+    }
+  },
+            {
+    "id" : "cache:3",
+    "class" : "memory",
+    "claimed" : true,
+    "handle" : "DMI:0063",
+    "description" : "L1 cache",
+    "physid" : "63",
+    "slot" : "L1-Cache",
+    "units" : "bytes",
+    "size" : 786432,
+    "capacity" : 786432,
+    "configuration" : {
+      "level" : "1"
+    },
+    "capabilities" : {
+      "synchronous" : "Synchronous",
+      "internal" : "Internal",
+      "write-back" : "Write-back",
+      "instruction" : "Instruction cache"
+    }
+  },
+      {
+    "id" : "cache:4",
+    "class" : "memory",
+    "claimed" : true,
+    "handle" : "DMI:0064",
+    "description" : "L2 cache",
+    "physid" : "64",
+    "slot" : "L2-Cache",
+    "units" : "bytes",
+    "size" : 12582912,
+    "capacity" : 12582912,
+    "configuration" : {
+      "level" : "2"
+    },
+    "capabilities" : {
+      "synchronous" : "Synchronous",
+      "internal" : "Internal",
+      "varies" : "Varies With Memory Address",
+      "unified" : "Unified cache"
+    }
+  },
+      {
+    "id" : "cache:5",
+    "class" : "memory",
+    "claimed" : true,
+    "handle" : "DMI:0065",
+    "description" : "L3 cache",
+    "physid" : "65",
+    "slot" : "L3-Cache",
+    "units" : "bytes",
+    "size" : 17301504,
+    "capacity" : 17301504,
+    "configuration" : {
+      "level" : "3"
+    },
+    "capabilities" : {
+      "synchronous" : "Synchronous",
+      "internal" : "Internal",
+      "varies" : "Varies With Memory Address",
+      "unified" : "Unified cache"
+    }
+  },
+                                                                                                                                                                                                                                                                              {
+    "id" : "memory",
+    "class" : "memory",
+    "handle" : "PCI:0000:00:1f.2",
+    "description" : "Memory controller",
+    "product" : "C620 Series Chipset Family Power Management Controller",
+    "vendor" : "Intel Corporation",
+    "physid" : "1f.2",
+    "businfo" : "pci@0000:00:1f.2",
+    "version" : "03",
+    "width" : 32,
+    "clock" : 33000000,
+    "configuration" : {
+      "latency" : "0"
+    }
+  },
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    

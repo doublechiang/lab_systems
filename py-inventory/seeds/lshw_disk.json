@@ -1,0 +1,136 @@
+                                                                                                                                                                                                                                                                                                                            {
+    "id" : "disk:0",
+    "class" : "disk",
+    "claimed" : true,
+    "handle" : "GUID:a43116a5-e7bc-4b64-98ff-4c61a1ef535c",
+    "description" : "ATA Disk",
+    "product" : "ST4000NM0115-1YZ",
+    "physid" : "0",
+    "businfo" : "scsi@2:0.0.0",
+    "logicalname" : "/dev/sda",
+    "dev" : "8:0",
+    "version" : "SN04",
+    "serial" : "ZC12300H",
+    "units" : "bytes",
+    "size" : 4000787030016,
+    "configuration" : {
+      "ansiversion" : "5",
+      "guid" : "a43116a5-e7bc-4b64-98ff-4c61a1ef535c",
+      "logicalsectorsize" : "512",
+      "sectorsize" : "4096"
+    },
+    "capabilities" : {
+      "gpt-1.00" : "GUID Partition Table version 1.00",
+      "partitioned" : "Partitioned disk",
+      "partitioned:gpt" : "GUID partition table"
+    },
+    "children" : [
+                              
+    ]
+  },
+      {
+    "id" : "disk:1",
+    "class" : "disk",
+    "claimed" : true,
+    "handle" : "SCSI:03:00:00:00",
+    "description" : "ATA Disk",
+    "product" : "ST4000NM0115-1YZ",
+    "physid" : "1",
+    "businfo" : "scsi@3:0.0.0",
+    "logicalname" : "/dev/sdb",
+    "dev" : "8:16",
+    "version" : "SN04",
+    "serial" : "ZC122NHQ",
+    "units" : "bytes",
+    "size" : 4000787030016,
+    "configuration" : {
+      "ansiversion" : "5",
+      "logicalsectorsize" : "512",
+      "sectorsize" : "4096"
+    }
+  },
+      {
+    "id" : "disk:2",
+    "class" : "disk",
+    "claimed" : true,
+    "handle" : "SCSI:04:00:00:00",
+    "description" : "ATA Disk",
+    "product" : "TOSHIBA THNSN896",
+    "vendor" : "Toshiba",
+    "physid" : "2",
+    "businfo" : "scsi@4:0.0.0",
+    "logicalname" : "/dev/sdc",
+    "dev" : "8:32",
+    "version" : "6102",
+    "serial" : "97DS101DTHXT",
+    "units" : "bytes",
+    "size" : 960197124096,
+    "configuration" : {
+      "ansiversion" : "5",
+      "logicalsectorsize" : "512",
+      "sectorsize" : "512"
+    }
+  },
+      {
+    "id" : "disk:3",
+    "class" : "disk",
+    "claimed" : true,
+    "handle" : "SCSI:05:00:00:00",
+    "description" : "ATA Disk",
+    "product" : "TOSHIBA THNSN896",
+    "vendor" : "Toshiba",
+    "physid" : "3",
+    "businfo" : "scsi@5:0.0.0",
+    "logicalname" : "/dev/sdd",
+    "dev" : "8:48",
+    "version" : "6102",
+    "serial" : "97DS1023THXT",
+    "units" : "bytes",
+    "size" : 960197124096,
+    "configuration" : {
+      "ansiversion" : "5",
+      "logicalsectorsize" : "512",
+      "sectorsize" : "512"
+    }
+  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      {
+    "id" : "cdrom:0",
+    "class" : "disk",
+    "claimed" : true,
+    "handle" : "SCSI:14:00:00:00",
+    "description" : "SCSI CD-ROM",
+    "product" : "Virtual CDROM0",
+    "vendor" : "AMI",
+    "physid" : "0.0.0",
+    "businfo" : "scsi@14:0.0.0",
+    "logicalname" : ["/dev/cdrom", "/dev/sr0"],
+    "dev" : "11:0",
+    "version" : "1.00",
+    "configuration" : {
+      "status" : "open"
+    },
+    "capabilities" : {
+      "removable" : "support is removable",
+      "audio" : "Audio CD playback"
+    }
+  },
+      {
+    "id" : "cdrom:1",
+    "class" : "disk",
+    "claimed" : true,
+    "handle" : "SCSI:14:00:00:01",
+    "description" : "SCSI CD-ROM",
+    "product" : "Virtual CDROM1",
+    "vendor" : "AMI",
+    "physid" : "0.0.1",
+    "businfo" : "scsi@14:0.0.1",
+    "logicalname" : "/dev/sr1",
+    "dev" : "11:1",
+    "version" : "1.00",
+    "configuration" : {
+      "status" : "open"
+    },
+    "capabilities" : {
+      "removable" : "support is removable",
+      "audio" : "Audio CD playback"
+    }
+  }    

@@ -1,0 +1,97 @@
+                                                                                                                                                                                                                                                                                                                      {
+    "id" : "sata:0",
+    "class" : "storage",
+    "claimed" : true,
+    "handle" : "PCI:0000:00:11.5",
+    "description" : "SATA controller",
+    "product" : "C620 Series Chipset Family SSATA Controller [AHCI mode]",
+    "vendor" : "Intel Corporation",
+    "physid" : "11.5",
+    "businfo" : "pci@0000:00:11.5",
+    "logicalname" : ["scsi2", "scsi3", "scsi4", "scsi5"],
+    "version" : "03",
+    "width" : 32,
+    "clock" : 66000000,
+    "configuration" : {
+      "driver" : "ahci",
+      "latency" : "0"
+    },
+    "capabilities" : {
+      "sata" : true,
+      "msi" : "Message Signalled Interrupts",
+      "pm" : "Power Management",
+      "ahci_1.0" : true,
+      "bus_master" : "bus mastering",
+      "cap_list" : "PCI capabilities listing",
+      "emulated" : "Emulated device"
+    },
+    "children" : [
+                                                                          
+    ]
+  },
+                        {
+    "id" : "usb:0",
+    "class" : "storage",
+    "claimed" : true,
+    "handle" : "USB:1:4",
+    "description" : "Mass storage device",
+    "product" : "Virtual Cdrom Device",
+    "vendor" : "American Megatrends Inc.",
+    "physid" : "1",
+    "businfo" : "usb@1:d.1",
+    "version" : "1.00",
+    "serial" : "AAAABBBBCCCC1",
+    "configuration" : {
+      "driver" : "usb-storage",
+      "speed" : "480Mbit/s"
+    },
+    "capabilities" : {
+      "usb-2.00" : "USB 2.0",
+      "scsi" : "SCSI"
+    }
+  },
+                                                {
+    "id" : "sata:1",
+    "class" : "storage",
+    "claimed" : true,
+    "handle" : "PCI:0000:00:17.0",
+    "description" : "SATA controller",
+    "product" : "C620 Series Chipset Family SATA Controller [AHCI mode]",
+    "vendor" : "Intel Corporation",
+    "physid" : "17",
+    "businfo" : "pci@0000:00:17.0",
+    "version" : "03",
+    "width" : 32,
+    "clock" : 66000000,
+    "configuration" : {
+      "driver" : "ahci",
+      "latency" : "0"
+    },
+    "capabilities" : {
+      "sata" : true,
+      "msi" : "Message Signalled Interrupts",
+      "pm" : "Power Management",
+      "ahci_1.0" : true,
+      "bus_master" : "bus mastering",
+      "cap_list" : "PCI capabilities listing"
+    }
+  },
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {
+    "id" : "scsi",
+    "class" : "storage",
+    "claimed" : true,
+    "handle" : "SCSI:14",
+    "physid" : "cd",
+    "businfo" : "usb@1:13.1",
+    "logicalname" : "scsi14",
+    "configuration" : {
+      "driver" : "usb-storage"
+    },
+    "capabilities" : {
+      "emulated" : "Emulated device",
+      "scsi-host" : "SCSI host adapter"
+    },
+    "children" : [
+            
+    ]
+  }    
