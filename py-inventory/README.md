@@ -9,3 +9,7 @@ pip3 install -r requirements.txt
 sudo apt-get install rubygems
 sudo apt-get install bundler
 sudo apt-get install rails
+
+# Running Test unit
+python -m unittest discover
+

@@ -45,6 +45,7 @@ class Inventory:
     def getNics(self):
         """ use lshw -class network -xml
         """
+        result=None
         try:
             cmd = "lshw -class network -xml"
             result=subprocess.run(cmd.split(), universal_newlines = True, stdout=subprocess.PIPE).stdout
@@ -223,6 +224,7 @@ class Inventory:
 
 
 if __name__ == "__main__":
+    logging.level=logging.DEBUG
     parser=argparse.ArgumentParser(description='Collecting system inventories')
     parser.add_argument('--target', help='send the inventories to remote http service')
     parser.add_argument('--print', action='store_true', help='print the collected json，redirect to a json file')
