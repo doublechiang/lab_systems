@@ -46,6 +46,7 @@ class Inventory < ActiveRecord::Base
         inv = Inventory.new
         inv.bmc_mac = bmc_mac
         inv.product=product
+        inv.timestamp = timestamp
         inv.save
 
         # production description might be update due to fru change, we update here first.
