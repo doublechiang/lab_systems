@@ -1,5 +1,6 @@
 require 'rack'
 require 'sinatra/base'
+require 'sinatra/reloader'
 require 'sinatra/activerecord'
 require 'sinatra/url_for' 
 require 'sinatra/custom_logger'
@@ -36,9 +37,15 @@ class LabSystems < Sinatra::Base
   configure :production do
     set :bind, '0.0.0.0'
     set server: 'thin'
+    ActiveRecord::Base.logger.level = :warn
   end
 
   configure :development do
+    ActiveRecord::Base.logger.level = :info
+    register Sinatra::Reloader
+    after_reload do
+      puts 'reloaded'
+    end
   end
 
   configure :development, :test do

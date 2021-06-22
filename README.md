@@ -38,6 +38,8 @@ sudo chown mysql:mysql /var/run/mysqld
 
 ## Testing
 Use bundle exec rake to test the application, default is to run the spec with rspec
+## Unit test 
+ruby tc_inventory.rb
 
 ## Problem when deploy
 
