@@ -16,32 +16,32 @@ class Inventories < LabSystems
     end
 
     get('/cpus') do
-        @cpus = Cpu.all
+        @cpus = Cpu.all.order(:timestamp).reverse
         erb :cpus
     end
 
     get('/mems') do
-        @mems = Mem.all
+        @mems = Mem.all.order(:timestamp).reverse
         erb :mems
     end
 
     get('/nics') do
-        @nics = Nic.all
+        @nics = Nic.all.order(:timestamp).reverse
         erb :nics
     end
 
     get('/storage') do
-        @storage_all = Storage.all
+        @storage_all = Storage.all.order(:timestamp).reverse
         erb :storage
     end
 
     get('/disks') do
-        @disks = Disk.all
+        @disks = Disk.all.order(:timestamp).reverse
         erb :disks
     end
 
     get('/nvmes') do
-        @nvmes = Nvme.all
+        @nvmes = Nvme.all.order(:timestamp).reverse
         erb :nvmes
     end
 
