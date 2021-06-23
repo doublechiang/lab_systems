@@ -96,6 +96,16 @@ class Inventories < LabSystems
         erb :show
     end
 
+    # Delete entry API
+    delete ('/:id') do 
+        logger.info "Delete receive a request for ID: #{params['id']}"
+        inv = Inventory.find_by(id: params['id'].to_i)
+        inv.destroy
+        redirect url_for '/'
+    end
+
+
+
     # Receive System configuratin to create the record.
     post('/create') do
         # puts "Received: #{params.inspect}"
