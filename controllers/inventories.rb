@@ -1,5 +1,6 @@
 require 'json'
 require 'sinatra/base'
+require 'logger'
 
 require 'lab_systems'
 require 'inventory'
@@ -10,7 +11,7 @@ class Inventories < LabSystems
     set :views, "views/inventories"
 
     get('/') do 
-        @invs = Inventory.all
+        @invs = Inventory.all.order(:timestamp).reverse
         erb :index
     end
 
@@ -97,7 +98,8 @@ class Inventories < LabSystems
 
     # Receive System configuratin to create the record.
     post('/create') do
-#        puts "Received: #{params.inspect}"
+        # puts "Received: #{params.inspect}"
+        logger.info "Received: #{params.inspect}"
         Inventory.procPayload(request.body.read)
         redirect url_for '/'
     end
