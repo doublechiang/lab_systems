@@ -23,10 +23,6 @@ class Inventory < ActiveRecord::Base
     has_many :nvmes, :dependent => :destroy
 
 
-    # def initialize()
-    #     logger = logger.new(STDOUT)
-    # end
-
     # class method (self) to analysis payload 
     def self.procPayload(str)
         logger.info "Processing payload...."
@@ -73,13 +69,6 @@ class Inventory < ActiveRecord::Base
         #     puts "Can't find any previous record, just save the record"
         #     cpus.each { |n| n.save }
         # end
-
-
-    
-
-
-
- 
     end
 
     private
@@ -91,11 +80,6 @@ class Inventory < ActiveRecord::Base
             r.timestamp = timestamp
             r
         }
-        if list_ar.empty?
-            r= ar.new()
-            r.timestamp= timestamp
-            list_ar.append(r)
-        end
 
         # save all records
         list_ar.each { |n| n.save }
