@@ -23,9 +23,9 @@ class Inventory < ActiveRecord::Base
     has_many :nvmes, :dependent => :destroy
 
 
+
     # class method (self) to analysis payload 
     def self.procPayload(str)
-        logger.info "Processing payload...."
         payload = JSON.parse(str)
 
         bmc_mac = payload['bmc']
