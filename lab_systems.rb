@@ -30,6 +30,7 @@ class LabSystems < Sinatra::Base
   enable :method_override
   set :sessions, true
     # set :logging, true
+  set :static, true
   set :public_folder, "#{settings.root}" + '/static'
   set :cache_control, :no_store
   set :show_exceptions, true
