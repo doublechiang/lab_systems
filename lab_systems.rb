@@ -38,6 +38,7 @@ class LabSystems < Sinatra::Base
   configure :production do
     set :bind, '0.0.0.0'
     set server: 'thin'
+    ActiveRecord::Base.logger.level = :info
   end
 
   configure :development do
