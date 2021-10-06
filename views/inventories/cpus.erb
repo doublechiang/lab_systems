@@ -26,7 +26,7 @@
         <% i = Inventory.find(c.inventory_id) %>
         <tr>
         <td><a href="./<%=c.inventory_id%>"><%=i.bmc_mac%></a></td><td><%= c.product %>, <%=c.slot %></td><td><%=c.timestamp%></td>
-        <tr>
+        </tr>
       <% end %>
     <% end %>
     </table>

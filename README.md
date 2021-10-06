@@ -10,22 +10,35 @@ Can add/edit/delete a system's description with MAC address. This application wi
 If the systems in the database has MAC matching the leases file MAC address, it will show the IP address on that server.
 
 ## Installation & Deployment
+### Ubuntu & Debian
+sudo apt-get install libmysqlclient-dev, or libmariadb-dev
+sudo apt-get install ruby-dev
+sudo apt-get install libssl-dev
+sudo apt-get install libsqlite3-dev
 support bundle, use "bundle install" to update the required module.
+## Development
+$ gem install bundler
+$ bundle install
+
+run the development instance
+bundle exec rakckup
+
+## Database initialize
+List the available rake tasks.
+$ bundle exec rake -T
+To create database
+$ bundle exec rake db:create 
 database: use ActiveRecord
 bundle exec rake -I lib db:migrate
+Load the seeds
+$ bundle exec rake db:seed
+
+
+### SQlite
 ### mySql database
 mysql> CREATE USER 'lab_systems'@'localhost' IDENTIFIED BY 'password';
 mysql> GRANT ALL PRIVILEGES ON * . * TO 'lab_systems'@'localhost';
 
-
-## Development
-$ gem install bundler first
-$ bundle install
-### Ubuntu & Debian
-sudo apt-get install libmysqlclient-dev
-sudo apt-get install ruby-dev
-sudo apt-get install libssl-dev
-apt-get install libsqlite3-dev
 
 Since it will check the current time.
 You can copy dhcpd.leases file from the server to get the working valid sample.

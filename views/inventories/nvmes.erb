@@ -22,15 +22,15 @@
         <th>Timestamp</th>
     </tr>
     <% @nvmes.each do |c| %>
-    <% i = Inventory.find(c.inventory_id) %>
-    <tr>
-    <td><a href="./<%=c.inventory_id%>"><%=i.bmc_mac%></a></td>
-    <td><%= c.model %>,<%= c.serial %>,<%= c.firmware_rev %>,<%= c.address %></td><td><%=c.timestamp%></td>
-    <tr>
+      <% if c.inventory_id != nil %>
+        <% i = Inventory.find(c.inventory_id) %>
+        <tr>
+        <td><a href="./<%=c.inventory_id%>"><%=i.bmc_mac%></a></td>
+        <td><%= c.model %>,<%= c.serial %>,<%= c.firmware_rev %>,<%= c.address %></td><td><%=c.timestamp%></td>
+        </tr>
+      <% end %>
     <% end %>
     </table>
-
-
     <a href="/inventories">Back to Index</a>
 
 </html>

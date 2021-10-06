@@ -42,7 +42,7 @@ class LabSystems < Sinatra::Base
   end
 
   configure :development do
-    ActiveRecord::Base.logger.level = :info
+#    ActiveRecord::Base.logger.level = :info
     register Sinatra::Reloader
     after_reload do
       puts 'reloaded'

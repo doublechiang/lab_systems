@@ -22,11 +22,13 @@
         <th>Timestamp</th>
     </tr>
     <% @mems.each do |c| %>
-    <% i = Inventory.find(c.inventory_id) %>
-    <tr>
-    <td><a href="./<%=c.inventory_id%>"><%=i.bmc_mac%></a></td>
-    <td><%= c.description %>,<%= c.product %>,<%= c.vendor %>,<%= c.physid %>,<%=c.serial %>,<%=c.slot %>,<%=c.size %></td><td><%=c.timestamp%></td>
-    <tr>
+      <% if c.inventory_id != nil %>
+        <% i = Inventory.find(c.inventory_id) %>
+        <tr>
+        <td><a href="./<%=c.inventory_id%>"><%=i.bmc_mac%></a></td>
+        <td><%= c.description %>,<%= c.product %>,<%= c.vendor %>,<%= c.physid %>,<%=c.serial %>,<%=c.slot %>,<%=c.size %></td><td><%=c.timestamp%></td>
+        </tr>
+      <% end %>
     <% end %>
     </table>
 

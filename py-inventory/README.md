@@ -13,3 +13,6 @@ sudo apt-get install rails
 # Running Test unit
 python -m unittest discover
 
+# sending the json file to target
+inventory.py -file seeds/s5b.json --target http://localhost:9292/inventories/create
+
