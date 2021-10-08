@@ -1,6 +1,5 @@
 require 'rack'
 require 'sinatra/base'
-require 'sinatra/reloader'
 require 'sinatra/activerecord'
 require 'sinatra/url_for' 
 require 'sinatra/custom_logger'
@@ -9,6 +8,8 @@ require 'logger'
 require 'will_paginate'
 require 'will_paginate/active_record'  # or data_mapper/sequel
 require 'active_record'
+
+require "sinatra/reloader" if development?
 
 
 
@@ -47,7 +48,7 @@ class LabSystems < Sinatra::Base
     after_reload do
       puts 'reloaded'
     end
-    ActiveRecord::Base.logger.level = :debug
+    ActiveRecord::Base.logger.level = :info
   end
 
   configure :development, :test do
