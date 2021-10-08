@@ -8,6 +8,7 @@ require 'socket'
 require 'logger'
 require 'will_paginate'
 require 'will_paginate/active_record'  # or data_mapper/sequel
+require 'active_record'
 
 
 
@@ -42,11 +43,11 @@ class LabSystems < Sinatra::Base
   end
 
   configure :development do
-#    ActiveRecord::Base.logger.level = :info
     register Sinatra::Reloader
     after_reload do
       puts 'reloaded'
     end
+    ActiveRecord::Base.logger.level = :debug
   end
 
   configure :development, :test do

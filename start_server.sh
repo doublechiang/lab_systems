@@ -12,8 +12,8 @@ sd=${PWD}
 cd "$(dirname "$0")"
 pd=${PWD}
 
-# cmd="APP_ENV=${param} bundle exec ruby -I ${pd} -I ${pd}/lib ${pd}/controllers/systems.rb"
-cmd="APP_ENV=${param} bundle exec rackup config.ru -I ${pd} -p 4567"
+# rackup default use config.ru file
+cmd="APP_ENV=${param} bundle exec rackup -p 4567"
 #echo $cmd
 
 # if gem 'rerun' is installed, and the parameter is 'test', then we will use rerun to run the sinatra
