@@ -3,13 +3,12 @@ require 'sinatra/base'
 require 'sinatra/activerecord'
 require 'sinatra/url_for' 
 require 'sinatra/custom_logger'
-require 'socket'
 require 'logger'
+require 'socket'
 require 'will_paginate'
 require 'will_paginate/active_record'  # or data_mapper/sequel
 require 'active_record'
-
-require "sinatra/reloader" if development?
+require "sinatra/reloader"
 
 
 
@@ -46,7 +45,7 @@ class LabSystems < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
     after_reload do
-      puts 'reloaded'
+      puts 'reloaded using Reloader'
     end
     ActiveRecord::Base.logger.level = :info
   end
@@ -59,9 +58,9 @@ class LabSystems < Sinatra::Base
 
   configure :development, :production do
     Dir.mkdir('log') unless File.exist?('log')
-    logger = Logger.new(File.open("#{root}/log/#{environment}.log", 'a'))
+    # logger = Logger.new(File.open("#{root}/log/#{environment}.log", 'a'))
+    set :logger, Logger.new(STDOUT)
     logger.level = Logger::DEBUG if development?
-    set :logger, logger
   end
 
   configure :test do
