@@ -15,14 +15,14 @@ class IpmiProxy
 
 
     def get_power_status
-        f= IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} chassis power status")
+        f= IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} chassis power status 2> /dev/null")
         pwr_status = f.gets.split.last
         f.close
         pwr_status
     end
 
     def get_bmc_version
-        f= IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} mc info")
+        f= IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} mc info 2> /dev/null")
         version=aux_version = 0
         next_line_is_aux = false
         f.each do |line|
@@ -116,7 +116,7 @@ class IpmiProxy
     end
 
     def get_system_name
-        f=IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} mc getsysinfo system_name")
+        f=IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} mc getsysinfo system_name 2>/dev/null")
         system_name =f.readlines.join.strip
         f.close
         return system_name
@@ -124,7 +124,7 @@ class IpmiProxy
 
     def get_product_id
         id = nil
-        f=IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} mc info")
+        f=IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} mc info 2> /dev/null")
         f.each_line do |line|
             if line.include? 'Product ID'
                 tokens= line.split(':')
@@ -139,8 +139,9 @@ class IpmiProxy
     end
 
 
+    # retrieve the ipmitool elist format.
     def get_sel_elist
-        f=IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} -v sel elist")
+        f=IO.popen("ipmitool -H #{@host} -U #{@username} -P #{@password} -v sel elist 2> /dev/null")
         sel_output =f.readlines
         f.close
         return sel_output

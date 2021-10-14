@@ -12,7 +12,7 @@ class Systems < LabSystems
     set :views, "views/systems"
 
     get('/') do
-        logger.debug "GET / on logger is requested."
+        logger.debug "GET /"
         headers['Cache-Control'] = 'no-store'
         @systems = System.all
         leases = Lease.get_current

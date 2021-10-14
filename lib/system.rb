@@ -49,7 +49,7 @@ class System < ActiveRecord::Base
         end
         Thread.new {
           # Due to sqlite3 performance issue,we will delay write the sel processing to upmost 1 minutes later
-          sleep rand(10..60)
+          sleep rand(0..60)
           save_sels
         }
         return true
@@ -138,6 +138,22 @@ class System < ActiveRecord::Base
     return mac_ips
   end
 
+  private
+ 
+  # convert the ipmi_sel hash entry to the ActiveRecord searchable hash
+  def map_hash(sel)
+    ref = {}
+    sel.each do |key, value|
+      # our field name is a lower case and replace the space with undercore
+      field = key.downcase.tr(' ', '_')
+      if field == 'timestamp' 
+        value = DateTime.strptime(value, '%m/%d/%Y %H:%M:%S')
+      end
+      ref[field] = value if value
+    end
+    ref
+  end
+
   # Query BMC to get sels and save into database without duplication
   def save_sels()
     content = ""
@@ -147,27 +163,28 @@ class System < ActiveRecord::Base
       content=conn.get_sel_elist
       sellib = IpmiSel.new
       sel_content = sellib.parse(content)
-      sel_content.each do |s|
-        # calling collections to get dependent object 
-        sel = sels.new
-        reference = {}
-        s.each do | key, value|
-          # our field name is a lower case and replace the space with undercore
-          field = key.downcase.tr(' ', '_')
-          if field == 'timestamp' 
-            value = DateTime.strptime(value, '%m/%d/%Y %H:%M:%S')
-          end
-          sel[field] = value
-          reference[field] = value if value 
-        end
 
-        # reference do not hold the foreign key, add it manually.
-        reference[:system_id] = sel[:system_id]
-        # puts Sel.find(reference)
-        Sel.exists?(reference)
-        sel.save unless Sel.exists?(reference)
+      reference = {}
+      # check the last sel entry if in databse
+      # if it's in database, then we don't need to process.
+      last_sel = sel_content[-1]
+      if last_sel
+        reference = map_hash(last_sel)
+        sel = sels.new(reference)
+        reference[:system_id] =  sel[:system_id]
+        if not Sel.exists?(reference)
+          # last sel is not in database, process whole sel entries to database
+          sel_content.each do |s|
+            reference = map_hash(s)
+            sel = sels.new(reference)
+            reference[:system_id] =  sel[:system_id]
+            sel.save unless Sel.exists?(reference)
+            logger.info "Processed #{sel_content.length} sel records on system #{id} into database."
+          end
+        else
+          logger.info "Lastest SEL recored for system #{id} already in the database"
+        end
       end
-      # logger.info "Processed #{sel_content.length} sel records on system #{id} into database."
       return true
     end
   end
