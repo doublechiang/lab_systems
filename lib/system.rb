@@ -138,6 +138,11 @@ class System < ActiveRecord::Base
     return mac_ips
   end
 
+  # return true if teh mac address fomat is valid
+  def mac_valid?()
+    bmc_mac.match?("^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})")
+  end
+
   private
  
   # convert the ipmi_sel hash entry to the ActiveRecord searchable hash

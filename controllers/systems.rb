@@ -7,6 +7,10 @@ require 'ipmi_proxy'
 require 'get_dhcpd_leases'
 require 'connection'
 
+
+class MacAddressFormatError < StandardError
+end
+
 class Systems < LabSystems
     helpers Sinatra::CustomLogger
     set :views, "views/systems"
@@ -49,16 +53,24 @@ class Systems < LabSystems
         @system.username=params['username']
         @system.password=params['password']
         @system.comments = params['comments']
-        @system.bmc_mac = params['bmc_mac'].to_s.downcase
-
+        bmc_mac = params['bmc_mac'].to_s.downcase
+        bmc_mac.gsub!("-", ":")
+        @system.bmc_mac = bmc_mac
 
         begin
+            raise MacAddressFormatError.new "MAC address format wrong" unless @system.mac_valid?
             @system.save 
-        rescue => exception
+
+        rescue MacAddressFormatError
+            session[:errors] = "MAC address format incorrect - need a cup of coffee?"
+            session[:system] = @system
+            redirect url_for '/new'
+        rescue
             session[:errors] = "The system has already been added to QCT lab database - need a cup of coffee?"
             session[:system] = @system
             redirect url_for '/new'
         end
+
         redirect url_for '/'
 
     end
@@ -73,11 +85,19 @@ class Systems < LabSystems
         sys.username=params['username']
         sys.password=params['password']
         sys.comments = params['comments']
-        sys.bmc_mac = params['bmc_mac'].to_s.downcase
+        bmc_mac = params['bmc_mac'].to_s.downcase
+        bmc_mac.gsub!("-", ":")
+        sys.bmc_mac = bmc_mac
+    
         begin
+            raise MacAddressFormatError.new "MAC address format wrong" unless sys.mac_valid?
             sys.save
-        rescue => exception
-            puts exception.inspect
+        rescue MacAddressFormatError => e
+            session[:errors] = "MAC address format incorrect - need a cup of coffee?"
+            redirect url_for "/#{id}"
+
+        rescue => e
+            logger.error e.inspect
             session[:errors] = "The system has already been added to QCT lab database - need a cup of coffee?"
             redirect url_for "/#{id}"
         end
