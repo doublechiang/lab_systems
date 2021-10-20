@@ -15,12 +15,13 @@ class System < ActiveRecord::Base
 
   validates_presence_of :model, :bmc_mac
   has_many :sels, :dependent => :destroy
+  has_many :connections, :dependent => :destroy
 
   # Adding validate uniquences in the model will result in exception in database save not working.
     
   # If the ip address and username password is persent, the it's is queryable
   def queryable?()
-    # logger.info("checking system #{ipaddr}, #{username}, #{password}")
+    logger.debug ("checking system queryable? #{self.id} #{ipaddr}, #{username}, #{password}")
     if (ipaddr && username && password)
       return !(ipaddr.empty? || username.empty? || password.empty?)
     end
@@ -33,29 +34,43 @@ class System < ActiveRecord::Base
       conn = IpmiProxy.new(ipaddr, username, password)
       sys_name = conn.get_system_name.to_s
       if sys_name != ''
-        con = Connection.new
+        # logger.level = Logger::DEBUG
+        con = self.connections.new
         con.mac = bmc_mac
         con.user = username
         con.pass = password
         con.ip = ipaddr
         con.tod = DateTime.now
+        logger.debug con.inspect
+        # puts con.inspect
         # Check last connetion record, if nothing change, just update tod.
+        # last = self.connections.last
         last = Connection.where(mac: bmc_mac).last
+        logger.debug "last record #{last.inspect}"
         if last && last.user == username && last.pass == password && last.ip == ipaddr
           last.tod = DateTime.now
+          logger.debug "Update connection time to system #{self.id}, #{last.tod}"
           last.save
         else
+          logger.debug "New connection time to sys #{self.id} #{con.tod}"
           con.save
         end
         Thread.new {
           # Due to sqlite3 performance issue,we will delay write the sel processing to upmost 1 minutes later
-          sleep rand(0..60)
+          sleep rand(0..10)
           save_sels
         }
         return true
       end
     end
     return false
+  end
+
+  # return the last access time.
+  def last_access?
+    last = self.connections.last
+    tod =""
+    tod = last.tod  if last != nil
   end
 
   def getPowerStatus?()

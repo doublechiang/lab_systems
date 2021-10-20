@@ -34,6 +34,7 @@
     <th>Comments</th>
     <th>BMC IP Address</th>
     <th>MAC address</th>
+    <th>Last Access</th>
     </tr>
     <% _sys_offline = false %>
     <% @systems.each do |system| %>
@@ -55,6 +56,7 @@
             <td><%= system.comments %></td>
             <td><a href="http://<%= system.ipaddr %>"><%=system.ipaddr%></a></td>
             <td><%= system.bmc_mac %></td>
+            <td><%= system.last_access? %></td>
         </tr>
 
     <% end %>

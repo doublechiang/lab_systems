@@ -1,6 +1,6 @@
 #!/bin/bash
 # provide the default environment string with pararmeter.
-# ./start_server.sh (production|test|development) to start the server with developement|test env
+# ./start_server.sh (production|test|development) to start the server with development|test env
 # 
 #source "/usr/local/rvm/scripts/rvm"
 param="production"

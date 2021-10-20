@@ -29,17 +29,20 @@ class LabSystems < Sinatra::Base
 
   
   enable :method_override
+  enable :logging
   set :sessions, true
-    # set :logging, true
   set :static, true
   set :public_folder, "#{settings.root}" + '/static'
   set :cache_control, :no_store
   set :show_exceptions, true
+  logger = Logger.new(STDOUT)
+  logger.level = Logger::DEBUG
+  set :logger, logger
+  # set :logger, Logger.new(STDOUT)
 
   configure :production do
     set :bind, '0.0.0.0'
     set server: 'thin'
-    ActiveRecord::Base.logger.level = :info
   end
 
   configure :development do
@@ -47,7 +50,6 @@ class LabSystems < Sinatra::Base
     after_reload do
       puts 'reloaded using Reloader'
     end
-    ActiveRecord::Base.logger.level = :info
   end
 
   configure :development, :test do
@@ -59,8 +61,6 @@ class LabSystems < Sinatra::Base
   configure :development, :production do
     Dir.mkdir('log') unless File.exist?('log')
     # logger = Logger.new(File.open("#{root}/log/#{environment}.log", 'a'))
-    set :logger, Logger.new(STDOUT)
-    logger.level = Logger::DEBUG if development?
   end
 
   configure :test do

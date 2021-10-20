@@ -10,9 +10,8 @@ gem 'session'
 gem 'rake'
 gem 'sinatra-activerecord'
 gem 'activerecord', '~> 5.2'
+# gem 'activerecord'
 gem 'will_paginate'
-gem 'sqlite3'
-gem 'mysql2'
 gem 'emk-sinatra-url-for'
 
 group :production do
@@ -23,5 +22,6 @@ group :development, :test do
   gem 'rspec'
   gem 'rack-test'
   gem "rspec-html-matchers"
+  gem 'sqlite3'
 
 end
