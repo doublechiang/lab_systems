@@ -7,7 +7,10 @@ require 'logger'
 require 'ipmi_sel'
 require 'sel'
 
+require_relative 'mylogger'
+
 class System < ActiveRecord::Base
+  include Mylogger
   attr_accessor :ipaddr
   attr_accessor :bios_ver, :bmc_ver, :cpld
   attr_accessor :sysmacs
@@ -16,6 +19,7 @@ class System < ActiveRecord::Base
   validates_presence_of :model, :bmc_mac
   has_many :sels, :dependent => :destroy
   has_many :connections, :dependent => :destroy
+
 
   # Adding validate uniquences in the model will result in exception in database save not working.
     
