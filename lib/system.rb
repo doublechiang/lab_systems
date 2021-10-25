@@ -48,8 +48,8 @@ class System < ActiveRecord::Base
         logger.debug con.inspect
         # puts con.inspect
         # Check last connetion record, if nothing change, just update tod.
-        # last = self.connections.last
-        last = Connection.where(mac: bmc_mac).last
+        last = self.connections.last
+        # last = Connection.where(mac: bmc_mac).last
         logger.debug "last record #{last.inspect}"
         if last && last.user == username && last.pass == password && last.ip == ipaddr
           last.tod = DateTime.now
@@ -73,6 +73,7 @@ class System < ActiveRecord::Base
   # return the last access time.
   def last_access?
     last = self.connections.last
+    logger.debug "self #{self.inspect}, last #{last.inspect}"
     tod =""
     tod = last.tod  if last != nil
   end
