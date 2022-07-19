@@ -8,9 +8,10 @@ Restart=always
 StartLimitBurst=0
 Environment=SYSTEMD_LOG_LEVEL=debug
 RestartSec=5
-WorkingDirectory=~
+#WorkingDirectory=~
 ExecStart=/usr/local/rvm/bin/rvm-exec /home/cchiang/lab_systems/start_server.sh 
-KillSignal=SIGKILL
+TimeoutStopSec=3
+#KillSignal=SIGKILL
 
 [Install]
 WantedBy=multi-user.target

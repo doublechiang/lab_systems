@@ -54,7 +54,14 @@ Use bundle exec rake to test the application, default is to run the spec with rs
 ## Unit test 
 ruby tc_inventory.rb
 
+### Deployment to Systemd
+create a link file to the systemd service file in this source folder
+$ ln -s [abs_path]/lab_systems.service /etc/systemd/system/
+
+
 ## Problem when deploy
+
+
 
 WEBrick very slow, check the solution from https://stackoverflow.com/questions/1156759/webrick-is-very-slow-to-respond-how-to-speed-it-up
 Changed the source of ruby code /share/ruby/webrick/server.rb to remove dns lookup, otherwise it's very slow
